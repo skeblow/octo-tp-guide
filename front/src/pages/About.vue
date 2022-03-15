@@ -1,7 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    ass
+    <h1>ass</h1>
   </div>
 </template>
 
@@ -9,12 +8,8 @@
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
-  props: {
-    msg: String
-  }
 })
 export default class About extends Vue {
-  msg!: string
 }
 </script>
 
