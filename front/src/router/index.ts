@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HelloWorld from '../pages/HelloWorld.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -15,11 +15,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/calculator',
     name: 'calculator',
     component: () => import(/* webpackChunkName: "calculator" */ '../pages/Calculator.vue')
-  }
+  },
+  {
+    path: '/items',
+    name: 'items',
+    component: () => import(/* webpackChunkName: "items" */ '../pages/Items.vue')
+  },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 });
 
