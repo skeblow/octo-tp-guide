@@ -16,7 +16,13 @@ export default class ItemController {
     get(req: Request, res: Response): void {
         const id = parseInt(req.params['id']);
 
-        this.gwApiService.getItem(id)
-            .then(item => res.send(item));
+        this.itemService.getItemById(id)
+            .then(item => {
+                console.log('item', item);
+                res.send(item);
+            });
+
+        //this.gwApiService.getItem(id)
+        //    .then(item => res.send(item));
     }
 }
