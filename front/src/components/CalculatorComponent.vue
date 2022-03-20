@@ -127,11 +127,6 @@ export default class CalculatorComponent extends Vue {
 </script>
 
 <style scoped>
-  label {
-    display: block;
-    margin-bottom: 10px;
-  }
-
   th {
     width: 150px;
   }

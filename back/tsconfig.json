@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "es6", 
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "strict": true,
+        "outDir": "./dist",
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./dist",
+        "**/*.spec.ts"
+    ],
+    "watchOptions": {
+        "watchFile": "useFsEvents",
+        "watchDirectory": "useFsEvents",
+        "fallbackPolling": "dynamicPriority",
+        "synchronousWatchDirectory": true,
+        "excludeDirectories": [
+            "**/node_modules",
+            "./dist"
+        ]
+    }
+}
