@@ -21,15 +21,15 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import ItemEntity from '../models/ItemEntity';
 import ItemService from '../services/ItemService';
 
 @Options({})
 export default class Items extends Vue {
-    items: Array<ItemEntity> = []; 
+    items: Array<any> = []; 
 
     mounted() {
-        this.items = ItemService.get();
+        ItemService.getAll()
+            .then(items => this.items = items);
     }
 }
 </script>

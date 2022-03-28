@@ -8,7 +8,8 @@ export default class ItemController {
     }
 
     getAll(req: Request, res: Response): void {
-        res.send('ass');
+        this.itemService.getAll()
+            .then(items => res.send(items));
     }
 
     get(req: Request, res: Response): void {

@@ -8,6 +8,13 @@ export default class ItemService {
     ) {
     }
 
+    getAll(): Promise<any> {
+        return this.mongoService.getItemsCollection()
+            .then(
+                collection => collection.find({}).toArray()
+            )
+    }
+
     getItemById(id: number): Promise<any> {
         return this.mongoService.getItemsCollection()
             .then(collection => collection.findOne({_id: id}))
