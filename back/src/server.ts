@@ -1,8 +1,11 @@
 import express, { Request, Response} from 'express';
 import { ROUTES } from './routes';
+import cors from 'cors';
 
 const app = express();
 const port: number = 3000;
+
+app.use(cors());
 
 for (let route of ROUTES) {
     switch(route.method) {
