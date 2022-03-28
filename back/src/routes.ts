@@ -3,6 +3,7 @@ import { MongoClient } from "mongodb";
 import ItemController from "./controllers/ItemController";
 import GwApiService from "./services/GwApiService";
 import ItemService from "./services/ItemService";
+import MongoService from "./services/MongoService";
 
 interface Route
 {
@@ -13,13 +14,14 @@ interface Route
 
 const client = new MongoClient('mongodb://root:example@localhost/');
 
-const itemService = new ItemService(client);
-const gwApiService= new GwApiService();
-const itemController = new ItemController(itemService, gwApiService);
+const mongoService = new MongoService(client);
+const gwApiService = new GwApiService();
+const itemService = new ItemService(mongoService, gwApiService);
+const itemController = new ItemController(itemService);
 
 export const ROUTES: Route[] = [
     {
-        route: '/',
+        route: '/items/',
         method: 'get',
         handler: (req, res) => itemController.getAll(req, res),
     },

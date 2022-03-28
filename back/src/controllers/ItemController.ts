@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
-import GwApiService from "../services/GwApiService";
 import ItemService from "../services/ItemService";
 
 export default class ItemController {
     constructor(
         private itemService: ItemService,
-        public gwApiService: GwApiService,
     ) {
     }
 
@@ -18,11 +16,7 @@ export default class ItemController {
 
         this.itemService.getItemById(id)
             .then(item => {
-                console.log('item', item);
                 res.send(item);
             });
-
-        //this.gwApiService.getItem(id)
-        //    .then(item => res.send(item));
     }
 }

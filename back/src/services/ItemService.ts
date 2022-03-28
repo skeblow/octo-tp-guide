@@ -1,21 +1,36 @@
-import { MongoClient } from "mongodb";
+import GwApiService from "./GwApiService";
+import MongoService from './MongoService';
 
 export default class ItemService {
     constructor (
-        private client: MongoClient,
+        private mongoService: MongoService,
+        private gwApiService: GwApiService,
     ) {
     }
 
     getItemById(id: number): Promise<any> {
-        return this.client.connect()
-            .then(client => {
-                const db = client.db('octo-tp-guide');
-                const collection = db.collection('items');
-        
-                return collection.findOne({
-                    _id: id,
-                });
-            })
-            .catch(err => console.log(err));
+        return this.mongoService.getItemsCollection()
+            .then(collection => collection.findOne({_id: id}))
+            .then(item => {
+                if (item === null) {
+                    console.log('need to fetch', id);
+
+                    return this.gwApiService.getItem(id)
+                        .then(
+                            (item: any) => {
+                                item._id = item.id;
+
+                                return this.mongoService.getItemsCollection()
+                                    .then(collection => {
+                                        collection.insertOne(item);
+
+                                        return item;
+                                    })
+                            }
+                        );
+                }
+
+                return item;
+            });
     }
 }
