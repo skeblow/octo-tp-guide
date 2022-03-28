@@ -11,6 +11,11 @@ class ItemService {
     get(): Array<ItemEntity> {
         return items;
     }
+
+    getPrices(ids: Array<number>): Promise<any> {
+        return fetch(this.BASE_URL + '/prices?ids=' + ids.join(','))
+            .then(res => res.json());
+    }
 }
 
 export default new ItemService();

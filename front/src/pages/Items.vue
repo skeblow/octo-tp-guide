@@ -8,6 +8,7 @@
                     <th></th>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Price</th>
                 </tr>
             </thead>
             <tbody>
@@ -15,6 +16,7 @@
                     <td><img v-bind:src="item.icon" alt=""></td>
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
+                    <td>{{ getPrice(item.id) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -28,10 +30,22 @@ import ItemService from '../services/ItemService';
 @Options({})
 export default class Items extends Vue {
     items: Array<any> = []; 
+    prices: Array<any> = [];
 
     mounted() {
         ItemService.getAll()
-            .then(items => this.items = items);
+            .then(items => {
+                this.items = items;
+
+                ItemService.getPrices(items.map((item: any) => item.id))
+                    .then(prices => this.prices = prices);
+            });
+    }
+
+    getPrice(id: number): number {
+        const price = this.prices.find((price: any) => price.id === id);
+
+        return price ? +price.buys.unit_price : 0;
     }
 }
 </script>

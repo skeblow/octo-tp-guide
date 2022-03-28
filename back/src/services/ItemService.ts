@@ -8,6 +8,10 @@ export default class ItemService {
     ) {
     }
 
+    getPricesForItems(ids: Array<number>): Promise<any> {
+        return this.gwApiService.getItemPrices(ids);
+    }
+
     getAll(): Promise<any> {
         return this.mongoService.getItemsCollection()
             .then(

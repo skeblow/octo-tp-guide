@@ -6,5 +6,15 @@ export default class GwApiService {
     getItem(id: number): Promise<object> {
         return fetch(this.BASE_URL + '/items/' + id)
             .then((res: Response) => res.json() as any);
-    }       
+    }
+
+    getItemPrices(ids: Array<number>): Promise<any> {
+        return fetch(this.BASE_URL + '/commerce/prices?ids=' + ids.join(','))
+            .then((res: Response) => res.json() as any)
+            .then(items => {
+                console.log(items);
+
+                return items;
+            })
+    }
 }

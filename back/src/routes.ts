@@ -30,4 +30,9 @@ export const ROUTES: Route[] = [
         method: 'get',
         handler: (req, res) => itemController.get(req, res),
     },
+    {
+        route: '/prices/',
+        method: 'get',
+        handler: (req, res) => itemController.getPrices(req, res),
+    },
 ];

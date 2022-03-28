@@ -20,4 +20,20 @@ export default class ItemController {
                 res.send(item);
             });
     }
+
+    getPrices(req: Request, res: Response): void {
+        const ids = (req.query.ids + '').split(',')
+            .filter(id => !! id)
+            .map(id => +id);
+
+        if (ids.length === 0) {
+            res.send([]);
+
+            return;
+        }
+
+        this.itemService.getPricesForItems(ids)
+            .then(prices => res.send(prices));
+
+    }
 }
