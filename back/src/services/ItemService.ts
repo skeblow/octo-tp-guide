@@ -25,6 +25,10 @@ export default class ItemService {
                     return this.gwApiService.getItem(id)
                         .then(
                             (item: any) => {
+                                if (! item?.id) {
+                                    return null;
+                                }
+
                                 item._id = item.id;
 
                                 return this.mongoService.getItemsCollection()

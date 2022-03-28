@@ -5,12 +5,14 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Id</th>
                     <th>Name</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="item in items" :key="item.name">
+                    <td><img v-bind:src="item.icon" alt=""></td>
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
                 </tr>
@@ -35,5 +37,8 @@ export default class Items extends Vue {
 </script>
 
 <style scoped>
-
+    img {
+        width: 30px;
+        height: 30px;
+    }
 </style>
