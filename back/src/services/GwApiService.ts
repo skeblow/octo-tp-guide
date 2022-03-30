@@ -6,8 +6,11 @@ export default class GwApiService {
 
     async getItems(ids: Array<number>): Promise<Array<Item>> {
         const res = await fetch(this.BASE_URL + '/items?ids=' + ids.join(','));
+        const items = await res.json();
 
-        return res.json() as any;
+        return Array.isArray(items)
+            ? items
+            : [];
     }
 
     async getItem(id: number): Promise<Item|null> {

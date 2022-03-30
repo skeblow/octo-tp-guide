@@ -35,7 +35,7 @@ export default class ItemController {
     }
 
     getPrices(req: Request, res: Response): void {
-        const ids = (req.query.ids + '').split(',')
+        const ids = ((req.query.ids || '') + '').split(',')
             .filter(id => !! id)
             .map(id => +id);
 

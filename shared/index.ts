@@ -17,4 +17,5 @@ export interface ItemPrice {
         quantity: number,
         unit_price: number,
     };
+    date: Date,
 }
