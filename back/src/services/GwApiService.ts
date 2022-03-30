@@ -1,20 +1,30 @@
 import fetch, { Response } from "node-fetch";
+import { Item, ItemPrice } from "../../../shared";
 
 export default class GwApiService {
     private readonly BASE_URL = 'https://api.guildwars2.com/v2';
 
-    getItem(id: number): Promise<object> {
-        return fetch(this.BASE_URL + '/items/' + id)
-            .then((res: Response) => res.json() as any);
+    async getItems(ids: Array<number>): Promise<Array<Item>> {
+        const res = await fetch(this.BASE_URL + '/items?ids=' + ids.join(','));
+
+        return res.json() as any;
     }
 
-    getItemPrices(ids: Array<number>): Promise<any> {
-        return fetch(this.BASE_URL + '/commerce/prices?ids=' + ids.join(','))
-            .then((res: Response) => res.json() as any)
-            .then(items => {
-                console.log(items);
+    async getItem(id: number): Promise<Item|null> {
+        const res = await fetch(this.BASE_URL + '/items/' + id);
+        const item: any = await res.json();
 
-                return items;
-            })
+        return !! item.id
+            ? item
+            : null;
+    }
+
+    async getItemPrices(ids: Array<number>): Promise<Array<ItemPrice>> {
+        const res = await fetch(this.BASE_URL + '/commerce/prices?ids=' + ids.join(','));
+        const prices = await res.json();
+
+        return Array.isArray(prices)
+            ? prices
+            : [];
     }
 }

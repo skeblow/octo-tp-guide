@@ -4,6 +4,7 @@ import ItemController from "./controllers/ItemController";
 import GwApiService from "./services/GwApiService";
 import ItemService from "./services/ItemService";
 import MongoService from "./services/MongoService";
+import PriceService from "./services/PriceService";
 
 interface Route
 {
@@ -17,7 +18,8 @@ const client = new MongoClient('mongodb://root:example@localhost/');
 const mongoService = new MongoService(client);
 const gwApiService = new GwApiService();
 const itemService = new ItemService(mongoService, gwApiService);
-const itemController = new ItemController(itemService);
+const priceService = new PriceService(mongoService, gwApiService);
+const itemController = new ItemController(itemService, priceService);
 
 export const ROUTES: Route[] = [
     {

@@ -8,7 +8,10 @@
                     <th></th>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Price</th>
+                    <th>Buy price</th>
+                    <th>Sell price</th>
+                    <th>Profit</th>
+                    <th>ROI</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,7 +19,10 @@
                     <td><img v-bind:src="item.icon" alt=""></td>
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
-                    <td>{{ getPrice(item.id) }}</td>
+                    <td>{{ getBuyPrice(item.id) }}</td>
+                    <td>{{ getSellPrice(item.id) }}</td>
+                    <td>{{ getProfit(item.id) }}</td>
+                    <td>{{ getRoi(item.id) }}%</td>
                 </tr>
             </tbody>
         </table>
@@ -25,27 +31,45 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { Item, ItemPrice } from '../../../shared';
 import ItemService from '../services/ItemService';
 
 @Options({})
 export default class Items extends Vue {
-    items: Array<any> = []; 
-    prices: Array<any> = [];
+    items: Array<Item> = []; 
+    prices: Array<ItemPrice> = [];
 
-    mounted() {
-        ItemService.getAll()
-            .then(items => {
-                this.items = items;
-
-                ItemService.getPrices(items.map((item: any) => item.id))
-                    .then(prices => this.prices = prices);
-            });
+    async mounted() {
+        this.items = await ItemService.getAll();
+        this.prices = await ItemService.getPrices(
+            this.items.map((item: Item) => item.id)
+        );
     }
 
-    getPrice(id: number): number {
+    getBuyPrice(id: number): number {
         const price = this.prices.find((price: any) => price.id === id);
 
         return price ? +price.buys.unit_price : 0;
+    }
+
+    getSellPrice(id: number): number {
+        const price = this.prices.find((price: any) => price.id === id);
+
+        return price ? +price.sells.unit_price : 0;
+    }
+
+    getProfit(id: number): number {
+        return Math.round( 0.85 * this.getSellPrice(id) - this.getBuyPrice(id) );
+    }
+
+    getRoi(id: number): number {
+        const buyPrice = this.getBuyPrice(id);
+
+        if (buyPrice === 0) {
+            return 0;
+        }
+
+        return Math.round(this.getProfit(id) / this.getBuyPrice(id) * 100);
     }
 }
 </script>

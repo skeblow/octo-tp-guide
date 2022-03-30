@@ -1,3 +1,4 @@
+import { Item, ItemPrice } from "../../../shared";
 import GwApiService from "./GwApiService";
 import MongoService from './MongoService';
 
@@ -8,44 +9,58 @@ export default class ItemService {
     ) {
     }
 
-    getPricesForItems(ids: Array<number>): Promise<any> {
-        return this.gwApiService.getItemPrices(ids);
+    async getAll(): Promise<Array<Item>> {
+        const collection = await this.mongoService.getItemsCollection();
+
+        return await collection.find({}).toArray();
     }
 
-    getAll(): Promise<any> {
-        return this.mongoService.getItemsCollection()
-            .then(
-                collection => collection.find({}).toArray()
-            )
+    async getAllByIds(ids: Array<number>): Promise<Array<Item>> {
+        const collection = await this.mongoService.getItemsCollection();
+
+        let items = await collection.find({
+            _id: {$in: ids},
+        }).toArray();
+
+        const foundIds = items.map((item: Item) => item.id);
+        const missingIds = ids.filter(id => ! foundIds.includes(id));
+
+        if (missingIds.length > 0) {
+            const missingItems = await this.gwApiService.getItems(missingIds);
+
+            for (const item of missingItems) {
+                item._id = item.id;
+            }
+    
+            await collection.insertMany(missingItems);
+
+            items = items.concat(missingItems);
+        }
+
+        return items;
     }
 
-    getItemById(id: number): Promise<any> {
-        return this.mongoService.getItemsCollection()
-            .then(collection => collection.findOne({_id: id}))
-            .then(item => {
-                if (item === null) {
-                    console.log('need to fetch', id);
+    async getItemById(id: number): Promise<Item|null> {
+        const collection = await this.mongoService.getItemsCollection();
+        const item: Item|null = await collection.findOne({ _id: id });
 
-                    return this.gwApiService.getItem(id)
-                        .then(
-                            (item: any) => {
-                                if (! item?.id) {
-                                    return null;
-                                }
+        if (item !== null) {
+            return item;
+        }
 
-                                item._id = item.id;
+        console.log('need to fetch', id);
 
-                                return this.mongoService.getItemsCollection()
-                                    .then(collection => {
-                                        collection.insertOne(item);
+        const newItem = await this.gwApiService.getItem(id);
 
-                                        return item;
-                                    })
-                            }
-                        );
-                }
+        if (newItem === null) {
+            console.log('item', id, 'does not exist');
 
-                return item;
-            });
+            return null;
+        }
+
+        newItem._id = newItem.id;
+        await collection.insertOne(newItem);
+
+        return newItem;
     }
 }
