@@ -19,3 +19,8 @@ export interface ItemPrice {
     };
     date: Date,
 }
+
+export interface BasicTrade {
+    item: Item,
+    price: ItemPrice,
+}

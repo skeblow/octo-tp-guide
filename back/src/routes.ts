@@ -5,6 +5,7 @@ import ListController from "./controllers/ListController";
 import PriceController from "./controllers/PriceController";
 import GwApiService from "./services/GwApiService";
 import ItemService from "./services/ItemService";
+import ListService from "./services/ListService";
 import MongoService from "./services/MongoService";
 import PriceService from "./services/PriceService";
 
@@ -21,9 +22,11 @@ const mongoService = new MongoService(client);
 const gwApiService = new GwApiService();
 const itemService = new ItemService(mongoService, gwApiService);
 const priceService = new PriceService(mongoService, gwApiService);
+const listService = new ListService();
+
 const itemController = new ItemController(itemService);
 const priceController = new PriceController(priceService);
-const listController = new ListController();
+const listController = new ListController(listService);
 
 export const ROUTES: Route[] = [
     {
