@@ -12,6 +12,8 @@
                     <th>Sell price</th>
                     <th>Profit</th>
                     <th>ROI</th>
+                    <th>Supply</th>
+                    <th>Demand</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +25,8 @@
                     <td>{{ getSellPrice(item.id) }}</td>
                     <td>{{ getProfit(item.id) }}</td>
                     <td>{{ getRoi(item.id) }}%</td>
+                    <td>{{ getSupply(item.id) }}</td>
+                    <td>{{ getDemand(item.id) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -70,6 +74,18 @@ export default class Items extends Vue {
         }
 
         return Math.round(this.getProfit(id) / this.getBuyPrice(id) * 100);
+    }
+
+    getSupply(id: number): number {
+        const price = this.prices.find((price: any) => price.id === id);
+
+        return price ? +price.sells.quantity : 0;
+    }
+
+    getDemand(id: number): number {
+        const price = this.prices.find((price: any) => price.id === id);
+
+        return price ? +price.buys.quantity : 0;
     }
 }
 </script>
