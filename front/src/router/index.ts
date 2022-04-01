@@ -7,6 +7,11 @@ const routes: Array<RouteRecordRaw> = [
     component: HelloWorld,
   },
   {
+    path: '/lists',
+    name: 'lists',
+    component: () => import(/* webpackChunkName: "about" */ '../pages/Lists.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '../pages/About.vue')
