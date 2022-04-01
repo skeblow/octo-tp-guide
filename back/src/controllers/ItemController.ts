@@ -1,11 +1,9 @@
 import { Request, Response } from "express";
 import ItemService from "../services/ItemService";
-import PriceService from "../services/PriceService";
 
 export default class ItemController {
     constructor(
         private itemService: ItemService,
-        private priceService: PriceService,
     ) {
     }
 
@@ -32,20 +30,5 @@ export default class ItemController {
             .then(item => {
                 res.send(item);
             });
-    }
-
-    getPrices(req: Request, res: Response): void {
-        const ids = ((req.query.ids || '') + '').split(',')
-            .filter(id => !! id)
-            .map(id => +id);
-
-        if (ids.length === 0) {
-            res.send([]);
-
-            return;
-        }
-
-        this.priceService.getPricesForItems(ids)
-            .then(prices => res.send(prices));
     }
 }

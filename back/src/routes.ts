@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { MongoClient } from "mongodb";
 import ItemController from "./controllers/ItemController";
+import ListController from "./controllers/ListController";
+import PriceController from "./controllers/PriceController";
 import GwApiService from "./services/GwApiService";
 import ItemService from "./services/ItemService";
 import MongoService from "./services/MongoService";
@@ -19,7 +21,9 @@ const mongoService = new MongoService(client);
 const gwApiService = new GwApiService();
 const itemService = new ItemService(mongoService, gwApiService);
 const priceService = new PriceService(mongoService, gwApiService);
-const itemController = new ItemController(itemService, priceService);
+const itemController = new ItemController(itemService);
+const priceController = new PriceController(priceService);
+const listController = new ListController();
 
 export const ROUTES: Route[] = [
     {
@@ -35,6 +39,11 @@ export const ROUTES: Route[] = [
     {
         route: '/prices/',
         method: 'get',
-        handler: (req, res) => itemController.getPrices(req, res),
+        handler: (req, res) => priceController.get(req, res),
+    },
+    {
+        route: '/lists/',
+        method: 'get',
+        handler: (req, res) => listController.get(req, res),
     },
 ];
