@@ -22,9 +22,9 @@ const mongoService = new MongoService(client);
 const gwApiService = new GwApiService();
 const itemService = new ItemService(mongoService, gwApiService);
 const priceService = new PriceService(mongoService, gwApiService);
-const listService = new ListService();
+const listService = new ListService(mongoService);
 
-const itemController = new ItemController(itemService);
+const itemController = new ItemController(itemService, priceService);
 const priceController = new PriceController(priceService);
 const listController = new ListController(listService);
 
@@ -48,5 +48,10 @@ export const ROUTES: Route[] = [
         route: '/lists/',
         method: 'get',
         handler: (req, res) => listController.get(req, res),
+    },
+    {
+        route: '/refresh/',
+        method: 'get',
+        handler: (req, res) => itemController.refresh(req, res),
     },
 ];
