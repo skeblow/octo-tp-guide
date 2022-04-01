@@ -32,9 +32,11 @@ export default class ItemService {
                 item._id = item.id;
             }
     
-            await collection.insertMany(missingItems);
+            if (missingItems.length > 0) {
+                await collection.insertMany(missingItems);
 
-            items = items.concat(missingItems);
+                items = items.concat(missingItems);
+            }
         }
 
         return items;
