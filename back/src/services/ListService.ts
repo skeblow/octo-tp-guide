@@ -13,12 +13,28 @@ export default class ListService {
     ) {
     }
 
-    async getBasicList(): Promise<any> {
-        const minRoi = 25;
-        const minSell = 50;
-        const minSells = 2_000;
-        const minBuys = 2_000;
+    async getCheapBasicList(): Promise<Array<BasicTrade>> {
+        let list = await this.getBasicList(
+            25,
+            50,
+            2_000,
+            2_000,
+        );
+        list = list.sort((trade1: BasicTrade, trade2: BasicTrade) => this.priceService.getRoi(trade2.price) - this.priceService.getRoi(trade1.price));
 
+        return list;
+    }
+
+    async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
+        return this.getBasicList(
+            25,
+            20_000,
+            20,
+            20,
+        );
+    }
+
+    async getBasicList(minRoi: number, minSell: number, minSells: number, minBuys: number): Promise<any> {
         const collection = await this.mongoService.getBltcCollection();
 
         const result = await collection.aggregate([
@@ -40,7 +56,6 @@ export default class ListService {
 
             return price.sells.unit_price > minSell && profit > 10 && roi > minRoi;
         });
-        prices = prices.sort((price1, price2) => this.priceService.getRoi(price2) - this.priceService.getRoi(price1));
 
         const items = await this.itemService.getAllByIds(prices.map(price => price.id));
         const bltcs = await this.bltcService.getBltcByIds(prices.map(price => price.id));

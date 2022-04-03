@@ -52,7 +52,7 @@ export const ROUTES: Route[] = [
         handler: (req, res) => priceController.get(req, res),
     },
     {
-        route: '/lists/',
+        route: '/lists/:type',
         method: 'get',
         handler: (req, res) => listController.get(req, res),
     },

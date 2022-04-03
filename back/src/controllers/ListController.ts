@@ -9,7 +9,18 @@ export default class ListController {
     }
 
     get(req: Request, res: Response): void {
-        this.listService.getBasicList()
-            .then((trades: Array<BasicTrade>) => res.send(trades));
+        const type = req.params.type + '';
+
+        switch (type) {
+            case 'cheap':
+                this.listService.getCheapBasicList()
+                    .then((trades: Array<BasicTrade>) => res.send(trades));
+                break;
+            case 'expensive':
+                this.listService.getExpensiveBasicList()
+                    .then((trades: Array<BasicTrade>) => res.send(trades));
+                break;
+            default: throw 'unknown list';
+        }
     }
 }
