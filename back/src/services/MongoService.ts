@@ -1,5 +1,5 @@
 import { Collection, Db, MongoClient } from "mongodb";
-import { Item, ItemPrice } from "../../../shared";
+import { Item, ItemBltc, ItemPrice } from "../../../shared";
 
 export default class MongoService {
     constructor(
@@ -23,5 +23,11 @@ export default class MongoService {
         const db = await this.getDb();
 
         return db.collection('item-prices');
+    }
+
+    async getBltcCollection(): Promise<Collection<ItemBltc>> {
+        const db = await this.getDb();
+
+        return db.collection('item-bltc');
     }
 }

@@ -39,5 +39,7 @@ export default class Lists extends Vue {
 <style scoped>
     .tab-pane > .card {
         border-top: 0px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 </style>

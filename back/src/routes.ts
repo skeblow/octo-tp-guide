@@ -3,6 +3,7 @@ import { MongoClient } from "mongodb";
 import ItemController from "./controllers/ItemController";
 import ListController from "./controllers/ListController";
 import PriceController from "./controllers/PriceController";
+import BltcService from "./services/BltcService";
 import GwApiService from "./services/GwApiService";
 import ItemService from "./services/ItemService";
 import ListService from "./services/ListService";
@@ -23,8 +24,9 @@ const gwApiService = new GwApiService();
 const itemService = new ItemService(mongoService, gwApiService);
 const priceService = new PriceService(mongoService, gwApiService);
 const listService = new ListService(mongoService);
+const bltcService = new BltcService(mongoService);
 
-const itemController = new ItemController(itemService, priceService);
+const itemController = new ItemController(itemService, priceService, bltcService);
 const priceController = new PriceController(priceService);
 const listController = new ListController(listService);
 
@@ -38,6 +40,11 @@ export const ROUTES: Route[] = [
         route: "/items/:id",
         method: 'get',
         handler: (req, res) => itemController.get(req, res),
+    },
+    {
+        route: "/bltc/",
+        method: 'get',
+        handler: (req, res) => itemController.getBltc(req, res),
     },
     {
         route: '/prices/',

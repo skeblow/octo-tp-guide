@@ -20,6 +20,16 @@ export interface ItemPrice {
     date: Date,
 }
 
+export interface ItemBltc {
+    _id?: number;
+    id: number;
+    bought: number;
+    oldBought: number;
+    sold: number;
+    oldSold: number;
+    date: Date;
+}
+
 export interface BasicTrade {
     item: Item,
     price: ItemPrice,

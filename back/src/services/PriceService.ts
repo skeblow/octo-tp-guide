@@ -22,7 +22,7 @@ export default class PriceService {
             date: {
                 $gt: from,
                 $lt: to,
-            }
+            },
         }).toArray();
 
         const foundIds = prices.map((price: ItemPrice) => price.id);
