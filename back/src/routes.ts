@@ -23,8 +23,8 @@ const mongoService = new MongoService(client);
 const gwApiService = new GwApiService();
 const itemService = new ItemService(mongoService, gwApiService);
 const priceService = new PriceService(mongoService, gwApiService);
-const listService = new ListService(mongoService);
 const bltcService = new BltcService(mongoService);
+const listService = new ListService(mongoService, itemService, priceService, bltcService);
 
 const itemController = new ItemController(itemService, priceService, bltcService);
 const priceController = new PriceController(priceService);

@@ -33,4 +33,5 @@ export interface ItemBltc {
 export interface BasicTrade {
     item: Item,
     price: ItemPrice,
+    bltc: ItemBltc,
 }
