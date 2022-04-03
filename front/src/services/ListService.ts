@@ -3,8 +3,14 @@ import { BasicTrade } from "../../../shared";
 class ListService {
     readonly BASE_URL = 'http://localhost:3000';
 
-    async getBasicList(): Promise<Array<BasicTrade>> {
-        const res = await fetch(this.BASE_URL + '/lists/');
+    async getCheapBasicList(): Promise<Array<BasicTrade>> {
+        const res = await fetch(this.BASE_URL + '/lists/cheap');
+
+        return await res.json();
+    }
+
+    async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
+        const res = await fetch(this.BASE_URL + '/lists/expensive');
 
         return await res.json();
     }

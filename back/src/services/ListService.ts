@@ -26,15 +26,18 @@ export default class ListService {
     }
 
     async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
-        return this.getBasicList(
+        let list = await this.getBasicList(
             25,
             20_000,
             20,
             20,
         );
+        list = list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade1.item.name.localeCompare(trade2.item.name));
+
+        return list;
     }
 
-    async getBasicList(minRoi: number, minSell: number, minSells: number, minBuys: number): Promise<any> {
+    async getBasicList(minRoi: number, minSell: number, minSells: number, minBuys: number): Promise<Array<BasicTrade>> {
         const collection = await this.mongoService.getBltcCollection();
 
         const result = await collection.aggregate([
