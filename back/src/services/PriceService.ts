@@ -9,6 +9,14 @@ export default class PriceService {
     ) {
     }
 
+    getProfit(price: ItemPrice): number {
+        return 0.85 * price.sells.unit_price - price.buys.unit_price;
+    }
+
+    getRoi(price: ItemPrice): number {
+        return Math.round(this.getProfit(price) / price.buys.unit_price * 100);
+    }
+
     async getPricesByIds(ids: Array<number>): Promise<Array<ItemPrice>> {
         const collection = await this.mongoService.getPricesCollection();
         const date = new Date();
@@ -28,19 +36,25 @@ export default class PriceService {
         const foundIds = prices.map((price: ItemPrice) => price.id);
         const missingIds = ids.filter(id => ! foundIds.includes(id));
 
-        if (missingIds.length > 0) {
-            console.log('need to fetch prices', missingIds);
-
-            const missingPrices = await this.gwApiService.getItemPrices(missingIds);
-
-            for (const price of missingPrices) {
-                price.date = date;
-            }
-
-            await collection.insertMany(missingPrices);
-
-            prices = prices.concat(missingPrices);
+        if (missingIds.length === 0) {
+            return prices;
         }
+
+        console.log('need to fetch prices', missingIds.slice(0, 10), missingIds.length);
+
+        const missingPrices = await this.gwApiService.getItemPrices(missingIds);
+
+        if (missingPrices.length === 0) {
+            return prices;
+        }
+
+        for (const price of missingPrices) {
+            price.date = date;
+        }
+
+        await collection.insertMany(missingPrices);
+
+        prices = prices.concat(missingPrices);
 
         return prices;
     }

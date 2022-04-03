@@ -14,7 +14,8 @@ export default class ListService {
     }
 
     async getBasicList(): Promise<any> {
-        const roi = 25;
+        const minRoi = 25;
+        const minSell = 50;
         const minSells = 2_000;
         const minBuys = 2_000;
 
@@ -32,13 +33,14 @@ export default class ListService {
         console.log('result (first 10)', result.slice(0, 10));
         const ids = result.map(obj => obj.id);
 
-
         let prices = await this.priceService.getPricesByIds(ids);
         prices = prices.filter((price: ItemPrice) => {
-            const profit = 0.85 * price.sells.unit_price - price.buys.unit_price;
+            const profit = this.priceService.getProfit(price);
+            const roi = this.priceService.getRoi(price);
 
-            return profit > 10 && Math.round(profit / price.buys.unit_price * 100) > roi;
+            return price.sells.unit_price > minSell && profit > 10 && roi > minRoi;
         });
+        prices = prices.sort((price1, price2) => this.priceService.getRoi(price2) - this.priceService.getRoi(price1));
 
         const items = await this.itemService.getAllByIds(prices.map(price => price.id));
         const bltcs = await this.bltcService.getBltcByIds(prices.map(price => price.id));
