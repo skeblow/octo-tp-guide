@@ -9,7 +9,7 @@ export default class PriceService {
     ) {
     }
 
-    async getPricesForItems(ids: Array<number>): Promise<Array<ItemPrice>> {
+    async getPricesByIds(ids: Array<number>): Promise<Array<ItemPrice>> {
         const collection = await this.mongoService.getPricesCollection();
         const date = new Date();
         const from = new Date();

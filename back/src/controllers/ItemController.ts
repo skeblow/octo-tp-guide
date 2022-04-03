@@ -52,7 +52,7 @@ export default class ItemController {
     }
 
     async refresh(req: Request, res: Response): Promise<void> {
-        const allIds = [
+        const rawIds = [
             '19748,19745,19718,19739,19741,19743,82796',
             '19720,19746,19747,19742,19740,19744,46741,72845',
             '19698,19700,19703,19697,19699,19701,19702',
@@ -85,10 +85,15 @@ export default class ItemController {
             '47088,73000,73576,72395,76287,70581,75740,71768,76641,73959,75575,76756,74122,71864,76928,73284,73054,72064,71548,75826',
             '43864,43863,43865,71654,76704,73962',
         ];
+        const ids: Array<number> = rawIds.join(',').split(',').map(id => +id);
+        const chunkSize = 100;
 
-        for (const ids of allIds) {
-            await this.itemService.getAllByIds(ids.split(',').map(id => +id));
-            await this.priceService.getPricesForItems(ids.split(',').map(id => +id));
+        for (let i = 0; i < ids.length; i += chunkSize) {
+            const chunk = ids.slice(i, i + chunkSize);
+
+            await this.itemService.getAllByIds(chunk);
+            await this.priceService.getPricesByIds(chunk);
+            await this.bltcService.getBltcByIds(chunk);
         }
 
         res.send('done');

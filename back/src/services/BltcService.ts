@@ -10,6 +10,20 @@ export default class BltcService {
     ) {
     }
 
+    async getBltcByIds(ids: Array<number>): Promise<Array<ItemBltc>> {
+        const bltcs = [];
+        
+        for (const id of ids) {
+            const bltc = await this.getBltc(id);
+
+            if (bltc !== null) {
+                bltcs.push(bltc);
+            }
+        }
+
+        return bltcs;
+    }
+
     async getBltc(id: number): Promise<ItemBltc|null> {
         const collection = await this.mongoService.getBltcCollection();
         const date = new Date();

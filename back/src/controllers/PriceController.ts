@@ -18,7 +18,7 @@ export default class PriceController {
             return;
         }
 
-        this.priceService.getPricesForItems(ids)
+        this.priceService.getPricesByIds(ids)
             .then(prices => res.send(prices));
     }
 }
