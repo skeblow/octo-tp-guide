@@ -31,6 +31,21 @@ export interface ItemBltc {
     date: Date;
 }
 
+export enum RecipeType {
+    refine = 'refine',
+    salvage = 'salvage',
+    open = 'open',
+    cooking = 'cooking',
+}
+
+export interface Recipe {
+    _id: number,
+    id: number,
+    type: RecipeType,
+    input: Array<{id: number, quantity: number}>,
+    output: Array<{id: number, quantity: number}>,
+}
+
 export interface BasicTrade {
     item: Item,
     price: ItemPrice,
