@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { BasicTrade } from "../../../shared";
+import { BasicTrade, RefineTrade } from "../../../shared";
 import ListService from "../services/ListService";
 
 export default class ListController {
@@ -19,6 +19,10 @@ export default class ListController {
             case 'expensive':
                 this.listService.getExpensiveBasicList()
                     .then((trades: Array<BasicTrade>) => res.send(trades));
+                break;
+            case 'refine':
+                this.listService.getRefineList()
+                    .then((trades: Array<RefineTrade>) => res.send(trades));
                 break;
             default: throw 'unknown list';
         }

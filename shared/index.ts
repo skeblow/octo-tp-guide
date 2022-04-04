@@ -51,3 +51,12 @@ export interface BasicTrade {
     price: ItemPrice,
     bltc: ItemBltc,
 }
+
+export interface RefineTrade {
+    recipe: Recipe,
+    input: Array<{
+        item: BasicTrade,
+        quantity: number,
+    }>,
+    output: BasicTrade;
+}

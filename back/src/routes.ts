@@ -27,8 +27,8 @@ const gwApiService = new GwApiService();
 const itemService = new ItemService(mongoService, gwApiService);
 const priceService = new PriceService(mongoService, gwApiService);
 const bltcService = new BltcService(mongoService);
-const listService = new ListService(mongoService, itemService, priceService, bltcService);
 const recipeService = new RecipeService();
+const listService = new ListService(mongoService, itemService, priceService, bltcService, recipeService);
 
 const itemController = new ItemController(itemService, bltcService);
 const priceController = new PriceController(priceService);

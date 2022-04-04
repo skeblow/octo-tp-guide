@@ -1,8 +1,9 @@
-import { BasicTrade, Item, ItemBltc, ItemPrice } from "../../../shared";
+import { BasicTrade, Item, ItemBltc, ItemPrice, RefineTrade } from "../../../shared";
 import BltcService from "./BltcService";
 import ItemService from "./ItemService";
 import MongoService from "./MongoService";
 import PriceService from "./PriceService";
+import RecipeService from "./RecipeService";
 
 export default class ListService {
     constructor (
@@ -10,6 +11,7 @@ export default class ListService {
         private itemService: ItemService,
         private priceService: PriceService,
         private bltcService: BltcService,
+        private recipeService: RecipeService,
     ) {
     }
 
@@ -74,5 +76,9 @@ export default class ListService {
         }
 
         return trades;
+    }
+
+    async getRefineList(): Promise<Array<RefineTrade> {
+        return [];
     }
 }
