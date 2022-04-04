@@ -3,6 +3,7 @@ import { MongoClient } from "mongodb";
 import ItemController from "./controllers/ItemController";
 import ListController from "./controllers/ListController";
 import PriceController from "./controllers/PriceController";
+import RefreshController from "./controllers/RefreshController";
 import BltcService from "./services/BltcService";
 import GwApiService from "./services/GwApiService";
 import ItemService from "./services/ItemService";
@@ -29,6 +30,7 @@ const listService = new ListService(mongoService, itemService, priceService, blt
 const itemController = new ItemController(itemService, priceService, bltcService);
 const priceController = new PriceController(priceService);
 const listController = new ListController(listService);
+const refreshController = new RefreshController(itemService, priceService, bltcService);
 
 export const ROUTES: Route[] = [
     {
@@ -59,6 +61,6 @@ export const ROUTES: Route[] = [
     {
         route: '/refresh/',
         method: 'get',
-        handler: (req, res) => itemController.refresh(req, res),
+        handler: (req, res) => refreshController.refresh(req, res),
     },
 ];
