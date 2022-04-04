@@ -12,11 +12,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../pages/Lists.vue')
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../pages/About.vue')
-  },
-  {
     path: '/calculator',
     name: 'calculator',
     component: () => import(/* webpackChunkName: "calculator" */ '../pages/Calculator.vue')

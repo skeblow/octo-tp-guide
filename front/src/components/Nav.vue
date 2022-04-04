@@ -17,9 +17,6 @@
               <router-link to="/items" class="nav-link" exact-active-class="active">Items</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link" exact-active-class="active">About</router-link>
-            </li>
-            <li class="nav-item">
               <router-link to="/calculator" class="nav-link" exact-active-class="active">Calculator</router-link>
             </li>
           </ul>
