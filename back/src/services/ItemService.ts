@@ -12,7 +12,12 @@ export default class ItemService {
     async getAll(): Promise<Array<Item>> {
         const collection = await this.mongoService.getItemsCollection();
 
-        return await collection.find({}).toArray();
+        return await collection
+            .find({})
+            .sort({
+                name: 1,
+            })
+            .toArray();
     }
 
     async getAllByIds(ids: Array<number>): Promise<Array<Item>> {

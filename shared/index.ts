@@ -39,7 +39,7 @@ export enum RecipeType {
 }
 
 export interface Recipe {
-    _id: number,
+    // _id: number,
     id: number,
     type: RecipeType,
     input: Array<{id: number, quantity: number}>,
