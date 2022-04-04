@@ -1,7 +1,6 @@
 import { Recipe, RecipeType } from "../../../shared";
 
 export default class RecipeService {
-    
     async getAll(): Promise<Array<Recipe>> {
         return [
             {
@@ -53,7 +52,7 @@ export default class RecipeService {
                 id: 19747,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19748, quantity: 2},
+                    {id: 19748, quantity: 3},
                 ],
                 output: [
                     {id: 19747, quantity: 1},
@@ -119,7 +118,7 @@ export default class RecipeService {
                 id: 19735,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19729, quantity: 2},
+                    {id: 19729, quantity: 4},
                 ],
                 output: [
                     {id: 19735, quantity: 1},
@@ -130,7 +129,7 @@ export default class RecipeService {
                 id: 19737,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19732, quantity: 2},
+                    {id: 19732, quantity: 3},
                 ],
                 output: [
                     {id: 19737, quantity: 1},
@@ -187,7 +186,7 @@ export default class RecipeService {
                 id: 19687,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19703, quantity: 3},
+                    {id: 19703, quantity: 2},
                 ],
                 output: [
                     {id: 19687, quantity: 1},
@@ -198,7 +197,7 @@ export default class RecipeService {
                 id: 19682,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19698, quantity: 3},
+                    {id: 19698, quantity: 2},
                 ],
                 output: [
                     {id: 19682, quantity: 1},
@@ -254,7 +253,7 @@ export default class RecipeService {
                 id: 19710,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19723, quantity: 2},
+                    {id: 19723, quantity: 3},
                 ],
                 output: [
                     {id: 19710, quantity: 1},
@@ -276,7 +275,7 @@ export default class RecipeService {
                 id: 19714,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19727, quantity: 2},
+                    {id: 19727, quantity: 3},
                 ],
                 output: [
                     {id: 19714, quantity: 1},
@@ -287,7 +286,7 @@ export default class RecipeService {
                 id: 19711,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19724, quantity: 2},
+                    {id: 19724, quantity: 3},
                 ],
                 output: [
                     {id: 19711, quantity: 1},
@@ -298,7 +297,7 @@ export default class RecipeService {
                 id: 19709,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19722, quantity: 2},
+                    {id: 19722, quantity: 3},
                 ],
                 output: [
                     {id: 19709, quantity: 1},
@@ -309,7 +308,7 @@ export default class RecipeService {
                 id: 19712,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19725, quantity: 2},
+                    {id: 19725, quantity: 3},
                 ],
                 output: [
                     {id: 19712, quantity: 1},
