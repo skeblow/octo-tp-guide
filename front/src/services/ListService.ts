@@ -1,4 +1,4 @@
-import { BasicTrade } from "../../../shared";
+import { BasicTrade, RefineTrade } from "../../../shared";
 
 class ListService {
     readonly BASE_URL = 'http://localhost:3000';
@@ -11,6 +11,12 @@ class ListService {
 
     async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
         const res = await fetch(this.BASE_URL + '/lists/expensive');
+
+        return await res.json();
+    }
+
+    async getRefineList(): Promise<Array<RefineTrade>> {
+        const res = await fetch(this.BASE_URL + '/lists/refine');
 
         return await res.json();
     }

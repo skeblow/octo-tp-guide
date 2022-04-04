@@ -118,10 +118,7 @@ export default class ListService {
                     bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
                 };
 
-                return {
-                    item: trade,
-                    quantity: output.quantity,
-                };
+                return trade;
             });
             
             if (outputs.length === 0) {
