@@ -52,7 +52,7 @@
                                     <th>Buy price</th>
                                     <th>Sell price</th>
                                     <th>Profit</th>
-                                    <th>ROI</th>
+                                    <th>Roi</th>
                                     <th>Sold</th>
                                     <th>Bought</th>
                                 </tr>
@@ -89,7 +89,7 @@
                                     <th>Buy price</th>
                                     <th>Sell price</th>
                                     <th>Profit</th>
-                                    <th>ROI</th>
+                                    <th>Roi</th>
                                     <th>Sold</th>
                                     <th>Bought</th>
                                 </tr>
@@ -133,38 +133,35 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <table class="table table-stripped">
-                                                    <tbody>
-                                                        <tr v-for="input in trade.input" :key="input.item.id">
-                                                            <td>
-                                                                {{ input.quantity }}x
-                                                            </td>
-                                                            <td>
-                                                                 <img v-bind:src="input.item.item.icon" alt="">
-                                                            </td>
-                                                            <td>{{ input.item.item.name }}</td>
-                                                            <td>{{ formatGold(input.item.price.buys.unit_price) }}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="col-4">
-                                                <table class="table table-stripped">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>Buy</th>
-                                                            <td>{{ formatGold(getRefineBuy(trade)) }}</td>
-                                                        </tr>
-                                                          <tr>
-                                                            <th>ROI</th>
-                                                            <td>{{ getRefineRoi(trade) }} %</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                        <table class="table table-stripped">
+                                            <tbody>
+                                                <tr v-for="input in trade.input" :key="input.item.id">
+                                                    <td>
+                                                        {{ input.quantity }}x
+                                                    </td>
+                                                    <td>
+                                                            <img v-bind:src="input.item.item.icon" alt="">
+                                                    </td>
+                                                    <td>{{ input.item.item.name }}</td>
+                                                    <td>{{ formatGold(input.item.price.buys.unit_price) }}</td>
+                                                    <td><strong>
+                                                        {{ formatGold(getRefineBuy(trade)) }}
+                                                    </strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" class="text-end">Profit</td>
+                                                    <td><strong>
+                                                        {{ formatGold(getRefineProfit(trade)) }}
+                                                    </strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" class="text-end">Roi</td>
+                                                    <td><strong>
+                                                        {{ getRefineRoi(trade) }} %
+                                                    </strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -320,10 +317,16 @@ export default class Lists extends Vue {
         return trade.input.reduce((total, item) => total + item.item.price.buys.unit_price * item.quantity, 0);
     }
 
-    getRefineRoi(trade: RefineTrade): number {
+    getRefineProfit(trade: RefineTrade): number {
         const sellPrice = trade.output.price.sells.unit_price;
         const buyPrice = this.getRefineBuy(trade);
-        const profit = Math.round( 0.85 * sellPrice - buyPrice );
+
+        return Math.round( 0.85 * sellPrice - buyPrice );
+    }
+
+    getRefineRoi(trade: RefineTrade): number {
+        const buyPrice = this.getRefineBuy(trade);
+        const profit = this.getRefineProfit(trade);
     
         return Math.round( profit / buyPrice * 100 );
     }

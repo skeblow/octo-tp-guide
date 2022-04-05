@@ -1,7 +1,7 @@
 import { BasicTrade, RefineTrade, SalvageTrade } from "../../../shared";
 
 class ListService {
-    readonly BASE_URL = 'http://localhost:3000';
+    readonly BASE_URL = 'http://192.168.0.2:3000';
 
     async getCheapBasicList(): Promise<Array<BasicTrade>> {
         const res = await fetch(this.BASE_URL + '/lists/cheap');
