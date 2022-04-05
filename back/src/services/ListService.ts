@@ -4,6 +4,7 @@ import ItemService from "./ItemService";
 import MongoService from "./MongoService";
 import PriceService from "./PriceService";
 import RefineService from "./RefineService";
+import SalvageService from "./SalvageService";
 
 export default class ListService {
     constructor (
@@ -12,6 +13,7 @@ export default class ListService {
         private priceService: PriceService,
         private bltcService: BltcService,
         private refineService: RefineService,
+        private salvageService: SalvageService,
     ) {
     }
 
@@ -144,6 +146,56 @@ export default class ListService {
     }
 
     async getSalvageList(): Promise<Array<SalvageTrade>> {
-        return [];
+        const recipes = await this.salvageService.getAll();
+        const itemIds = recipes
+            .map(
+                recipe => recipe.input
+                    .map(item => item.id)
+                    .concat(recipe.output.map(item => item.id))
+            )
+            .flat();
+        
+        const items = await this.itemService.getAllByIds(itemIds);
+        const prices = await this.priceService.getPricesByIds(itemIds);
+        const bltcs = await this.bltcService.getBltcByIds(itemIds);
+
+        let trades: Array<SalvageTrade> = [];
+
+        for (const recipe of recipes) {
+            const inputs = recipe.input.map(input => {
+                const trade: BasicTrade = {
+                    item: items.find(i => i.id === input.id) as Item,
+                    price: prices.find(p => p.id === input.id) as ItemPrice,
+                    bltc: bltcs.find(b => b.id === input.id) as ItemBltc,
+                };
+
+                return trade;
+            });
+            const outputs: Array<any> = recipe.output.map(output => {
+                const trade: BasicTrade = {
+                    item: items.find(i => i.id === output.id) as Item,
+                    price: prices.find(p => p.id === output.id) as ItemPrice,
+                    bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
+                };
+
+                return {
+                    item: trade,
+                    quantity: output.quantity,
+                };
+            });
+
+            if (inputs.length === 0) {
+                continue;
+            }
+
+            trades.push({
+                id: recipe.id,
+                recipe: recipe,
+                input: inputs[0],
+                output: outputs,
+            });
+        }
+
+        return trades;
     }
 }

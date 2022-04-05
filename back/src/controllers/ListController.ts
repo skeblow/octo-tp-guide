@@ -26,6 +26,7 @@ export default class ListController {
             case 'salvage':
                 this.listService.getSalvageList()
                     .then(trades => res.send(trades));
+                break;
             default: throw 'unknown list';
         }
     }

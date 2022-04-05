@@ -11,6 +11,7 @@ import ListService from "./services/ListService";
 import MongoService from "./services/MongoService";
 import PriceService from "./services/PriceService";
 import RefineService from "./services/RefineService";
+import SalvageService from "./services/SalvageService";
 
 interface Route
 {
@@ -27,7 +28,15 @@ const itemService = new ItemService(mongoService, gwApiService);
 const priceService = new PriceService(mongoService, gwApiService);
 const bltcService = new BltcService(mongoService);
 const refineService = new RefineService();
-const listService = new ListService(mongoService, itemService, priceService, bltcService, refineService);
+const salvageService = new SalvageService();
+const listService = new ListService(
+    mongoService,
+    itemService,
+    priceService,
+    bltcService,
+    refineService,
+    salvageService,
+);
 
 const itemController = new ItemController(itemService);
 const priceController = new PriceController(priceService);
