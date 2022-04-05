@@ -126,6 +126,7 @@ export default class ListService {
             }
 
             trades.push({
+                id: recipe.id,
                 recipe: recipe,
                 input: inputs,
                 output: outputs[0],

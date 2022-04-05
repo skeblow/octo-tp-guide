@@ -57,10 +57,15 @@ export interface BasicTrade {
 }
 
 export interface RefineTrade {
+    id: number,
     recipe: Recipe,
     input: Array<{
         item: BasicTrade,
         quantity: number,
     }>,
     output: BasicTrade;
+}
+
+export interface SalvageTrade {
+
 }
