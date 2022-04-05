@@ -11,7 +11,7 @@
                     v-bind:class="{ active: isCheapTabActive }"
                 >#1</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item">
                 <button
                     type="button"
                     v-on:click="toggleTab('expensive')"
@@ -19,13 +19,21 @@
                     v-bind:class="{ active: isExpensiveTabActive }"
                 >#2</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item">
                 <button
                     type="button"
                     v-on:click="toggleTab('refine')"
                     class="nav-link"
                     v-bind:class="{ active: isRefineTabActive }"
                 >#3</button>
+            </li>
+             <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('salvage')"
+                    class="nav-link"
+                    v-bind:class="{ active: isSalvageTabActive }"
+                >#4</button>
             </li>
         </ul>
         <div class="tab-content">
@@ -139,7 +147,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <th>Buy</th>
-                                                            <td>{{ formatGold(getRecipeBuy(trade)) }}</td>
+                                                            <td>{{ formatGold(getRefineBuy(trade)) }}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Sell</th>
@@ -147,7 +155,7 @@
                                                         </tr>
                                                           <tr>
                                                             <th>ROI</th>
-                                                            <td>{{ getRecipeRoi(trade) }} %</td>
+                                                            <td>{{ getRefineRoi(trade) }} %</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -160,13 +168,28 @@
                     </div>
                 </div>
             </div>
+             <div 
+                class="tab-pane fade"
+                v-bind:class="{ show: isSalvageTabActive, active: isSalvageTabActive }"
+            >
+                 <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4 mb-4" v-for="trade in salvageTrades" :key="trade.recipe.id">
+                                <div class="card">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { BasicTrade, RefineTrade } from '../../../shared';
+import { BasicTrade, RefineTrade, SalvageTrade } from '../../../shared';
 import ListService from '../services/ListService';
 
 @Options({})
@@ -174,14 +197,17 @@ export default class Lists extends Vue {
     isCheapTabActive = true;
     isExpensiveTabActive = false;
     isRefineTabActive = false;
+    isSalvageTabActive = false;
     cheapTrades: Array<BasicTrade> = [];
     expensiveTrades: Array<BasicTrade> = [];
     refineTrades: Array<RefineTrade> = [];
+    salvageTrades: Array<SalvageTrade> = [];
 
-    toggleTab(tab: 'cheap'|'expensive'|'refine'): void {
+    toggleTab(tab: string): void {
         this.isCheapTabActive = tab === 'cheap';
         this.isExpensiveTabActive = tab === 'expensive';
         this.isRefineTabActive = tab === 'refine';
+        this.isSalvageTabActive = tab === 'salvage';
     }
 
     formatGold(amount: number): string {
@@ -216,6 +242,7 @@ export default class Lists extends Vue {
         this.cheapTrades = await ListService.getCheapBasicList();
         this.expensiveTrades = await ListService.getExpensiveBasicList();
         this.refineTrades = await ListService.getRefineList();
+        this.salvageTrades = await ListService.getSalvageList();
     }
 
     getProfit(trade: BasicTrade): number {
@@ -226,13 +253,13 @@ export default class Lists extends Vue {
         return Math.round( this.getProfit(trade) / trade.price.buys.unit_price * 100 );
     }
 
-    getRecipeBuy(trade: RefineTrade): number {
+    getRefineBuy(trade: RefineTrade): number {
         return trade.input.reduce((total, item) => total + item.item.price.buys.unit_price * item.quantity, 0);
     }
 
-    getRecipeRoi(trade: RefineTrade): number {
+    getRefineRoi(trade: RefineTrade): number {
         const sellPrice = trade.output.price.sells.unit_price;
-        const buyPrice = this.getRecipeBuy(trade);
+        const buyPrice = this.getRefineBuy(trade);
         const profit = Math.round( 0.85 * sellPrice - buyPrice );
     
         return Math.round( profit / buyPrice * 100 );
