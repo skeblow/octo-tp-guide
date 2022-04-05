@@ -1,9 +1,9 @@
-import { BasicTrade, Item, ItemBltc, ItemPrice, RefineTrade } from "../../../shared";
+import { BasicTrade, Item, ItemBltc, ItemPrice, RefineTrade, SalvageTrade } from "../../../shared";
 import BltcService from "./BltcService";
 import ItemService from "./ItemService";
 import MongoService from "./MongoService";
 import PriceService from "./PriceService";
-import RecipeService from "./RecipeService";
+import RefineService from "./RefineService";
 
 export default class ListService {
     constructor (
@@ -11,7 +11,7 @@ export default class ListService {
         private itemService: ItemService,
         private priceService: PriceService,
         private bltcService: BltcService,
-        private recipeService: RecipeService,
+        private refineService: RefineService,
     ) {
     }
 
@@ -83,7 +83,7 @@ export default class ListService {
     }
 
     async getRefineList(): Promise<Array<RefineTrade>> {
-        const recipes = await this.recipeService.getAll();
+        const recipes = await this.refineService.getAll();
         const itemIds = recipes
             .map(
                 recipe => recipe.input
@@ -96,7 +96,7 @@ export default class ListService {
         const prices = await this.priceService.getPricesByIds(itemIds);
         const bltcs = await this.bltcService.getBltcByIds(itemIds);
 
-        const trades: Array<RefineTrade> = [];
+        let trades: Array<RefineTrade> = [];
 
         for (const recipe of recipes) {
             const inputs = recipe.input.map(input => {
@@ -133,6 +133,17 @@ export default class ListService {
             });
         }
 
+        trades = trades.sort((trade1: RefineTrade, trade2: RefineTrade) => {
+            const trade1Roi = this.refineService.getRefineRoi(trade1);
+            const trade2Roi = this.refineService.getRefineRoi(trade2);
+
+            return trade2Roi - trade1Roi;
+        });
+
         return trades;
+    }
+
+    async getSalvageList(): Promise<Array<SalvageTrade>> {
+        return [];
     }
 }

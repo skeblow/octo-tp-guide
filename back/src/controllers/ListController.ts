@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { BasicTrade, RefineTrade } from "../../../shared";
 import ListService from "../services/ListService";
 
 export default class ListController {
@@ -14,16 +13,19 @@ export default class ListController {
         switch (type) {
             case 'cheap':
                 this.listService.getCheapBasicList()
-                    .then((trades: Array<BasicTrade>) => res.send(trades));
+                    .then(trades => res.send(trades));
                 break;
             case 'expensive':
                 this.listService.getExpensiveBasicList()
-                    .then((trades: Array<BasicTrade>) => res.send(trades));
+                    .then(trades => res.send(trades));
                 break;
             case 'refine':
                 this.listService.getRefineList()
-                    .then((trades: Array<RefineTrade>) => res.send(trades));
+                    .then(trades => res.send(trades));
                 break;
+            case 'salvage':
+                this.listService.getSalvageList()
+                    .then(trades => res.send(trades));
             default: throw 'unknown list';
         }
     }

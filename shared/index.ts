@@ -1,15 +1,15 @@
 export interface Item {
-    _id: number;
-    id: number;
-    name: string;
-    type: string;
-    rarity: string;
-    icon: string;
+    _id: number,
+    id: number,
+    name: string,
+    type: string,
+    rarity: string,
+    icon: string,
 }
 
 export interface ItemPrice {
-    _id: number;
-    id: number;
+    _id: number,
+    id: number,
     buys: {
         quantity: number,
         unit_price: number,
@@ -67,5 +67,11 @@ export interface RefineTrade {
 }
 
 export interface SalvageTrade {
-
+    id: number,
+    recipe: SalvageRecipe,
+    input: BasicTrade,
+    output: Array<{
+        item: BasicTrade,
+        quantity: number,
+    }>,
 }

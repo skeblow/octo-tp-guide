@@ -3,7 +3,6 @@ import { MongoClient } from "mongodb";
 import ItemController from "./controllers/ItemController";
 import ListController from "./controllers/ListController";
 import PriceController from "./controllers/PriceController";
-import RecipeController from "./controllers/RecipeController";
 import RefreshController from "./controllers/RefreshController";
 import BltcService from "./services/BltcService";
 import GwApiService from "./services/GwApiService";
@@ -11,7 +10,7 @@ import ItemService from "./services/ItemService";
 import ListService from "./services/ListService";
 import MongoService from "./services/MongoService";
 import PriceService from "./services/PriceService";
-import RecipeService from "./services/RecipeService";
+import RefineService from "./services/RefineService";
 
 interface Route
 {
@@ -27,14 +26,13 @@ const gwApiService = new GwApiService();
 const itemService = new ItemService(mongoService, gwApiService);
 const priceService = new PriceService(mongoService, gwApiService);
 const bltcService = new BltcService(mongoService);
-const recipeService = new RecipeService();
-const listService = new ListService(mongoService, itemService, priceService, bltcService, recipeService);
+const refineService = new RefineService();
+const listService = new ListService(mongoService, itemService, priceService, bltcService, refineService);
 
 const itemController = new ItemController(itemService);
 const priceController = new PriceController(priceService);
 const listController = new ListController(listService);
 const refreshController = new RefreshController(itemService, priceService, bltcService);
-const recipeController = new RecipeController(recipeService)
 
 export const ROUTES: Route[] = [
     {
@@ -61,10 +59,5 @@ export const ROUTES: Route[] = [
         route: '/refresh/',
         method: 'get',
         handler: (req, res) => refreshController.refresh(req, res),
-    },
-    {
-        route: '/recipes/',
-        method: 'get',
-        handler: (req, res) => recipeController.getAll(req, res),
     },
 ];

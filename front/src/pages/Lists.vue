@@ -138,6 +138,10 @@
                                                 <table class="table table-stripped">
                                                     <tbody>
                                                         <tr>
+                                                            <th>Buy</th>
+                                                            <td>{{ formatGold(getRecipeBuy(trade)) }}</td>
+                                                        </tr>
+                                                        <tr>
                                                             <th>Sell</th>
                                                             <td>{{ formatGold(trade.output.price.sells.unit_price) }}</td>
                                                         </tr>
@@ -222,9 +226,13 @@ export default class Lists extends Vue {
         return Math.round( this.getProfit(trade) / trade.price.buys.unit_price * 100 );
     }
 
+    getRecipeBuy(trade: RefineTrade): number {
+        return trade.input.reduce((total, item) => total + item.item.price.buys.unit_price * item.quantity, 0);
+    }
+
     getRecipeRoi(trade: RefineTrade): number {
         const sellPrice = trade.output.price.sells.unit_price;
-        const buyPrice = trade.input.reduce((total, item) => total + item.item.price.buys.unit_price * item.quantity, 0);
+        const buyPrice = this.getRecipeBuy(trade);
         const profit = Math.round( 0.85 * sellPrice - buyPrice );
     
         return Math.round( profit / buyPrice * 100 );
