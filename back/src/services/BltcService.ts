@@ -11,12 +11,38 @@ export default class BltcService {
     }
 
     async getBltcByIds(ids: Array<number>): Promise<Array<ItemBltc>> {
-        const bltcs = [];
+        const collection = await this.mongoService.getBltcCollection();
+        const date = new Date();
+        const from = new Date();
+        const to = new Date();
+        from.setDate(from.getDate() - 1);
+        from.setHours(0);
+        from.setMinutes(0);
+        to.setHours(23);
+        to.setMinutes(59);
+
+        let bltcs: Array<ItemBltc> = await collection.find({
+            id: ids,
+            date: {
+                $gt: from,
+                $lt: to,
+            },
+        }).toArray();
+
+        const foundIds = bltcs.map(bltc => bltc.id);
+        const missingIds = ids.filter(id => ! foundIds.includes(id));
+
+        if (missingIds.length === 0) {
+            return bltcs;
+        }
+
+        console.log('need to fetch bltcs', missingIds.slice(0, 10), missingIds.length);
         
         for (const id of ids) {
-            const bltc = await this.getBltc(id);
+            const bltc = await this.fetchBltc(id, date);
 
             if (bltc !== null) {
+                await collection.insertOne(bltc);
                 bltcs.push(bltc);
             }
         }
@@ -24,30 +50,7 @@ export default class BltcService {
         return bltcs;
     }
 
-    async getBltc(id: number): Promise<ItemBltc|null> {
-        const collection = await this.mongoService.getBltcCollection();
-        const date = new Date();
-        const from = new Date();
-        const to = new Date();
-        from.setHours(0);
-        from.setMinutes(0);
-        to.setHours(23);
-        to.setMinutes(59);
-
-        let bltc = await collection.findOne({
-            id: id,
-            date: {
-                $gt: from,
-                $lt: to,
-            },
-        });
-
-        if (bltc !== null) {
-            return bltc;
-        }
-
-        console.log('missing bltc for', id);
-
+    async fetchBltc(id: number, date: Date): Promise<ItemBltc|null> {
         const res = await fetch(this.BASE_URL + id);
         const html = await res.text();
         const found = html.match(/\s+tp:.*/g);
@@ -70,8 +73,6 @@ export default class BltcService {
             oldSold: parsed.old_sold,
             date: date,
         }
-
-        await collection.insertOne(itemBltc);
 
         return itemBltc;
     }

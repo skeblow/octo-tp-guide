@@ -33,19 +33,4 @@ export default class ItemController {
                 res.send(item);
             });
     }
-
-    getBltc(req: Request, res: Response): void {
-        const ids = ((req.query.ids || '') + '').split(',')
-            .filter(id => !! id)
-            .map(id => +id);
-
-        if (ids.length === 0) {
-            res.send([]);
-
-            return;
-        }
-
-        this.bltcService.getBltc(97919)
-            .then(prices => res.send(prices));
-    }
 }

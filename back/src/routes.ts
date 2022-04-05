@@ -48,11 +48,6 @@ export const ROUTES: Route[] = [
         handler: (req, res) => itemController.get(req, res),
     },
     {
-        route: "/bltc/",
-        method: 'get',
-        handler: (req, res) => itemController.getBltc(req, res),
-    },
-    {
         route: '/prices/',
         method: 'get',
         handler: (req, res) => priceController.get(req, res),
