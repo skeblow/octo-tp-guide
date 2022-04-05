@@ -5,7 +5,6 @@ import ItemService from "../services/ItemService";
 export default class ItemController {
     constructor(
         private itemService: ItemService,
-        private bltcService: BltcService,
     ) {
     }
 

@@ -56,7 +56,8 @@ export default class RefreshController {
             '21666,21659,21660,21672,21665,21663,21662,79138',
             '79079,79423,66670,82488',
         ];
-        const ids: Array<number> = rawIds.join(',').split(',').map(id => +id);
+        let ids: Array<number> = rawIds.join(',').split(',').map(id => +id);
+        ids = [...new Set(ids)];
         const chunkSize = 100;
 
         for (let i = 0; i < ids.length; i += chunkSize) {

@@ -30,7 +30,7 @@ const bltcService = new BltcService(mongoService);
 const recipeService = new RecipeService();
 const listService = new ListService(mongoService, itemService, priceService, bltcService, recipeService);
 
-const itemController = new ItemController(itemService, bltcService);
+const itemController = new ItemController(itemService);
 const priceController = new PriceController(priceService);
 const listController = new ListController(listService);
 const refreshController = new RefreshController(itemService, priceService, bltcService);

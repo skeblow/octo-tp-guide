@@ -22,7 +22,7 @@ export default class BltcService {
         to.setMinutes(59);
 
         let bltcs: Array<ItemBltc> = await collection.find({
-            id: ids,
+            id: {$in: ids},
             date: {
                 $gt: from,
                 $lt: to,
