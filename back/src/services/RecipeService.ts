@@ -216,14 +216,14 @@ export default class RecipeService {
             },
             {
                 // darksteel ingot
-                id: 19686,
+                id: 19681,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19681, quantity: 2},
+                    {id: 19702, quantity: 2},
                     {id: 19924, quantity: 1},
                 ],
                 output: [
-                    {id: 19686, quantity: 1},
+                    {id: 19681, quantity: 1},
                 ],
             },
             {
