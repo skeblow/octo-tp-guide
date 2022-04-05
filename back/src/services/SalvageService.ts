@@ -1,4 +1,4 @@
-import { RecipeType, SalvageRecipe } from "../../../shared";
+import { RecipeType, SalvageRecipe, SalvageTrade } from "../../../shared";
 
 export default class SalvageService {
     async getAll(): Promise<Array<SalvageRecipe>> {
@@ -42,11 +42,11 @@ export default class SalvageService {
                 ],
                 output: [
                     // gold
-                    {id: 19698, quantity: NaN},
+                    {id: 19698, quantity: 0},
                     // iron
-                    {id: 19699, quantity: NaN},
+                    {id: 19699, quantity: 0},
                     // silver
-                    {id: 19703, quantity: NaN},
+                    {id: 19703, quantity: 0},
                 ],
                 cost: 3,
             },
@@ -112,9 +112,9 @@ export default class SalvageService {
                 ],
                 output: [
                     // coarse leather section
-                    {id: 19730, quantity: NaN},
+                    {id: 19730, quantity: 0},
                     // thin leather section
-                    {id: 19728, quantity: NaN},
+                    {id: 19728, quantity: 0},
                 ],
                 cost: 3,
             },
@@ -188,9 +188,9 @@ export default class SalvageService {
                 ],
                 output: [
                    // silk strap
-                   {id: 19748, quantity: NaN},
+                   {id: 19748, quantity: 0},
                    // gossamer strap
-                   {id: 19745, quantity: NaN},
+                   {id: 19745, quantity: 0},
                 ],
                 cost: 3,
             },
@@ -203,9 +203,9 @@ export default class SalvageService {
                 ],
                 output: [
                    // wool strap
-                   {id: 19739, quantity: NaN},
+                   {id: 19739, quantity: 0},
                    // cotton strap
-                   {id: 19741, quantity: NaN},
+                   {id: 19741, quantity: 0},
                 ],
                 cost: 3,
             },
@@ -218,9 +218,9 @@ export default class SalvageService {
                 ],
                 output: [
                    // jute strap
-                   {id: 19718, quantity: NaN},
+                   {id: 19718, quantity: 0},
                    // wool strap
-                   {id: 19739, quantity: NaN},
+                   {id: 19739, quantity: 0},
                 ],
                 cost: 3,
             },
@@ -233,9 +233,9 @@ export default class SalvageService {
                 ],
                 output: [
                    // silk strap
-                   {id: 19748, quantity: NaN},
+                   {id: 19748, quantity: 0},
                    // gossamer strap
-                   {id: 19745, quantity: NaN},
+                   {id: 19745, quantity: 0},
                 ],
                 cost: 3,
             },
@@ -276,5 +276,23 @@ export default class SalvageService {
                 cost: 3,
             },
         ];
+    }
+
+    getSalvageSell(trade: SalvageTrade): number {
+        return trade.output.reduce((total, item) => total + item.item.price.sells.unit_price * item.quantity, 0);
+    }
+
+    getSalvageProfit(trade: SalvageTrade): number {
+        const sellPrice = this.getSalvageSell(trade);
+        const buyPrice = trade.input.price.buys.unit_price + trade.recipe.cost;
+        
+        return Math.round( 0.85 * sellPrice - buyPrice );
+    }
+
+    getSalvageRoi(trade: SalvageTrade): number {
+        const buyPrice = trade.input.price.buys.unit_price + trade.recipe.cost;
+        const profit = this.getSalvageProfit(trade);
+
+        return Math.round( profit / buyPrice * 100 );
     }
 }

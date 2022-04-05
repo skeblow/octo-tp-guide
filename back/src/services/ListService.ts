@@ -196,6 +196,15 @@ export default class ListService {
             });
         }
 
+        trades = trades.sort((trade1: SalvageTrade, trade2: SalvageTrade) => {
+            const trade1Roi = this.salvageService.getSalvageRoi(trade1);
+            const trade2Roi = this.salvageService.getSalvageRoi(trade2);
+
+            console.log('trade roi', trade1Roi, trade1.recipe.id);
+
+            return trade2Roi - trade1Roi;
+        });
+
         return trades;
     }
 }
