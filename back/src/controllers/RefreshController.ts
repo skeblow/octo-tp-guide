@@ -46,6 +46,15 @@ export default class RefreshController {
             '43864,43863,43865,71654,76704,73962',
             '23040,23043,19986,19718,19739,19741,19743,19748,19745,19721,46681,19719,19728,19730,19731,19722,19723,19726,19727,19724,19725,19729,19732,19697,19699,19703,19698,19702,19700,19701',
             '19750,19924,19704,66670,75075,6736',
+            '21695,21691,21690,21694,21693,21692',
+            '21683,21679,21681,21680,21682,21678,43556,41737,43553,41736,41733,41734,43555,43552,43554,24234,41735',
+            '22331,21661,80681,21667,21668,79213,21664,21670,79790',
+            '21689,21688,21684,21685,21686,21687',
+            '21654,21658,21656,21653,21655,21657',
+            '21675,21669,21674,21673,21672,21671,21677,21676',
+            '22329,22326,22327,22330,22325,22328,74693',
+            '21666,21659,21660,21672,21665,21663,21662,79138',
+            '79079,79423,66670,82488',
         ];
         const ids: Array<number> = rawIds.join(',').split(',').map(id => +id);
         const chunkSize = 100;
@@ -53,9 +62,11 @@ export default class RefreshController {
         for (let i = 0; i < ids.length; i += chunkSize) {
             const chunk = ids.slice(i, i + chunkSize);
 
-            await this.itemService.getAllByIds(chunk);
-            await this.priceService.getPricesByIds(chunk);
-            await this.bltcService.getBltcByIds(chunk);
+            await Promise.all([
+                this.itemService.getAllByIds(chunk),
+                this.priceService.getPricesByIds(chunk),
+                this.bltcService.getBltcByIds(chunk),
+            ]);
         }
 
         res.send('done');

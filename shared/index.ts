@@ -46,6 +46,10 @@ export interface Recipe {
     output: Array<{id: number, quantity: number}>,
 }
 
+export interface SalvageRecipe extends Recipe {
+    cost: number,
+}
+
 export interface BasicTrade {
     item: Item,
     price: ItemPrice,
