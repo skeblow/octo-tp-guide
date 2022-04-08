@@ -35,10 +35,10 @@ export default class SalvageService {
             },
             {
                 // jagged metal scrap
-                id: 21683,
+                id: 21680,
                 type: RecipeType.salvage,
                 input: [
-                    {id: 21683, quantity: 1},
+                    {id: 21680, quantity: 1},
                 ],
                 output: [
                     // gold
@@ -188,9 +188,9 @@ export default class SalvageService {
                 ],
                 output: [
                    // silk strap
-                   {id: 19748, quantity: 0},
+                   {id: 19748, quantity: 1.622},
                    // gossamer strap
-                   {id: 19745, quantity: 0},
+                   {id: 19745, quantity: 0.084},
                 ],
                 cost: 3,
             },
