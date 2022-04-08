@@ -233,9 +233,9 @@ export default class SalvageService {
                 ],
                 output: [
                    // silk strap
-                   {id: 19748, quantity: 0},
+                   {id: 19748, quantity: 1.62},
                    // gossamer strap
-                   {id: 19745, quantity: 0},
+                   {id: 19745, quantity: 0.082},
                 ],
                 cost: 3,
             },
