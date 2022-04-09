@@ -318,7 +318,7 @@ export default class RefineService {
     }
 
     getRefineRoi(trade: RefineTrade): number {
-        const sellPrice = trade.output.price.sells.unit_price;
+        const sellPrice = trade.output.price.sells.unit_price * trade.output.quantity;
         const buyPrice = trade.input.reduce((total, item) => total + item.price.buys.unit_price * item.quantity, 0);
         const profit = Math.round( 0.85 * sellPrice - buyPrice );
     

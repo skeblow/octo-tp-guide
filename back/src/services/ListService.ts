@@ -1,5 +1,6 @@
-import { BasicTrade, Item, ItemBltc, ItemPrice, RefineTrade, SalvageTrade } from "../../../shared";
+import { BasicTrade, Item, ItemBltc, ItemPrice, Recipe, RecipeTrade, RefineTrade, SalvageTrade } from "../../../shared";
 import BltcService from "./BltcService";
+import CookingService from "./CookingService";
 import ItemService from "./ItemService";
 import MongoService from "./MongoService";
 import PriceService from "./PriceService";
@@ -14,6 +15,7 @@ export default class ListService {
         private bltcService: BltcService,
         private refineService: RefineService,
         private salvageService: SalvageService,
+        private cookingService: CookingService,
     ) {
     }
 
@@ -144,12 +146,11 @@ export default class ListService {
     async getSalvageList(): Promise<Array<SalvageTrade>> {
         const recipes = await this.salvageService.getAll();
         const itemIds = recipes
-            .map(
+            .flatMap(
                 recipe => recipe.input
                     .map(item => item.id)
                     .concat(recipe.output.map(item => item.id))
-            )
-            .flat();
+            );
         
         const items = await this.itemService.getAllByIds(itemIds);
         const prices = await this.priceService.getPricesByIds(itemIds);
@@ -191,7 +192,67 @@ export default class ListService {
             const trade1Roi = this.salvageService.getSalvageRoi(trade1);
             const trade2Roi = this.salvageService.getSalvageRoi(trade2);
 
-            console.log('trade roi', trade1Roi, trade1.recipe.id);
+            return trade2Roi - trade1Roi;
+        });
+
+        return trades;
+    }
+
+    async getCookingList(): Promise<Array<RecipeTrade>> {
+        const recipes = await this.cookingService.getAll();
+        let itemIds = recipes
+            .flatMap(
+                recipe => recipe.input
+                    .map(item => item.id)
+                    .concat(recipe.output.map(item => item.id))
+            );
+        itemIds = [...new Set(itemIds)];
+
+        const [
+            items,
+            prices,
+            bltcs,
+        ] = await Promise.all([
+            this.itemService.getAllByIds(itemIds),
+            this.priceService.getPricesByIds(itemIds),
+            this.bltcService.getBltcByIds(itemIds),
+        ]);
+
+        let trades: Array<RecipeTrade> = [];
+
+        for (const recipe of recipes) {
+            const inputs: Array<BasicTrade> = recipe.input.map(input => {
+                return {
+                    item: items.find(i => i.id === input.id) as Item,
+                    price: prices.find(p => p.id === input.id) as ItemPrice,
+                    bltc: bltcs.find(b => b.id === input.id) as ItemBltc,
+                    quantity: input.quantity,
+                };
+            });
+            const outputs: Array<BasicTrade> = recipe.output.map(output => {
+                return {
+                    item: items.find(i => i.id === output.id) as Item,
+                    price: prices.find(p => p.id === output.id) as ItemPrice,
+                    bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
+                    quantity: output.quantity,
+                };
+            });
+
+            if (outputs.length === 0) {
+                continue;
+            }
+
+            trades.push({
+                id: recipe.id,
+                recipe: recipe,
+                input: inputs,
+                output: outputs[0],
+            });
+        }
+
+        trades = trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => {
+            const trade1Roi = this.cookingService.getCookingRoi(trade1);
+            const trade2Roi = this.cookingService.getCookingRoi(trade2);
 
             return trade2Roi - trade1Roi;
         });

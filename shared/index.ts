@@ -75,5 +75,5 @@ export interface RecipeTrade {
     id: number,
     recipe: Recipe,
     input: Array<BasicTrade>,
-    output: Array<BasicTrade>,
+    output: BasicTrade,
 }

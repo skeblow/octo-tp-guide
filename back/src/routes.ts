@@ -38,6 +38,7 @@ const listService = new ListService(
     bltcService,
     refineService,
     salvageService,
+    cookingService,
 );
 
 const itemController = new ItemController(itemService);
