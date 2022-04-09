@@ -78,6 +78,7 @@ export default class ListService {
                 item: items.find(item => item.id === price.id) as Item,
                 price: price,
                 bltc: bltcs.find(bltc => bltc.id === price.id) as ItemBltc,
+                quantity: 1,
             });
         }
 
@@ -101,26 +102,21 @@ export default class ListService {
         let trades: Array<RefineTrade> = [];
 
         for (const recipe of recipes) {
-            const inputs = recipe.input.map(input => {
-                const trade: BasicTrade = {
+            const inputs: Array<BasicTrade> = recipe.input.map(input => {
+                return {
                     item: items.find(i => i.id === input.id) as Item,
                     price: prices.find(p => p.id === input.id) as ItemPrice,
                     bltc: bltcs.find(b => b.id === input.id) as ItemBltc,
-                };
-
-                return {
-                    item: trade,
                     quantity: input.quantity,
                 };
             });
-            const outputs: Array<any> = recipe.output.map(output => {
-                const trade: BasicTrade = {
+            const outputs: Array<BasicTrade> = recipe.output.map(output => {
+                return {
                     item: items.find(i => i.id === output.id) as Item,
                     price: prices.find(p => p.id === output.id) as ItemPrice,
                     bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
+                    quantity: output.quantity,
                 };
-
-                return trade;
             });
             
             if (outputs.length === 0) {
@@ -162,24 +158,19 @@ export default class ListService {
         let trades: Array<SalvageTrade> = [];
 
         for (const recipe of recipes) {
-            const inputs = recipe.input.map(input => {
-                const trade: BasicTrade = {
+            const inputs: Array<BasicTrade> = recipe.input.map(input => {
+                return {
                     item: items.find(i => i.id === input.id) as Item,
                     price: prices.find(p => p.id === input.id) as ItemPrice,
                     bltc: bltcs.find(b => b.id === input.id) as ItemBltc,
+                    quantity: input.quantity,
                 };
-
-                return trade;
             });
-            const outputs: Array<any> = recipe.output.map(output => {
-                const trade: BasicTrade = {
+            const outputs: Array<BasicTrade> = recipe.output.map(output => {
+                return {
                     item: items.find(i => i.id === output.id) as Item,
                     price: prices.find(p => p.id === output.id) as ItemPrice,
                     bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
-                };
-
-                return {
-                    item: trade,
                     quantity: output.quantity,
                 };
             });

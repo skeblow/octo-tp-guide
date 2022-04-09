@@ -1,4 +1,4 @@
-import { RecipeType, SalvageRecipe, SalvageTrade } from "../../../shared";
+import { BasicTrade, RecipeType, SalvageRecipe, SalvageTrade } from "../../../shared";
 
 export default class SalvageService {
     async getAll(): Promise<Array<SalvageRecipe>> {
@@ -279,7 +279,7 @@ export default class SalvageService {
     }
 
     getSalvageSell(trade: SalvageTrade): number {
-        return trade.output.reduce((total, item) => total + item.item.price.sells.unit_price * item.quantity, 0);
+        return trade.output.reduce((total: number, item: BasicTrade) => total + item.price.sells.unit_price * item.quantity, 0);
     }
 
     getSalvageProfit(trade: SalvageTrade): number {

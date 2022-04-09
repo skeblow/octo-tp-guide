@@ -140,10 +140,10 @@
                                                         {{ input.quantity }}x
                                                     </td>
                                                     <td>
-                                                            <img v-bind:src="input.item.item.icon" alt="">
+                                                            <img v-bind:src="input.item.icon" alt="">
                                                     </td>
-                                                    <td>{{ input.item.item.name }}</td>
-                                                    <td>{{ formatGold(input.item.price.buys.unit_price) }}</td>
+                                                    <td>{{ input.item.name }}</td>
+                                                    <td>{{ formatGold(input.price.buys.unit_price) }}</td>
                                                     <td><strong>
                                                         {{ formatGold(getRefineBuy(trade)) }}
                                                     </strong></td>
@@ -198,13 +198,13 @@
                                                         {{ output.quantity }}x
                                                     </td>
                                                     <td>
-                                                        <img v-bind:src="output.item.item.icon" alt="">
+                                                        <img v-bind:src="output.item.icon" alt="">
                                                     </td>
-                                                    <td>{{ output.item.item.name }}</td>
-                                                    <td>{{ formatGold(output.item.price.sells.unit_price) }}</td>
+                                                    <td>{{ output.item.name }}</td>
+                                                    <td>{{ formatGold(output.price.sells.unit_price) }}</td>
                                                     <td>
                                                         <strong>
-                                                            {{ formatGold(Math.round(output.item.price.sells.unit_price * output.quantity)) }}
+                                                            {{ formatGold(Math.round(output.price.sells.unit_price * output.quantity)) }}
                                                         </strong>
                                                     </td>
                                                 </tr>
@@ -314,7 +314,7 @@ export default class Lists extends Vue {
     }
 
     getRefineBuy(trade: RefineTrade): number {
-        return trade.input.reduce((total, item) => total + item.item.price.buys.unit_price * item.quantity, 0);
+        return trade.input.reduce((total, item) => total + item.price.buys.unit_price * item.quantity, 0);
     }
 
     getRefineProfit(trade: RefineTrade): number {
@@ -332,7 +332,7 @@ export default class Lists extends Vue {
     }
 
     getSalvageSell(trade: SalvageTrade): number {
-        return trade.output.reduce((total, item) => total + item.item.price.sells.unit_price * item.quantity, 0);
+        return trade.output.reduce((total, item) => total + item.price.sells.unit_price * item.quantity, 0);
     }
 
     getSalvageProfit(trade: SalvageTrade): number {

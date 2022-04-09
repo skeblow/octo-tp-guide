@@ -54,15 +54,13 @@ export interface BasicTrade {
     item: Item,
     price: ItemPrice,
     bltc: ItemBltc,
+    quantity: number,
 }
 
 export interface RefineTrade {
     id: number,
     recipe: Recipe,
-    input: Array<{
-        item: BasicTrade,
-        quantity: number,
-    }>,
+    input: Array<BasicTrade>,
     output: BasicTrade;
 }
 
@@ -70,8 +68,12 @@ export interface SalvageTrade {
     id: number,
     recipe: SalvageRecipe,
     input: BasicTrade,
-    output: Array<{
-        item: BasicTrade,
-        quantity: number,
-    }>,
+    output: Array<BasicTrade>,
+}
+
+export interface RecipeTrade {
+    id: number,
+    recipe: Recipe,
+    input: Array<BasicTrade>,
+    output: Array<BasicTrade>,
 }

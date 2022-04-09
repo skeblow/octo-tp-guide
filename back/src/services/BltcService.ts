@@ -15,7 +15,6 @@ export default class BltcService {
         const date = new Date();
         const from = new Date();
         const to = new Date();
-        from.setDate(from.getDate() - 1);
         from.setHours(0);
         from.setMinutes(0);
         to.setHours(23);
