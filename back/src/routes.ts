@@ -5,6 +5,7 @@ import ListController from "./controllers/ListController";
 import PriceController from "./controllers/PriceController";
 import RefreshController from "./controllers/RefreshController";
 import BltcService from "./services/BltcService";
+import CookingService from "./services/CookingService";
 import GwApiService from "./services/GwApiService";
 import ItemService from "./services/ItemService";
 import ListService from "./services/ListService";
@@ -29,6 +30,7 @@ const priceService = new PriceService(mongoService, gwApiService);
 const bltcService = new BltcService(mongoService);
 const refineService = new RefineService();
 const salvageService = new SalvageService();
+const cookingService = new CookingService();
 const listService = new ListService(
     mongoService,
     itemService,
@@ -41,7 +43,7 @@ const listService = new ListService(
 const itemController = new ItemController(itemService);
 const priceController = new PriceController(priceService);
 const listController = new ListController(listService);
-const refreshController = new RefreshController(itemService, priceService, bltcService);
+const refreshController = new RefreshController(itemService, priceService, bltcService, cookingService);
 
 export const ROUTES: Route[] = [
     {

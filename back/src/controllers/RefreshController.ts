@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import BltcService from "../services/BltcService";
+import CookingService from "../services/CookingService";
 import ItemService from "../services/ItemService";
 import PriceService from "../services/PriceService";
 
@@ -8,6 +9,7 @@ export default class RefreshController {
         private itemService: ItemService,
         private priceService: PriceService,
         private bltcService: BltcService,
+        private cookingService: CookingService,
     ) {
     }
 
@@ -58,8 +60,11 @@ export default class RefreshController {
             '9473,8868,21262,36077,12535,67368,67367,77632,24314,96088',
             '9440,67371,36084,8868,67367,8878,36077,19680,97105,12535',
             '9287,19711,12484,67371,24339,67367,36077,12386,12437',
+            '67368,96793,36080,24334,8868,12144,19680,97690,12510,36074,91751,12506,12329,12534,19789,8576,12536,24284,77112,19704,12330,21260,24346,12156,82678',
+
         ];
         let ids: Array<number> = rawIds.join(',').split(',').map(id => +id);
+        ids = ids.concat(await this.getCookingIds());
         ids = [...new Set(ids)];
         const chunkSize = 100;
 
@@ -74,5 +79,17 @@ export default class RefreshController {
         }
 
         res.send('done');
+    }
+
+    private async getCookingIds(): Promise<Array<number>> {
+        const recipes = await this.cookingService.getAll();
+        let ids: Array<number> = [];
+
+        for (const recipe of recipes) {
+            ids = ids.concat(recipe.input.map(item => item.id))
+                .concat(recipe.output.map(item => item.id));
+        }
+
+        return ids;
     }
 }
