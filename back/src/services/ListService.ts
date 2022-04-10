@@ -1,4 +1,4 @@
-import { BasicTrade, Item, ItemBltc, ItemPrice, Recipe, RecipeTrade, RefineTrade, SalvageTrade } from "../../../shared";
+import { BasicTrade, Item, ItemBltc, ItemPrice, Recipe, RecipeTrade, RefineTrade, SalvageTrade, TradeItem } from "../../../shared";
 import BltcService from "./BltcService";
 import CookingService from "./CookingService";
 import ItemService from "./ItemService";
@@ -43,7 +43,7 @@ export default class ListService {
         return list;
     }
 
-    async getBasicList(minRoi: number, minSell: number, minSells: number, minBuys: number): Promise<Array<BasicTrade>> {
+    private async getBasicList(minRoi: number, minSell: number, minSells: number, minBuys: number): Promise<Array<BasicTrade>> {
         const collection = await this.mongoService.getBltcCollection();
 
         const result = await collection.aggregate([
@@ -56,32 +56,41 @@ export default class ListService {
                 },
             },
             {
-                $match: {bought: {$gt: minBuys}, sold: {$gt: minSells}},
+                $match: {
+                    bought: {$gt: minBuys},
+                    sold: {$gt: minSells},
+                },
             },
         ]).toArray();
 
         const ids = result.map(obj => obj.id);
 
-        let prices = await this.priceService.getPricesByIds(ids);
-        prices = prices.filter((price: ItemPrice) => {
-            const profit = this.priceService.getProfit(price);
-            const roi = this.priceService.getRoi(price);
-
-            return price.sells.unit_price > minSell && profit > 10 && roi > minRoi;
-        });
-
+        const prices = await this.priceService.getPricesByIds(ids);
         const items = await this.itemService.getAllByIds(prices.map(price => price.id));
         const bltcs = await this.bltcService.getBltcByIds(prices.map(price => price.id));
 
         const trades: Array<BasicTrade> = [];
 
         for (const price of prices) {
-            trades.push({
+            const profit = this.priceService.getProfit(price);
+            const roi = this.priceService.getRoi(price);
+
+            const basicTrade: BasicTrade = {
                 item: items.find(item => item.id === price.id) as Item,
                 price: price,
                 bltc: bltcs.find(bltc => bltc.id === price.id) as ItemBltc,
                 quantity: 1,
-            });
+                totalBuy: price.buys.unit_price,
+                totalSell: price.sells.unit_price,
+                profit: profit,
+                roi: roi,
+            }
+            
+            if (basicTrade.totalBuy < minSell || basicTrade.profit < 10 || basicTrade.roi < minRoi) {
+                continue;
+            }
+
+            trades.push(basicTrade);
         }
 
         return trades;
@@ -104,7 +113,7 @@ export default class ListService {
         let trades: Array<RefineTrade> = [];
 
         for (const recipe of recipes) {
-            const inputs: Array<BasicTrade> = recipe.input.map(input => {
+            const inputs: Array<TradeItem> = recipe.input.map(input => {
                 return {
                     item: items.find(i => i.id === input.id) as Item,
                     price: prices.find(p => p.id === input.id) as ItemPrice,
@@ -112,7 +121,7 @@ export default class ListService {
                     quantity: input.quantity,
                 };
             });
-            const outputs: Array<BasicTrade> = recipe.output.map(output => {
+            const outputs: Array<TradeItem> = recipe.output.map(output => {
                 return {
                     item: items.find(i => i.id === output.id) as Item,
                     price: prices.find(p => p.id === output.id) as ItemPrice,
@@ -159,7 +168,7 @@ export default class ListService {
         let trades: Array<SalvageTrade> = [];
 
         for (const recipe of recipes) {
-            const inputs: Array<BasicTrade> = recipe.input.map(input => {
+            const inputs: Array<TradeItem> = recipe.input.map(input => {
                 return {
                     item: items.find(i => i.id === input.id) as Item,
                     price: prices.find(p => p.id === input.id) as ItemPrice,
@@ -167,7 +176,7 @@ export default class ListService {
                     quantity: input.quantity,
                 };
             });
-            const outputs: Array<BasicTrade> = recipe.output.map(output => {
+            const outputs: Array<TradeItem> = recipe.output.map(output => {
                 return {
                     item: items.find(i => i.id === output.id) as Item,
                     price: prices.find(p => p.id === output.id) as ItemPrice,
@@ -221,7 +230,7 @@ export default class ListService {
         let trades: Array<RecipeTrade> = [];
 
         for (const recipe of recipes) {
-            const inputs: Array<BasicTrade> = recipe.input.map(input => {
+            const inputs: Array<TradeItem> = recipe.input.map(input => {
                 return {
                     item: items.find(i => i.id === input.id) as Item,
                     price: prices.find(p => p.id === input.id) as ItemPrice,
@@ -229,7 +238,7 @@ export default class ListService {
                     quantity: input.quantity,
                 };
             });
-            const outputs: Array<BasicTrade> = recipe.output.map(output => {
+            const outputs: Array<TradeItem> = recipe.output.map(output => {
                 return {
                     item: items.find(i => i.id === output.id) as Item,
                     price: prices.find(p => p.id === output.id) as ItemPrice,
