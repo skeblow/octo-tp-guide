@@ -71,7 +71,7 @@
             >
                 <div class="card">
                     <div class="card-body">
-                        <RefineList :items="refineTrades"></RefineList>
+                        <RecipeList :items="refineTrades"></RecipeList>
                     </div>
                 </div>
             </div>
@@ -81,63 +81,7 @@
             >
                  <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 mb-4" v-for="trade in salvageTrades" :key="trade.recipe.id">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                 <img v-bind:src="trade.input.item.icon" alt="">
-                                                {{ trade.input.item.name }}
-                                            </div>
-                                            <div class="col-4 text-end">
-                                                <strong>Buy</strong>
-                                                {{ formatGold(trade.input.price.buys.unit_price) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <table class="table table-stripped">
-                                            <tbody>
-                                                 <tr v-for="output in trade.output" :key="output.item.id">
-                                                    <td>
-                                                        {{ output.quantity }}x
-                                                    </td>
-                                                    <td>
-                                                        <img v-bind:src="output.item.icon" alt="">
-                                                    </td>
-                                                    <td>{{ output.item.name }}</td>
-                                                    <td>{{ formatGold(output.price.sells.unit_price) }}</td>
-                                                    <td>
-                                                        <strong>
-                                                            {{ formatGold(Math.round(output.price.sells.unit_price * output.quantity)) }}
-                                                        </strong>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4" class="text-end">Total sell:</td>
-                                                    <td><strong>
-                                                        {{ formatGold(Math.round(getSalvageSell(trade))) }}
-                                                    </strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4" class="text-end">Profit:</td>
-                                                    <td><strong>
-                                                        {{ formatGold(getSalvageProfit(trade)) }}
-                                                    </strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4" class="text-end">Roi:</td>
-                                                    <td><strong>
-                                                        {{ getSalvageRoi(trade) }}%
-                                                    </strong></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <SalvageList :items="salvageTrades"></SalvageList>
                     </div>
                  </div>
             </div>
@@ -213,15 +157,17 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { BasicTrade, RecipeTrade, RefineTrade, SalvageTrade } from '../../../shared';
+import { BasicTrade, RecipeTrade, SalvageTrade } from '../../../shared';
 import BasicList from '../components/BasicList.vue';
-import RefineList from '../components/RefineList.vue';
+import RecipeList from '../components/RecipeList.vue';
+import SalvageList from '../components/SalvageList.vue';
 import ListService from '../services/ListService';
 
 @Options({
     components: {
         BasicList,
-        RefineList,
+        RecipeList,
+        SalvageList,
     },
 })
 export default class Lists extends Vue {
@@ -232,7 +178,7 @@ export default class Lists extends Vue {
     isCookingTabActive = false;
     cheapTrades: Array<BasicTrade> = [];
     expensiveTrades: Array<BasicTrade> = [];
-    refineTrades: Array<RefineTrade> = [];
+    refineTrades: Array<RecipeTrade> = [];
     salvageTrades: Array<SalvageTrade> = [];
     cookingTrades: Array<RecipeTrade> = [];
 
@@ -285,7 +231,7 @@ export default class Lists extends Vue {
         this.expensiveTrades = await ListService.getExpensiveBasicList();
         this.refineTrades = await ListService.getRefineList();
         this.salvageTrades = await ListService.getSalvageList();
-        this.cookingTrades = await ListService.getCookingList();
+        // this.cookingTrades = await ListService.getCookingList();
     }
 
     getProfit(trade: BasicTrade): number {
@@ -294,24 +240,6 @@ export default class Lists extends Vue {
 
     getRoi(trade: BasicTrade): number {
         return Math.round( this.getProfit(trade) / trade.price.buys.unit_price * 100 );
-    }
-
-    getRefineBuy(trade: RefineTrade): number {
-        return trade.input.reduce((total, item) => total + item.price.buys.unit_price * item.quantity, 0);
-    }
-
-    getRefineProfit(trade: RefineTrade): number {
-        const sellPrice = trade.output.price.sells.unit_price;
-        const buyPrice = this.getRefineBuy(trade);
-
-        return Math.round( 0.85 * sellPrice - buyPrice );
-    }
-
-    getRefineRoi(trade: RefineTrade): number {
-        const buyPrice = this.getRefineBuy(trade);
-        const profit = this.getRefineProfit(trade);
-    
-        return Math.round( profit / buyPrice * 100 );
     }
 
     getSalvageSell(trade: SalvageTrade): number {

@@ -57,34 +57,26 @@ export interface TradeItem {
     quantity: number,
 }
 
-export interface BasicTrade extends TradeItem {
+export interface TradeData {
     totalBuy: number,
     totalSell: number,
     profit: number,
     roi: number,
 }
 
-export interface RefineTrade {
+export interface BasicTrade extends TradeItem, TradeData {
+}
+
+export interface RecipeTrade extends TradeData {
     id: number,
     recipe: Recipe,
     input: Array<TradeItem>,
     output: TradeItem;
-    totalBuy: number,
-    totalSell: number,
-    profit: number,
-    roi: number,
 }
 
-export interface SalvageTrade {
+export interface SalvageTrade extends TradeData {
     id: number,
     recipe: SalvageRecipe,
     input: TradeItem,
     output: Array<TradeItem>,
-}
-
-export interface RecipeTrade {
-    id: number,
-    recipe: Recipe,
-    input: Array<TradeItem>,
-    output: TradeItem,
 }

@@ -1,24 +1,6 @@
 import { BasicTrade, RecipeType, SalvageRecipe, SalvageTrade, TradeItem } from "../../../shared";
 
 export default class SalvageService {
-    getSalvageSell(trade: SalvageTrade): number {
-        return trade.output.reduce((total: number, item: TradeItem) => total + item.price.sells.unit_price * item.quantity, 0);
-    }
-
-    getSalvageProfit(trade: SalvageTrade): number {
-        const sellPrice = this.getSalvageSell(trade);
-        const buyPrice = trade.input.price.buys.unit_price + trade.recipe.cost;
-        
-        return Math.round( 0.85 * sellPrice - buyPrice );
-    }
-
-    getSalvageRoi(trade: SalvageTrade): number {
-        const buyPrice = trade.input.price.buys.unit_price + trade.recipe.cost;
-        const profit = this.getSalvageProfit(trade);
-
-        return Math.round( profit / buyPrice * 100 );
-    }
-
     async getAll(): Promise<Array<SalvageRecipe>> {
         return [
             {
