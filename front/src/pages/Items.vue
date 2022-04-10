@@ -2,6 +2,15 @@
     <div>
         <h1 class="h2">Items</h1>
 
+        <div class="row">
+            <div class="col-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." v-model="search">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">X</button>
+                </div>
+            </div>
+        </div>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -15,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in items" :key="item.name">
+                <tr v-for="item in getItems()" :key="item.name">
                     <td><img v-bind:src="item.icon" alt=""></td>
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
@@ -36,6 +45,7 @@ import ItemService from '../services/ItemService';
 
 @Options({})
 export default class Items extends Vue {
+    search: string = '';
     items: Array<Item> = []; 
     prices: Array<ItemPrice> = [];
 
@@ -43,6 +53,12 @@ export default class Items extends Vue {
         this.items = await ItemService.getAll();
         this.prices = await ItemService.getPrices(
             this.items.map((item: Item) => item.id)
+        );
+    }
+
+    getItems(): Array<Item> {
+        return this.items.filter(
+            item => item.name.toLowerCase().includes(this.search)
         );
     }
 

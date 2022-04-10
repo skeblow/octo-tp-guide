@@ -65,9 +65,15 @@ export default class ListService {
 
         const ids = result.map(obj => obj.id);
 
-        const prices = await this.priceService.getPricesByIds(ids);
-        const items = await this.itemService.getAllByIds(ids);
-        const bltcs = await this.bltcService.getBltcByIds(ids);
+        const [
+            prices,
+            items,
+            bltcs,
+        ] = await Promise.all([
+            this.priceService.getPricesByIds(ids),
+            this.itemService.getAllByIds(ids),
+            this.bltcService.getBltcByIds(ids)
+        ]);
 
         const trades: Array<BasicTrade> = [];
 
@@ -249,6 +255,17 @@ export default class ListService {
         let trades: Array<RecipeTrade> = [];
 
         for (const recipe of recipes) {
+            for (const input of recipe.input) {
+                if (
+                    prices.find(p => p.id === input.id) === undefined
+                    || bltcs.find(b => b.id === input.id) === undefined
+                ) {
+                    console.log('undefined price of', input.id);
+
+                    return trades;
+                }
+            }
+
             const inputs: Array<TradeItem> = recipe.input.map(input => {
                 return {
                     item: items.find(i => i.id === input.id) as Item,
