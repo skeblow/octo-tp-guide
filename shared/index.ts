@@ -69,6 +69,10 @@ export interface RefineTrade {
     recipe: Recipe,
     input: Array<TradeItem>,
     output: TradeItem;
+    totalBuy: number,
+    totalSell: number,
+    profit: number,
+    roi: number,
 }
 
 export interface SalvageTrade {

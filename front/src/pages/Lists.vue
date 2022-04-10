@@ -71,55 +71,7 @@
             >
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 mb-4" v-for="trade in refineTrades" :key="trade.recipe.id">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <img v-bind:src="trade.output.item.icon" alt="">
-                                                {{ trade.output.item.name }}
-                                            </div>
-                                            <div class="col-4">
-                                                <strong>Sell:</strong>
-                                                {{ formatGold(trade.output.price.sells.unit_price) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <table class="table table-stripped">
-                                            <tbody>
-                                                <tr v-for="input in trade.input" :key="input.item.id">
-                                                    <td>
-                                                        {{ input.quantity }}x
-                                                    </td>
-                                                    <td>
-                                                            <img v-bind:src="input.item.icon" alt="">
-                                                    </td>
-                                                    <td>{{ input.item.name }}</td>
-                                                    <td>{{ formatGold(input.price.buys.unit_price) }}</td>
-                                                    <td><strong>
-                                                        {{ formatGold(getRefineBuy(trade)) }}
-                                                    </strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4" class="text-end">Profit</td>
-                                                    <td><strong>
-                                                        {{ formatGold(getRefineProfit(trade)) }}
-                                                    </strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4" class="text-end">Roi</td>
-                                                    <td><strong>
-                                                        {{ getRefineRoi(trade) }} %
-                                                    </strong></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <RefineList :items="refineTrades"></RefineList>
                     </div>
                 </div>
             </div>
@@ -263,12 +215,14 @@
 import { Options, Vue } from 'vue-class-component';
 import { BasicTrade, RecipeTrade, RefineTrade, SalvageTrade } from '../../../shared';
 import BasicList from '../components/BasicList.vue';
+import RefineList from '../components/RefineList.vue';
 import ListService from '../services/ListService';
 
 @Options({
     components: {
         BasicList,
-    }
+        RefineList,
+    },
 })
 export default class Lists extends Vue {
     isCheapTabActive = true;

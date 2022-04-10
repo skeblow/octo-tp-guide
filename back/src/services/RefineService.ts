@@ -1,6 +1,14 @@
 import { Recipe, RecipeType, RefineTrade } from "../../../shared";
 
 export default class RefineService {
+    getRefineRoi(trade: RefineTrade): number {
+        const sellPrice = trade.output.price.sells.unit_price * trade.output.quantity;
+        const buyPrice = trade.input.reduce((total, item) => total + item.price.buys.unit_price * item.quantity, 0);
+        const profit = Math.round( 0.85 * sellPrice - buyPrice );
+    
+        return Math.round( profit / buyPrice * 100 );
+    }
+
     async getAll(): Promise<Array<Recipe>> {
         return [
             {
@@ -315,13 +323,5 @@ export default class RefineService {
                 ],
             },
         ];
-    }
-
-    getRefineRoi(trade: RefineTrade): number {
-        const sellPrice = trade.output.price.sells.unit_price * trade.output.quantity;
-        const buyPrice = trade.input.reduce((total, item) => total + item.price.buys.unit_price * item.quantity, 0);
-        const profit = Math.round( 0.85 * sellPrice - buyPrice );
-    
-        return Math.round( profit / buyPrice * 100 );
     }
 }

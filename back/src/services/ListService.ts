@@ -110,7 +110,7 @@ export default class ListService {
         const prices = await this.priceService.getPricesByIds(itemIds);
         const bltcs = await this.bltcService.getBltcByIds(itemIds);
 
-        let trades: Array<RefineTrade> = [];
+        const trades: Array<RefineTrade> = [];
 
         for (const recipe of recipes) {
             const inputs: Array<TradeItem> = recipe.input.map(input => {
@@ -129,6 +129,10 @@ export default class ListService {
                     quantity: output.quantity,
                 };
             });
+            const totalBuy = inputs.reduce((total, item: TradeItem) => total + item.price.buys.unit_price * item.quantity, 0)
+            const totalSell = outputs.reduce((total, item: TradeItem) => total +item.price.sells.unit_price * item.quantity, 0)
+            const profit = Math.round( 0.85 * totalSell - totalBuy );
+            const roi = Math.round( profit / totalBuy * 100 );
             
             if (outputs.length === 0) {
                 continue;
@@ -139,15 +143,14 @@ export default class ListService {
                 recipe: recipe,
                 input: inputs,
                 output: outputs[0],
+                totalBuy: totalBuy,
+                totalSell: totalSell,
+                profit: profit,
+                roi: roi,
             });
         }
 
-        trades = trades.sort((trade1: RefineTrade, trade2: RefineTrade) => {
-            const trade1Roi = this.refineService.getRefineRoi(trade1);
-            const trade2Roi = this.refineService.getRefineRoi(trade2);
-
-            return trade2Roi - trade1Roi;
-        });
+        trades.sort((trade1, trade2) => trade2.roi - trade1.roi);
 
         return trades;
     }
