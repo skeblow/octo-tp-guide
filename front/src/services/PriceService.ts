@@ -27,8 +27,8 @@ class PriceService {
             result.push(silver + 's');
         }
 
-         if (copper > 0) {
-            result.push(copper + 'c');
+         if (copper > 0 || silver > 0) {
+            result.push(Math.floor(copper) + 'c');
         }
 
         return result.join(' ');

@@ -61,34 +61,7 @@
             >
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Buy price</th>
-                                    <th>Sell price</th>
-                                    <th>Profit</th>
-                                    <th>Roi</th>
-                                    <th>Sold</th>
-                                    <th>Bought</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="trade in expensiveTrades" :key="trade.item.id">
-                                    <td><img v-bind:src="trade.item.icon" alt=""></td>
-                                    <td>{{ trade.item.id }}</td>
-                                    <td>{{ trade.item.name }}</td>
-                                    <td>{{ formatGold(trade.price.buys.unit_price) }}</td>
-                                    <td>{{ formatGold(trade.price.sells.unit_price) }}</td>
-                                    <td>{{ formatGold(getProfit(trade)) }}</td>
-                                    <td>{{ getRoi(trade) }}%</td>
-                                    <td>{{ trade.bltc.sold }}</td>
-                                    <td>{{ trade.bltc.bought }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <BasicList :items="expensiveTrades"></BasicList>
                     </div>
                 </div>
             </div>

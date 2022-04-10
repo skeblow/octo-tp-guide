@@ -18,10 +18,10 @@
                 <td><img v-bind:src="trade.item.icon" alt=""></td>
                 <td>{{ trade.item.id }}</td>
                 <td>{{ trade.item.name }}</td>
-                <td>{{ formatGold(trade.price.buys.unit_price) }}</td>
-                <td>{{ formatGold(trade.price.sells.unit_price) }}</td>
-                <td>{{ formatGold(getProfit(trade)) }}</td>
-                <td>{{ getRoi(trade) }}%</td>
+                <td class="text-end">{{ formatGold(trade.totalBuy) }}</td>
+                <td class="text-end">{{ formatGold(trade.totalSell) }}</td>
+                <td class="text-end">{{ formatGold(trade.profit) }}</td>
+                <td>{{ trade.roi }}%</td>
                 <td>{{ trade.bltc.sold }}</td>
                 <td>{{ trade.bltc.bought }}</td>
             </tr>
