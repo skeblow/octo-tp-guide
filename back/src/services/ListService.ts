@@ -112,17 +112,23 @@ export default class ListService {
 
     async getRefineList(): Promise<Array<RecipeTrade>> {
         const recipes = await this.refineService.getAll();
-        const itemIds = recipes
-            .map(
+        let itemIds = recipes
+            .flatMap(
                 recipe => recipe.input
                     .map(item => item.id)
                     .concat(recipe.output.map(item => item.id))
-            )
-            .flat();
+            );
+        itemIds = [...new Set(itemIds)];
 
-        const items = await this.itemService.getAllByIds(itemIds);
-        const prices = await this.priceService.getPricesByIds(itemIds);
-        const bltcs = await this.bltcService.getBltcByIds(itemIds);
+        const [
+            items,
+            prices,
+            bltcs,
+        ] = await Promise.all([
+            this.itemService.getAllByIds(itemIds),
+            this.priceService.getPricesByIds(itemIds),
+            this.bltcService.getBltcByIds(itemIds),
+        ]);
 
         const trades: Array<RecipeTrade> = [];
 
@@ -164,16 +170,23 @@ export default class ListService {
 
     async getSalvageList(): Promise<Array<SalvageTrade>> {
         const recipes = await this.salvageService.getAll();
-        const itemIds = recipes
+        let itemIds = recipes
             .flatMap(
                 recipe => recipe.input
                     .map(item => item.id)
                     .concat(recipe.output.map(item => item.id))
             );
-        
-        const items = await this.itemService.getAllByIds(itemIds);
-        const prices = await this.priceService.getPricesByIds(itemIds);
-        const bltcs = await this.bltcService.getBltcByIds(itemIds);
+        itemIds = [...new Set(itemIds)];
+
+        const [
+            items,
+            prices,
+            bltcs,
+        ] = await Promise.all([
+            this.itemService.getAllByIds(itemIds),
+            this.priceService.getPricesByIds(itemIds),
+            this.bltcService.getBltcByIds(itemIds),
+        ]);
 
         const trades: Array<SalvageTrade> = [];
 
@@ -266,12 +279,12 @@ export default class ListService {
             });
         }
 
-        trades = trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => {
-            const trade1Roi = this.cookingService.getCookingRoi(trade1);
-            const trade2Roi = this.cookingService.getCookingRoi(trade2);
+        // trades = trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => {
+        //     const trade1Roi = this.cookingService.getCookingRoi(trade1);
+        //     const trade2Roi = this.cookingService.getCookingRoi(trade2);
 
-            return trade2Roi - trade1Roi;
-        });
+        //     return trade2Roi - trade1Roi;
+        // });
 
         return trades;
     }
