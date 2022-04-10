@@ -66,8 +66,8 @@ export default class ListService {
         const ids = result.map(obj => obj.id);
 
         const prices = await this.priceService.getPricesByIds(ids);
-        const items = await this.itemService.getAllByIds(prices.map(price => price.id));
-        const bltcs = await this.bltcService.getBltcByIds(prices.map(price => price.id));
+        const items = await this.itemService.getAllByIds(ids);
+        const bltcs = await this.bltcService.getBltcByIds(ids);
 
         const trades: Array<BasicTrade> = [];
 
