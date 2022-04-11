@@ -115,6 +115,8 @@ export default class PriceService {
             12337,
 	        // Pear
             12514,
+            // Rice-Ball
+            12145,
         ];
     }
 }
