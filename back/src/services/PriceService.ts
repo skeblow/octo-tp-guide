@@ -25,6 +25,7 @@ export default class PriceService {
         from.setMinutes(date.getMinutes() - 5);
         to.setMinutes(date.getMinutes() + 5);
 
+        ids = ids.slice(0, 100);
         const zeroPriceIds = this.getZeroPriceIds();
         const requestedZeroPriceIds = ids.filter(id => zeroPriceIds.includes(id));
         ids = ids.filter(id => ! zeroPriceIds.includes(id));
@@ -98,6 +99,22 @@ export default class PriceService {
             12328,
             // Peach
             12503,
+            // Eggplant
+            12502,
+            // Shallot
+            12517,
+            // Bell Pepper
+            12235,
+            // Tomato
+            12141,
+            // Basil Leaf
+            12245,
+            // Cheese Wedge
+            12159,
+            // Almond
+            12337,
+	        // Pear
+            12514,
         ];
     }
 }

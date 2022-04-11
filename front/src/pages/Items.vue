@@ -6,7 +6,11 @@
             <div class="col-6">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search..." v-model="search">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">X</button>
+                    <button 
+                        class="btn btn-outline-secondary" 
+                        type="button"
+                        v-on:click="clearSeach"
+                    >X</button>
                 </div>
             </div>
         </div>
@@ -25,7 +29,17 @@
             </thead>
             <tbody>
                 <tr v-for="item in getItems()" :key="item.name">
-                    <td><img v-bind:src="item.icon" alt=""></td>
+                    <td>
+                        <img v-bind:src="item.icon">
+                        <a 
+                            v-bind:href="'http://wiki-en.guildwars2.com/index.php?search='+item.name"
+                            target="_blank"
+                        >w</a>
+                        <a 
+                            v-bind:href="'https://www.gw2bltc.com/en/item/'+item.id"
+                            target="_blank"
+                        >b</a>
+                    </td>
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ getBuyPrice(item.id) }}</td>
@@ -56,9 +70,14 @@ export default class Items extends Vue {
         );
     }
 
+    clearSearch(): void {
+        console.log('clear saech');
+        this.search = '';
+    }
+
     getItems(): Array<Item> {
         return this.items.filter(
-            item => item.name.toLowerCase().includes(this.search)
+            item => item.name.toLowerCase().includes(this.search) || item.id === +this.search
         );
     }
 
@@ -94,5 +113,9 @@ export default class Items extends Vue {
     img {
         width: 30px;
         height: 30px;
+    }
+
+    a {
+        margin: 5px;
     }
 </style>

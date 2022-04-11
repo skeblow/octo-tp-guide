@@ -33,7 +33,7 @@ export default class ListService {
 
     async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
         let list = await this.getBasicList(
-            25,
+            30,
             20_000,
             20,
             20,
@@ -296,12 +296,7 @@ export default class ListService {
             });
         }
 
-        // trades = trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => {
-        //     const trade1Roi = this.cookingService.getCookingRoi(trade1);
-        //     const trade2Roi = this.cookingService.getCookingRoi(trade2);
-
-        //     return trade2Roi - trade1Roi;
-        // });
+        trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => trade2.roi - trade1.roi);
 
         return trades;
     }

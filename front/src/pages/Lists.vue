@@ -143,12 +143,12 @@ export default class Lists extends Vue {
         this.isCookingTabActive = tab === 'cooking';
     }
 
-    mounted() {
+    mounted(): void {
         ListService.getCheapBasicList().then(trades => this.cheapTrades = trades);
         ListService.getExpensiveBasicList().then(trades => this.expensiveTrades = trades);
         ListService.getRefineList().then(trades => this.refineTrades = trades);
         ListService.getSalvageList().then(trades => this.salvageTrades = trades);
-        // this.cookingTrades = await ListService.getCookingList();
+        ListService.getCookingList().then(trades => this.cookingTrades = trades);
     }
 }
 </script>

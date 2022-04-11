@@ -5,7 +5,9 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-8">
-                            <img v-bind:src="trade.output.item.icon" alt="">
+                            <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.output.item.id" target="_blank">
+                                <img v-bind:src="trade.output.item.icon" alt="">
+                            </a>
                             {{ trade.output.item.name }}
                         </div>
                         <div class="col-4 d-flex justify-content-between">
@@ -22,7 +24,9 @@
                                     {{ input.quantity }}x
                                 </td>
                                 <td>
-                                    <img v-bind:src="input.item.icon" alt="">
+                                    <a v-bind:href="'https://www.gw2bltc.com/en/item/'+input.item.id" target="_blank">
+                                        <img v-bind:src="input.item.icon" alt="">
+                                    </a>
                                 </td>
                                 <td>{{ input.item.name }}</td>
                                 <td class="text-end">{{ formatGold(input.price.buys.unit_price) }}</td>
