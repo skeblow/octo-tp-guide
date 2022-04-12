@@ -15,6 +15,10 @@ export default class RefreshController {
     }
 
     async refresh(req: Request, res: Response): Promise<void> {
+        const requestIds: Array<number> = ((req.query.ids || '') + '').split(',')
+            .filter(id => !! id)
+            .map(id => +id);
+
         const filename = './data/ids';
         let fileIds: string = fs.readFileSync(filename, 'utf-8').toString();
 
@@ -23,7 +27,8 @@ export default class RefreshController {
             .flatMap(ids => ids.split(','))
             .map(id => +id)
             .filter(id => id > 0);
-        ids = ids.concat(await this.getCookingIds());
+        ids = ids.concat(await this.getCookingIds())
+            .concat(requestIds);
         ids = [...new Set(ids)];
 
         let chunkSize = 20;
