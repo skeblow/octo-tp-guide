@@ -15,7 +15,11 @@
         </thead>
         <tbody>
             <tr v-for="trade in items" :key="trade.item.id">
-                <td><img v-bind:src="trade.item.icon" alt=""></td>
+                <td>
+                    <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.item.id" target="_blank">
+                        <img v-bind:src="trade.item.icon" alt="">
+                    </a>
+                </td>
                 <td>{{ trade.item.id }}</td>
                 <td>{{ trade.item.name }}</td>
                 <td class="text-end">{{ formatGold(trade.totalBuy) }}</td>

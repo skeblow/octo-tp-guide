@@ -33,7 +33,7 @@ export default class ListService {
 
     async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
         let list = await this.getBasicList(
-            25,
+            30,
             20_000,
             20,
             20,
@@ -65,9 +65,15 @@ export default class ListService {
 
         const ids = result.map(obj => obj.id);
 
-        const prices = await this.priceService.getPricesByIds(ids);
-        const items = await this.itemService.getAllByIds(ids);
-        const bltcs = await this.bltcService.getBltcByIds(ids);
+        const [
+            prices,
+            items,
+            bltcs,
+        ] = await Promise.all([
+            this.priceService.getPricesByIds(ids),
+            this.itemService.getAllByIds(ids),
+            this.bltcService.getBltcByIds(ids)
+        ]);
 
         const trades: Array<BasicTrade> = [];
 
@@ -249,6 +255,17 @@ export default class ListService {
         let trades: Array<RecipeTrade> = [];
 
         for (const recipe of recipes) {
+            for (const input of recipe.input) {
+                if (
+                    prices.find(p => p.id === input.id) === undefined
+                    || bltcs.find(b => b.id === input.id) === undefined
+                ) {
+                    console.log('undefined price of', input.id);
+
+                    return trades;
+                }
+            }
+
             const inputs: Array<TradeItem> = recipe.input.map(input => {
                 return {
                     item: items.find(i => i.id === input.id) as Item,
@@ -279,12 +296,7 @@ export default class ListService {
             });
         }
 
-        // trades = trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => {
-        //     const trade1Roi = this.cookingService.getCookingRoi(trade1);
-        //     const trade2Roi = this.cookingService.getCookingRoi(trade2);
-
-        //     return trade2Roi - trade1Roi;
-        // });
+        trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => trade2.roi - trade1.roi);
 
         return trades;
     }

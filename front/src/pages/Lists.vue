@@ -9,7 +9,7 @@
                     v-on:click="toggleTab('cheap')"
                     class="nav-link"
                     v-bind:class="{ active: isCheapTabActive }"
-                >#1</button>
+                >#1 cheap</button>
             </li>
             <li class="nav-item">
                 <button
@@ -17,7 +17,7 @@
                     v-on:click="toggleTab('expensive')"
                     class="nav-link"
                     v-bind:class="{ active: isExpensiveTabActive }"
-                >#2</button>
+                >#2 expensive</button>
             </li>
             <li class="nav-item">
                 <button
@@ -25,7 +25,7 @@
                     v-on:click="toggleTab('refine')"
                     class="nav-link"
                     v-bind:class="{ active: isRefineTabActive }"
-                >#3</button>
+                >#3 refine</button>
             </li>
             <li class="nav-item">
                 <button
@@ -33,7 +33,7 @@
                     v-on:click="toggleTab('salvage')"
                     class="nav-link"
                     v-bind:class="{ active: isSalvageTabActive }"
-                >#4</button>
+                >#4 salvage</button>
             </li>
             <li class="nav-item">
                 <button
@@ -41,7 +41,15 @@
                     v-on:click="toggleTab('cooking')"
                     class="nav-link"
                     v-bind:class="{ active: isCookingTabActive }"
-                >#5</button>
+                >#5 cooking</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('open')"
+                    class="nav-link"
+                    v-bind:class="{ active: isOpenTabActive }"
+                >#5 open</button>
             </li>
         </ul>
         <div class="tab-content">
@@ -91,63 +99,7 @@
             >
                  <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-4 mb-4" v-for="trade in cookingTrades" :key="trade.recipe.id">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <img v-bind:src="trade.output.item.icon" alt="">
-                                                {{ trade.output.item.name }}
-                                            </div>
-                                            <div class="col-4 text-end">
-                                                <strong>Sell</strong>
-                                                {{ formatGold(trade.output.price.buys.unit_price * trade.output.quantity) }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <table class="table table-stripped">
-                                            <tbody>
-                                                 <tr v-for="input in trade.input" :key="input.item.id">
-                                                    <td>
-                                                        {{ input.quantity }}x
-                                                    </td>
-                                                    <td>
-                                                        <img v-bind:src="input.item.icon" alt="">
-                                                    </td>
-                                                    <td>{{ input.item.name }}</td>
-                                                    <td>{{ formatGold(input.price?.sells?.unit_price) }}</td>
-                                                    <td>
-                                                        <strong>
-                                                            {{ formatGold(Math.round(input.price?.sells?.unit_price * input.quantity)) }}
-                                                        </strong>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4" class="text-end">Total buy:</td>
-                                                    <td><strong>
-                                                        {{ formatGold(getRecipeBuy(trade)) }}
-                                                    </strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4" class="text-end">Profit:</td>
-                                                    <td><strong>
-                                                      
-                                                    </strong></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4" class="text-end">Roi:</td>
-                                                    <td><strong>
-                                                        %
-                                                    </strong></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <RecipeList :items="cookingTrades"></RecipeList>
                     </div>
                  </div>
             </div>
@@ -176,6 +128,7 @@ export default class Lists extends Vue {
     isRefineTabActive = false;
     isSalvageTabActive = false;
     isCookingTabActive = false;
+    isOpenTabActive = false;
     cheapTrades: Array<BasicTrade> = [];
     expensiveTrades: Array<BasicTrade> = [];
     refineTrades: Array<RecipeTrade> = [];
@@ -190,94 +143,17 @@ export default class Lists extends Vue {
         this.isCookingTabActive = tab === 'cooking';
     }
 
-    formatGold(amount: number): string {
-        if (amount === 0) {
-            return '0';
-        }
-
-        if (amount < 0) {
-            return amount+'c';
-        }
-
-        const copper = amount - Math.floor(amount / 100) * 100;
-        amount = amount - copper;
-        amount = Math.round(amount / 100);
-
-        const silver = amount - Math.floor(amount / 100) * 100;
-        amount = amount - silver;
-        amount = Math.round(amount / 100);
-
-        const gold = amount;
-
-        let result = [];
-
-        if (gold > 0) {
-            result.push(gold + 'g');
-        }
-
-        if (silver > 0) {
-            result.push(silver + 's');
-        }
-
-         if (copper > 0) {
-            result.push(copper + 'c');
-        }
-
-        return result.join(' ');
-    }
-
-    async mounted() {
-        this.cheapTrades = await ListService.getCheapBasicList();
-        this.expensiveTrades = await ListService.getExpensiveBasicList();
-        this.refineTrades = await ListService.getRefineList();
-        this.salvageTrades = await ListService.getSalvageList();
-        // this.cookingTrades = await ListService.getCookingList();
-    }
-
-    getProfit(trade: BasicTrade): number {
-        return Math.round( 0.85 * trade.price.sells.unit_price - trade.price.buys.unit_price );
-    }
-
-    getRoi(trade: BasicTrade): number {
-        return Math.round( this.getProfit(trade) / trade.price.buys.unit_price * 100 );
-    }
-
-    getSalvageSell(trade: SalvageTrade): number {
-        return trade.output.reduce((total, item) => total + item.price.sells.unit_price * item.quantity, 0);
-    }
-
-    getSalvageProfit(trade: SalvageTrade): number {
-        const sellPrice = this.getSalvageSell(trade);
-        const buyPrice = trade.input.price.buys.unit_price + trade.recipe.cost;
-        
-        return Math.round( 0.85 * sellPrice - buyPrice );
-    }
-
-    getSalvageRoi(trade: SalvageTrade): number {
-        const buyPrice = trade.input.price.buys.unit_price + trade.recipe.cost;
-        const profit = this.getSalvageProfit(trade);
-
-        return Math.round( profit / buyPrice * 100 );
-    }
-
-    getRecipeBuy(trade: RecipeTrade): number {
-        return trade.input.reduce((total, item) => total + item.price?.buys?.unit_price * item.quantity, 0);
-    }
-
-    getRecipeProfit(trade: RecipeTrade): number {
-        const sellPrice = trade.output.price.sells.unit_price * trade.output.quantity;
-
-        return Math.round( 0.85 * sellPrice - this.getRecipeBuy(trade) );
+    mounted(): void {
+        ListService.getCheapBasicList().then(trades => this.cheapTrades = trades);
+        ListService.getExpensiveBasicList().then(trades => this.expensiveTrades = trades);
+        ListService.getRefineList().then(trades => this.refineTrades = trades);
+        ListService.getSalvageList().then(trades => this.salvageTrades = trades);
+        ListService.getCookingList().then(trades => this.cookingTrades = trades);
     }
 }
 </script>
 
 <style scoped>
-    img {
-        width: 30px;
-        height: 30px;
-    }
-
     .tab-pane > .card {
         border-top: 0px;
         border-top-left-radius: 0;

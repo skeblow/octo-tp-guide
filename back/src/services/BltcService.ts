@@ -1,12 +1,14 @@
 import fetch, { Response } from "node-fetch";
 import { ItemBltc } from "../../../shared";
 import MongoService from "./MongoService";
+import PriceService from "./PriceService";
 
 export default class BltcService {
     readonly BASE_URL = 'https://www.gw2bltc.com/en/item/';
 
     constructor (
         private mongoService: MongoService,
+        private priceService: PriceService,
     ) {
     }
 
@@ -20,6 +22,10 @@ export default class BltcService {
         to.setHours(23);
         to.setMinutes(59);
 
+        const zeroPriceIds = this.priceService.getZeroPriceIds();
+        const requestedZeroPriceIds = ids.filter(id => zeroPriceIds.includes(id));
+        ids = ids.filter(id => ! zeroPriceIds.includes(id));
+
         let bltcs: Array<ItemBltc> = await collection.find({
             id: {$in: ids},
             date: {
@@ -27,6 +33,10 @@ export default class BltcService {
                 $lt: to,
             },
         }).toArray();
+
+        if (zeroPriceIds.length > 0) {
+            bltcs = bltcs.concat(this.getZeroBltcsByIds(requestedZeroPriceIds));
+        }
 
         const foundIds = bltcs.map(bltc => bltc.id);
         const missingIds = ids.filter(id => ! foundIds.includes(id));
@@ -74,5 +84,23 @@ export default class BltcService {
         }
 
         return itemBltc;
+    }
+
+    getZeroBltcsByIds(ids: Array<number>): Array<ItemBltc> {
+        const bltcs: Array<ItemBltc> = [];
+        const date = new Date();
+
+        for (const id of ids) {
+            bltcs.push({
+                id,
+                bought: 0,
+                oldBought: 0,
+                sold: 0,
+                oldSold: 0,
+                date,
+            });
+        }
+
+        return bltcs;
     }
 }

@@ -170,6 +170,24 @@ export default class CookingService {
                     {id: 12271, quantity: 1},
                 ],
             },
+            {
+                // 12370-Stuffed-Zucchini
+                id: 12370,
+                type: RecipeType.cooking,
+                output: [
+                    {id: 12370, quantity: 2},
+                ],
+                input: [
+                    // 12145-Rice-Ball
+                    {id: 12145, quantity: 1},
+                    // 12141-Tomato
+                    {id: 12141, quantity: 1},
+                    // 12142-Onion
+                    {id: 12142, quantity: 1},
+                    // 12330-Zucchini
+                    {id: 12330, quantity: 1},
+                ],
+            },
         ];
     }
 }

@@ -25,6 +25,11 @@ export default class PriceService {
         from.setMinutes(date.getMinutes() - 5);
         to.setMinutes(date.getMinutes() + 5);
 
+        ids = ids.slice(0, 100);
+        const zeroPriceIds = this.getZeroPriceIds();
+        const requestedZeroPriceIds = ids.filter(id => zeroPriceIds.includes(id));
+        ids = ids.filter(id => ! zeroPriceIds.includes(id));
+
         let prices = await collection.find({
             id: {$in: ids},
             date: {
@@ -32,6 +37,10 @@ export default class PriceService {
                 $lt: to,
             },
         }).toArray();
+
+        if (requestedZeroPriceIds.length > 0) {
+            prices = prices.concat(this.getZeroPricesByIds(requestedZeroPriceIds));
+        }
 
         const foundIds = prices.map((price: ItemPrice) => price.id);
         const missingIds = ids.filter(id => ! foundIds.includes(id));
@@ -57,5 +66,57 @@ export default class PriceService {
         prices = prices.concat(missingPrices);
 
         return prices;
+    }
+
+    getZeroPricesByIds(ids: Array<number>): Array<ItemPrice> {
+        const prices: Array<ItemPrice> = [];
+        const date = new Date();
+
+        for (const id of ids) {
+            prices.push({
+                _id: id,
+                id,
+                buys: {
+                    quantity: 0,
+                    unit_price: 0,
+                },
+                sells: {
+                    quantity: 0,
+                    unit_price: 0,
+                },
+                date,
+            });
+        }
+
+        return prices;
+    }
+
+    getZeroPriceIds(): Array<number> {
+        return [
+            // nutmeg seed
+            12249,
+            // Ginger Root
+            12328,
+            // Peach
+            12503,
+            // Eggplant
+            12502,
+            // Shallot
+            12517,
+            // Bell Pepper
+            12235,
+            // Tomato
+            12141,
+            // Basil Leaf
+            12245,
+            // Cheese Wedge
+            12159,
+            // Almond
+            12337,
+	        // Pear
+            12514,
+            // Rice-Ball
+            12145,
+        ];
     }
 }
