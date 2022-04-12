@@ -25,7 +25,6 @@ export default class PriceService {
         from.setMinutes(date.getMinutes() - 5);
         to.setMinutes(date.getMinutes() + 5);
 
-        ids = ids.slice(0, 100);
         const zeroPriceIds = this.getZeroPriceIds();
         const requestedZeroPriceIds = ids.filter(id => zeroPriceIds.includes(id));
         ids = ids.filter(id => ! zeroPriceIds.includes(id));
@@ -51,7 +50,7 @@ export default class PriceService {
 
         console.log('need to fetch prices', missingIds.slice(0, 10), missingIds.length);
 
-        const missingPrices = await this.gwApiService.getItemPrices(missingIds);
+        const missingPrices = await this.gwApiService.getItemPrices(missingIds.slice(0, 100));
 
         if (missingPrices.length === 0) {
             return prices;
