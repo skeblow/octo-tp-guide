@@ -112,9 +112,9 @@ export default class SalvageService {
                 ],
                 output: [
                     // coarse leather section
-                    {id: 19730, quantity: 0},
+                    {id: 19730, quantity: 1.351},
                     // thin leather section
-                    {id: 19728, quantity: 0},
+                    {id: 19728, quantity: 0.445},
                 ],
                 cost: 3,
             },
