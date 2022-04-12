@@ -24,7 +24,7 @@ export default class ListService {
             25,
             50,
             2_000,
-            2_000,
+            1_900,
         );
         list = list.sort((trade1: BasicTrade, trade2: BasicTrade) => this.priceService.getRoi(trade2.price) - this.priceService.getRoi(trade1.price));
 
