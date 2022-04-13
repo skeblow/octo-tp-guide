@@ -26,8 +26,8 @@
                 <td class="text-end">{{ formatGold(trade.totalSell) }}</td>
                 <td class="text-end">{{ formatGold(trade.profit) }}</td>
                 <td>{{ trade.roi }}%</td>
-                <td>{{ trade.bltc.sold }}</td>
-                <td>{{ trade.bltc.bought }}</td>
+                <td>{{ trade.bltc.sold }} <small>({{ trade.bltc.oldSold }})</small></td>
+                <td>{{ trade.bltc.bought }} <small>({{ trade.bltc.oldBought }})</small></td>
             </tr>
         </tbody>
     </table>
