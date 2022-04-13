@@ -126,6 +126,7 @@ export default class PriceService {
             46681,
             23043, // Master's Salvage Kit
             6736, // Vigorous Apprentice Gloves
+            12240, //Celery Stalk
         ];
     }
 }
