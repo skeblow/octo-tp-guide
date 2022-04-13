@@ -54,6 +54,7 @@ export default class RefreshController {
             ]);
         }
 
+        console.log('done refreshing');
         res.send('done');
     }
 

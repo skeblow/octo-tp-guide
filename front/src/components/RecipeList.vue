@@ -29,15 +29,17 @@
                             </tr>
                             <tr>
                                 <td colspan="4" class="text-end">Total buy:</td>
-                                <td class="text-end"><strong>
-                                    {{ formatGold(trade.totalBuy) }}
-                                </strong></td>
+                                <td class="text-end">
+                                    <strong>{{ formatGold(trade.totalBuy) }}</strong>
+                                </td>
                             </tr>
                              <tr>
-                                <td colspan="4" class="text-end">Total sell:</td>
-                                <td class="text-end"><strong>
-                                    {{ formatGold(trade.totalSell) }}
-                                </strong></td>
+                                <td>Sold:</td>
+                                <td><strong>{{ trade.output.bltc.sold }}</strong></td>
+                                <td colspan="2" class="text-end">Total sell:</td>
+                                <td class="text-end">
+                                    <strong>{{ formatGold(trade.totalSell) }}</strong>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="4" class="text-end">Profit:</td>

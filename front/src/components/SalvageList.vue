@@ -30,7 +30,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="4" class="text-end">Total buy:</td>
+                                <td>Bought:</td>
+                                <td><strong>{{ trade.input.bltc.bought }}</strong></td>
+                                <td colspan="2" class="text-end">Total buy:</td>
                                 <td class="text-end"><strong>
                                     {{ formatGold(trade.totalBuy) }}
                                 </strong></td>

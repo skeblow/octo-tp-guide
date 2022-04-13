@@ -30,15 +30,9 @@
             <tbody>
                 <tr v-for="item in getItems()" :key="item.id">
                     <td>
-                        <img v-bind:src="item.icon">
-                        <a 
-                            v-bind:href="'http://wiki-en.guildwars2.com/index.php?search='+item.name"
-                            target="_blank"
-                        >w</a>
-                        <a 
-                            v-bind:href="'https://www.gw2bltc.com/en/item/'+item.id"
-                            target="_blank"
-                        >b</a>
+                        <a v-bind:href="'https://www.gw2bltc.com/en/item/'+item.id" target="_blank">
+                            <img v-bind:src="item.icon">
+                        </a>
                     </td>
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
