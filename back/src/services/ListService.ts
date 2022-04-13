@@ -78,6 +78,10 @@ export default class ListService {
         const trades: Array<BasicTrade> = [];
 
         for (const price of prices) {
+            if (trades.map(trade => trade.price.id).includes(price.id)) {
+                continue;
+            }
+
             const profit = this.priceService.getProfit(price);
             const roi = this.priceService.getRoi(price);
 
