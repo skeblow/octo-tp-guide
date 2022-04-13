@@ -116,6 +116,16 @@ export default class PriceService {
             12514,
             // Rice-Ball
             12145,
+            // Massive-Balloon-Bouquet
+            74693,
+            // Basic-Salvage-Kit
+            23040,
+            // Black Lion Salvage Kit
+            19986,
+            // Glob of Dark Matter
+            46681,
+            23043, // Master's Salvage Kit
+            6736, // Vigorous Apprentice Gloves
         ];
     }
 }

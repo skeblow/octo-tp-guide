@@ -3,18 +3,11 @@
         <div class="col-4 mb-4" v-for="trade in items" :key="trade.recipe.id">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-8">
-                            <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.input.item.id" target="_blank">
-                                <img v-bind:src="trade.input.item.icon" alt="">
-                            </a>
-                            {{ trade.input.item.name }}
-                        </div>
-                        <div class="col-4 d-flex justify-content-between">
-                            <strong>Buy:</strong>
-                            <span>{{ formatGold(trade.totalBuy) }}</span>
-                        </div>
-                    </div>
+                    <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.input.item.id" target="_blank">
+                        <img v-bind:src="trade.input.item.icon" alt="">
+                    </a>
+                    {{ trade.input.item.name }}
+                    <small>(Buy)</small>
                 </div>
                 <div class="card-body">
                     <table class="table table-stripped">
@@ -35,6 +28,12 @@
                                         {{ formatGold(Math.round(output.price.sells.unit_price * output.quantity)) }}
                                     </strong>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-end">Total buy:</td>
+                                <td class="text-end"><strong>
+                                    {{ formatGold(trade.totalBuy) }}
+                                </strong></td>
                             </tr>
                             <tr>
                                 <td colspan="4" class="text-end">Total sell:</td>

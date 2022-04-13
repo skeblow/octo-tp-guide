@@ -9,7 +9,7 @@
                     <button 
                         class="btn btn-outline-secondary" 
                         type="button"
-                        v-on:click="clearSeach"
+                        @click="clearSearch"
                     >X</button>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in getItems()" :key="item.name">
+                <tr v-for="item in getItems()" :key="item.id">
                     <td>
                         <img v-bind:src="item.icon">
                         <a 
@@ -71,14 +71,13 @@ export default class Items extends Vue {
     }
 
     clearSearch(): void {
-        console.log('clear saech');
         this.search = '';
     }
 
     getItems(): Array<Item> {
-        return this.items.filter(
-            item => item.name.toLowerCase().includes(this.search) || item.id === +this.search
-        );
+        return this.items
+            .filter(item => item.name.toLowerCase().includes(this.search) || item.id === +this.search)
+            .slice(0, 100);
     }
 
     getBuyPrice(id: number): number {

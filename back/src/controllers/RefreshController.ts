@@ -4,6 +4,7 @@ import CookingService from "../services/CookingService";
 import ItemService from "../services/ItemService";
 import PriceService from "../services/PriceService";
 import * as fs from 'fs';
+import { Recipe } from "../../../shared";
 
 export default class RefreshController {
     constructor(
@@ -26,8 +27,8 @@ export default class RefreshController {
             .split('\n')
             .flatMap(ids => ids.split(','))
             .map(id => +id)
-            .filter(id => id > 0);
-        ids = ids.concat(await this.getCookingIds())
+            .filter(id => id > 0)
+            .concat(await this.getRecipeIds())
             .concat(requestIds);
         ids = [...new Set(ids)];
 
@@ -56,8 +57,8 @@ export default class RefreshController {
         res.send('done');
     }
 
-    private async getCookingIds(): Promise<Array<number>> {
-        const recipes = await this.cookingService.getAll();
+    private async getRecipeIds(): Promise<Array<number>> {
+        const recipes: Array<Recipe> = await this.cookingService.getAll();
         let ids: Array<number> = [];
 
         for (const recipe of recipes) {
