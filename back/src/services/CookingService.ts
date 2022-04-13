@@ -78,6 +78,38 @@ export default class CookingService {
                 ],
             },
             {
+                // 	Bowl of Orrian Truffle and Meat Stew
+                id: 12488,
+                type: RecipeType.cooking,
+                output: [
+                    {id: 12488, quantity: 3},
+                ],
+                input: [
+                    // Orrian Truffle
+                    {id: 12545, quantity: 3},
+                    // Slab of Red Meat
+                    {id: 24359, quantity: 5},
+                    // Rosemary Sprig
+                    {id: 12335, quantity: 1},
+                    // Sage Leaf
+                    {id: 12243, quantity: 1},
+                    // Thyme Leaf
+                    {id: 12248, quantity: 1},
+                    // 	Bay Leaf 
+                    {id: 12247, quantity: 1},
+                    // 	Jug of Water
+                    {id: 12156, quantity: 1},
+                    // 	Onion
+                    {id: 12142, quantity: 5},
+                    // 	Carrot
+                    {id: 12134, quantity: 5},
+                    // 	Celery Stalk
+                    {id: 12240, quantity: 3},
+                    // 	Potato
+                    {id: 12135, quantity: 3},
+                ],
+            },
+            {
                 // 12427-Super-Veggie-Pizza
                 id: 12427,
                 type: RecipeType.cooking,
