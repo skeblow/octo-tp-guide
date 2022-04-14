@@ -26,13 +26,8 @@
                 <td class="text-end">{{ formatGold(trade.totalSell) }}</td>
                 <td class="text-end">{{ formatGold(trade.profit) }}</td>
                 <td>{{ trade.roi }}%</td>
-<<<<<<< HEAD
                 <td>{{ trade.bltc.bought }} <small>({{ getBoughtDiff(trade) }})</small></td>
                 <td>{{ trade.bltc.sold }} <small>({{ getSoldDiff(trade) }})</small></td>
-=======
-                <td>{{ trade.bltc.bought }} <small>({{ trade.bltc.oldBought }})</small></td>
-                <td>{{ trade.bltc.sold }} <small>({{ trade.bltc.oldSold }})</small></td>
->>>>>>> 9e9ee32 (another stuff)
             </tr>
         </tbody>
     </table>
