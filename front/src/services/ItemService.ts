@@ -1,8 +1,8 @@
 import { Item, ItemPrice } from '../../../shared';
 
 class ItemService {
-    readonly BASE_URL = 'http://localhost:3000';
-    // readonly BASE_URL = 'http://192.168.0.2:3000';
+    // readonly BASE_URL = 'http://localhost:3000';
+    readonly BASE_URL = 'http://192.168.0.2:3000';
 
     async getAll(): Promise<Array<Item>> {
         const res = await fetch(this.BASE_URL + '/items/');
