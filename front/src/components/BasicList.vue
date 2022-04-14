@@ -9,8 +9,8 @@
                 <th>Sell price</th>
                 <th>Profit</th>
                 <th>Roi</th>
-                <th>Sold</th>
                 <th>Bought</th>
+                <th>Sold</th>
             </tr>
         </thead>
         <tbody>
@@ -26,8 +26,8 @@
                 <td class="text-end">{{ formatGold(trade.totalSell) }}</td>
                 <td class="text-end">{{ formatGold(trade.profit) }}</td>
                 <td>{{ trade.roi }}%</td>
-                <td>{{ trade.bltc.sold }} <small>({{ trade.bltc.oldSold }})</small></td>
-                <td>{{ trade.bltc.bought }} <small>({{ trade.bltc.oldBought }})</small></td>
+                <td>{{ trade.bltc.bought }} <small>({{ getBoughtDiff(trade) }})</small></td>
+                <td>{{ trade.bltc.sold }} <small>({{ getSoldDiff(trade) }})</small></td>
             </tr>
         </tbody>
     </table>
@@ -45,12 +45,18 @@ class BasicListProps {
 export default class BasicList extends Vue.with(BasicListProps) {
     formatGold = PriceService.formatGold;
 
-    getProfit(): number {
-        return 0;
+    getSoldDiff(trade: BasicTrade): string {
+        const diff = trade.bltc.sold - trade.bltc.oldSold;
+        const sign = diff > 0 ? '+' : '';
+
+        return sign+diff;
     }
 
-    getRoi() {
-        return 0;
+    getBoughtDiff(trade: BasicTrade): string {
+        const diff = trade.bltc.bought - trade.bltc.oldBought;
+        const sign = diff > 0 ? '+' : '';
+
+        return sign+diff;
     }
 }
 </script>
