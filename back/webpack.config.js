@@ -7,8 +7,8 @@ module.exports = {
   mode: 'production',
   target: 'node',
   output: {
-    path: path.resolve(__dirname, 'dist/back/src'),
-    filename: 'index.js'
+    path: path.resolve(__dirname, 'dist/'),
+    filename: '[name].js',
   },
   resolve: {
     extensions: ['.ts', '.js'],
@@ -33,6 +33,6 @@ module.exports = {
         blocking: false,
         parallel: true,
       },
-    })
+    }),
   ],
 }

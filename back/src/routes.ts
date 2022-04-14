@@ -48,6 +48,11 @@ const refreshController = new RefreshController(itemService, priceService, bltcS
 
 export const ROUTES: Route[] = [
     {
+        route: '/',
+        method: 'get',
+        handler: (req, res) => res.send('ass'),
+    },
+    {
         route: '/items/',
         method: 'get',
         handler: (req, res) => itemController.getAll(req, res),
