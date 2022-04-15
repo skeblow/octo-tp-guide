@@ -42,11 +42,11 @@ export default class SalvageService {
                 ],
                 output: [
                     // gold
-                    {id: 19698, quantity: 0},
+                    {id: 19698, quantity: 0.2446},
                     // iron
-                    {id: 19699, quantity: 0},
+                    {id: 19699, quantity: 0.855},
                     // silver
-                    {id: 19703, quantity: 0},
+                    {id: 19703, quantity: 0.669},
                 ],
                 cost: 3,
             },
