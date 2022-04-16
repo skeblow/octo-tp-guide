@@ -37,6 +37,8 @@ export enum RecipeType {
     open = 'open',
     cooking = 'cooking',
     artificier = 'artificier',
+    weaponsmith = 'weaponsmith',
+    huntsman = 'huntsman',
 }
 
 export interface Recipe {
