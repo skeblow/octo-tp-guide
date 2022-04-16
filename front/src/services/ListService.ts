@@ -38,6 +38,12 @@ class ListService {
 
         return await res.json();
     }
+
+    async getOpenList(): Promise<Array<RecipeTrade>> {
+        const res = await fetch(this.BASE_URL + '/lists/open');
+
+        return await res.json();
+    }
 }
 
 export default new ListService();

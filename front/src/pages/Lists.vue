@@ -121,6 +121,16 @@
                     </div>
                  </div>
             </div>
+            <div 
+                class="tab-pane fade"
+                v-bind:class="{ show: isOpenTabActive, active: isOpenTabActive }"
+            >
+                 <div class="card">
+                    <div class="card-body">
+                        <SalvageList :items="openTrades"></SalvageList>
+                    </div>
+                 </div>
+            </div>
         </div>
     </div>
 </template>
@@ -156,6 +166,7 @@ export default class Lists extends Vue {
     salvageTrades: Array<SalvageTrade> = [];
     cookingTrades: Array<RecipeTrade> = [];
     utilityTrades: Array<RecipeTrade> = [];
+    openTrades: Array<RecipeTrade> = [];
 
     toggleTab(tab: string): void {
         this.isCheapTabActive = tab === 'cheap';
@@ -164,6 +175,7 @@ export default class Lists extends Vue {
         this.isSalvageTabActive = tab === 'salvage';
         this.isCookingTabActive = tab === 'cooking';
         this.isUtilityTabActive = tab === 'utility';
+        this.isOpenTabActive = tab === 'open';
     }
 
     mounted(): void {
@@ -173,6 +185,7 @@ export default class Lists extends Vue {
         ListService.getSalvageList().then(trades => this.salvageTrades = trades);
         ListService.getCookingList().then(trades => this.cookingTrades = trades);
         ListService.getUtilityList().then(trades => this.utilityTrades = trades);
+        ListService.getOpenList().then(trades => this.openTrades = trades);
     }
 }
 </script>

@@ -89,7 +89,8 @@ export default class OpenService {
                         0.0012,
                     ),
                 ],
-            }
+            },
+            
         ];
     }
 

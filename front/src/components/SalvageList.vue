@@ -14,7 +14,7 @@
                         <tbody>
                             <tr v-for="output in trade.output" :key="output.item.id">
                                 <td>
-                                    {{ output.quantity }}x
+                                    {{ Math.round(output.quantity * 100) / 100 }}x
                                 </td>
                                 <td>
                                     <a v-bind:href="'https://www.gw2bltc.com/en/item/'+output.item.id" target="_blank">
