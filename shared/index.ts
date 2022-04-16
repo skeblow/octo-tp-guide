@@ -45,8 +45,13 @@ export interface Recipe {
     // _id: number,
     id: number,
     type: RecipeType,
-    input: Array<{id: number, quantity: number}>,
-    output: Array<{id: number, quantity: number}>,
+    input: Array<RecipeItem>,
+    output: Array<RecipeItem>,
+}
+
+export interface RecipeItem {
+    id: number,
+    quantity: number,
 }
 
 export interface SalvageRecipe extends Recipe {

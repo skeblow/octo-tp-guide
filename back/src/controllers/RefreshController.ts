@@ -6,6 +6,7 @@ import PriceService from "../services/PriceService";
 import * as fs from 'fs';
 import { Recipe } from "../../../shared";
 import UtilityService from "../services/UtilityService";
+import OpenService from "../services/OpenService";
 
 export default class RefreshController {
     constructor(
@@ -14,6 +15,7 @@ export default class RefreshController {
         private bltcService: BltcService,
         private cookingService: CookingService,
         private utilityService: UtilityService,
+        private openService: OpenService,
     ) {
     }
 
@@ -61,8 +63,10 @@ export default class RefreshController {
     }
 
     private async getRecipeIds(): Promise<Array<number>> {
-        let recipes: Array<Recipe> = await this.cookingService.getAll()
-        recipes = recipes.concat(await this.utilityService.getAll());
+        let recipes: Array<Recipe> = 
+            (await this.cookingService.getAll())
+            .concat(await this.utilityService.getAll())
+            .concat(await this.openService.getAll());
         let ids: Array<number> = [];
 
         for (const recipe of recipes) {

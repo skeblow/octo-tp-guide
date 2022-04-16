@@ -1,8 +1,9 @@
-import { BasicTrade, Item, ItemBltc, ItemPrice, RecipeTrade, TradeData, SalvageTrade, TradeItem, Recipe } from "../../../shared";
+import { BasicTrade, Item, ItemBltc, ItemPrice, RecipeTrade, TradeData, SalvageTrade, TradeItem, Recipe, SalvageRecipe } from "../../../shared";
 import BltcService from "./BltcService";
 import CookingService from "./CookingService";
 import ItemService from "./ItemService";
 import MongoService from "./MongoService";
+import OpenService from "./OpenService";
 import PriceService from "./PriceService";
 import RefineService from "./RefineService";
 import SalvageService from "./SalvageService";
@@ -18,6 +19,7 @@ export default class ListService {
         private salvageService: SalvageService,
         private cookingService: CookingService,
         private utilityService: UtilityService,
+        private openService: OpenService,
     ) {
     }
 
@@ -180,8 +182,7 @@ export default class ListService {
         return trades;
     }
 
-    async getSalvageList(): Promise<Array<SalvageTrade>> {
-        const recipes = await this.salvageService.getAll();
+    private async getTradesFromSalvageRecipes(recipes: Array<SalvageRecipe>): Promise<Array<SalvageTrade>> {
         let itemIds = recipes
             .flatMap(
                 recipe => recipe.input
@@ -236,6 +237,18 @@ export default class ListService {
         trades.sort((trade1: SalvageTrade, trade2: SalvageTrade) => trade2.roi - trade1.roi);
 
         return trades;
+    }
+
+    async getSalvageList(): Promise<Array<SalvageTrade>> {
+        const recipes = await this.salvageService.getAll();
+        
+        return this.getTradesFromSalvageRecipes(recipes);
+    }
+
+    async getOpenList(): Promise<Array<SalvageTrade>> {
+        const recipes = await this.openService.getAll();
+
+        return this.getTradesFromSalvageRecipes(recipes);
     }
 
     private async getTradesFromRecipes(recipes: Array<Recipe>): Promise<Array<RecipeTrade>> {
