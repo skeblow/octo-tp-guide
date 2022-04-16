@@ -33,7 +33,13 @@
                                     <strong>{{ formatGold(trade.totalBuy) }}</strong>
                                 </td>
                             </tr>
-                             <tr>
+                            <tr>
+                                <td colspan="4" class="text-end">Raw sell:</td>
+                                <td class="text-end">
+                                    <strong>{{ formatGold(getRawSell(trade)) }}</strong>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Sold:</td>
                                 <td><strong>{{ trade.output.bltc.sold }}</strong></td>
                                 <td colspan="2" class="text-end">Total sell:</td>
@@ -72,6 +78,10 @@ class RecipeListProps {
 @Options({})
 export default class RecipeList extends Vue.with(RecipeListProps) {
     formatGold = PriceService.formatGold;
+
+    getRawSell(trade: RecipeTrade): number {
+        return trade.input.reduce((total, input) => total + (input.price.sells.unit_price * input.quantity), 0);
+    }
 }
 </script>
 <style scoped>

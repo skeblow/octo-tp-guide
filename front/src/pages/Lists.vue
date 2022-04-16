@@ -79,7 +79,7 @@
             >
                 <div class="card">
                     <div class="card-body">
-                        <RecipeList :items="refineTrades"></RecipeList>
+                        <RefineList :items="refineTrades"></RefineList>
                     </div>
                 </div>
             </div>
@@ -112,12 +112,14 @@ import { Options, Vue } from 'vue-class-component';
 import { BasicTrade, RecipeTrade, SalvageTrade } from '../../../shared';
 import BasicList from '../components/BasicList.vue';
 import RecipeList from '../components/RecipeList.vue';
+import RefineList from '../components/RefineList.vue';
 import SalvageList from '../components/SalvageList.vue';
 import ListService from '../services/ListService';
 
 @Options({
     components: {
         BasicList,
+        RefineList,
         RecipeList,
         SalvageList,
     },

@@ -21,10 +21,10 @@ export default class ListService {
 
     async getCheapBasicList(): Promise<Array<BasicTrade>> {
         let list = await this.getBasicList(
-            30,
-            50,
-            2_000,
-            1_900,
+            25,
+            40,
+            1_800,
+            1_800,
         );
         list = list.sort((trade1: BasicTrade, trade2: BasicTrade) => this.priceService.getRoi(trade2.price) - this.priceService.getRoi(trade1.price));
 
@@ -33,7 +33,7 @@ export default class ListService {
 
     async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
         let list = await this.getBasicList(
-            30,
+            25,
             20_000,
             20,
             20,
