@@ -41,7 +41,15 @@
                     v-on:click="toggleTab('cooking')"
                     class="nav-link"
                     v-bind:class="{ active: isCookingTabActive }"
-                >#5 cooking</button>
+                >#5 food</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('utility')"
+                    class="nav-link"
+                    v-bind:class="{ active: isUtilityTabActive }"
+                >#6 utility</button>
             </li>
             <li class="nav-item">
                 <button
@@ -49,7 +57,7 @@
                     v-on:click="toggleTab('open')"
                     class="nav-link"
                     v-bind:class="{ active: isOpenTabActive }"
-                >#5 open</button>
+                >#7 open</button>
             </li>
         </ul>
         <div class="tab-content">
@@ -103,6 +111,16 @@
                     </div>
                  </div>
             </div>
+            <div 
+                class="tab-pane fade"
+                v-bind:class="{ show: isUtilityTabActive, active: isUtilityTabActive }"
+            >
+                 <div class="card">
+                    <div class="card-body">
+                        <RecipeList :items="utilityTrades"></RecipeList>
+                    </div>
+                 </div>
+            </div>
         </div>
     </div>
 </template>
@@ -131,11 +149,13 @@ export default class Lists extends Vue {
     isSalvageTabActive = false;
     isCookingTabActive = false;
     isOpenTabActive = false;
+    isUtilityTabActive = false;
     cheapTrades: Array<BasicTrade> = [];
     expensiveTrades: Array<BasicTrade> = [];
     refineTrades: Array<RecipeTrade> = [];
     salvageTrades: Array<SalvageTrade> = [];
     cookingTrades: Array<RecipeTrade> = [];
+    utilityTrades: Array<RecipeTrade> = [];
 
     toggleTab(tab: string): void {
         this.isCheapTabActive = tab === 'cheap';
@@ -143,6 +163,7 @@ export default class Lists extends Vue {
         this.isRefineTabActive = tab === 'refine';
         this.isSalvageTabActive = tab === 'salvage';
         this.isCookingTabActive = tab === 'cooking';
+        this.isUtilityTabActive = tab === 'utility';
     }
 
     mounted(): void {
@@ -151,6 +172,7 @@ export default class Lists extends Vue {
         ListService.getRefineList().then(trades => this.refineTrades = trades);
         ListService.getSalvageList().then(trades => this.salvageTrades = trades);
         ListService.getCookingList().then(trades => this.cookingTrades = trades);
+        ListService.getUtilityList().then(trades => this.utilityTrades = trades);
     }
 }
 </script>
