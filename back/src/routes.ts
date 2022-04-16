@@ -13,6 +13,7 @@ import MongoService from "./services/MongoService";
 import PriceService from "./services/PriceService";
 import RefineService from "./services/RefineService";
 import SalvageService from "./services/SalvageService";
+import UtilityService from "./services/UtilityService";
 
 interface Route
 {
@@ -31,6 +32,7 @@ const bltcService = new BltcService(mongoService, priceService);
 const refineService = new RefineService();
 const salvageService = new SalvageService();
 const cookingService = new CookingService();
+const utilityService = new UtilityService();
 const listService = new ListService(
     mongoService,
     itemService,
@@ -39,12 +41,19 @@ const listService = new ListService(
     refineService,
     salvageService,
     cookingService,
+    utilityService,
 );
 
 const itemController = new ItemController(itemService);
 const priceController = new PriceController(priceService);
 const listController = new ListController(listService);
-const refreshController = new RefreshController(itemService, priceService, bltcService, cookingService);
+const refreshController = new RefreshController(
+    itemService,
+    priceService,
+    bltcService,
+    cookingService,
+    utilityService,
+);
 
 export const ROUTES: Route[] = [
     {

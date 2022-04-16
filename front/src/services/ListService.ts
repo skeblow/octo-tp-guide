@@ -32,6 +32,12 @@ class ListService {
 
         return await res.json();
     }
+
+    async getUtilityList(): Promise<Array<RecipeTrade>> {
+        const res = await fetch(this.BASE_URL + '/lists/utility');
+
+        return await res.json();
+    }
 }
 
 export default new ListService();

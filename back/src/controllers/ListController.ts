@@ -31,6 +31,10 @@ export default class ListController {
                 this.listService.getCookingList()
                     .then(trades => res.send(trades));
                 break;
+            case 'utility':
+                this.listService.getUtilityList()
+                    .then(trades => res.send(trades));
+                break;
             default: throw 'unknown list';
         }
     }

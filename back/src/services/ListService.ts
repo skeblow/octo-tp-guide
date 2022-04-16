@@ -1,4 +1,4 @@
-import { BasicTrade, Item, ItemBltc, ItemPrice, RecipeTrade, TradeData, SalvageTrade, TradeItem } from "../../../shared";
+import { BasicTrade, Item, ItemBltc, ItemPrice, RecipeTrade, TradeData, SalvageTrade, TradeItem, Recipe } from "../../../shared";
 import BltcService from "./BltcService";
 import CookingService from "./CookingService";
 import ItemService from "./ItemService";
@@ -6,6 +6,7 @@ import MongoService from "./MongoService";
 import PriceService from "./PriceService";
 import RefineService from "./RefineService";
 import SalvageService from "./SalvageService";
+import UtilityService from "./UtilityService";
 
 export default class ListService {
     constructor (
@@ -16,6 +17,7 @@ export default class ListService {
         private refineService: RefineService,
         private salvageService: SalvageService,
         private cookingService: CookingService,
+        private utilityService: UtilityService,
     ) {
     }
 
@@ -236,8 +238,7 @@ export default class ListService {
         return trades;
     }
 
-    async getCookingList(): Promise<Array<RecipeTrade>> {
-        const recipes = await this.cookingService.getAll();
+    private async getTradesFromRecipes(recipes: Array<Recipe>): Promise<Array<RecipeTrade>> {
         let itemIds = recipes
             .flatMap(
                 recipe => recipe.input
@@ -303,5 +304,17 @@ export default class ListService {
         trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => trade2.roi - trade1.roi);
 
         return trades;
+    }
+
+    async getCookingList(): Promise<Array<RecipeTrade>> {
+        const recipes = await this.cookingService.getAll();
+        
+        return this.getTradesFromRecipes(recipes);
+    }
+
+    async getUtilityList(): Promise<Array<RecipeTrade>> {
+        const recipes = await this.utilityService.getAll();
+        
+        return this.getTradesFromRecipes(recipes);
     }
 }

@@ -36,6 +36,7 @@ export enum RecipeType {
     salvage = 'salvage',
     open = 'open',
     cooking = 'cooking',
+    artificier = 'artificier',
 }
 
 export interface Recipe {
