@@ -1,10 +1,7 @@
 import { BasicTrade, Item, ItemBltc, ItemPrice, RecipeTrade, TradeData, SalvageTrade, TradeItem, Recipe, SalvageRecipe } from "../../../shared";
-import BltcService from "./BltcService";
 import CookingService from "./CookingService";
-import ItemService from "./ItemService";
 import MongoService from "./MongoService";
 import OpenService from "./OpenService";
-import PriceService from "./PriceService";
 import RefineService from "./RefineService";
 import SalvageService from "./SalvageService";
 import TradeService from "./TradeService";
@@ -13,9 +10,6 @@ import UtilityService from "./UtilityService";
 export default class ListService {
     constructor (
         private mongoService: MongoService,
-        private itemService: ItemService,
-        private priceService: PriceService,
-        private bltcService: BltcService,
         private tradeService: TradeService,
         private refineService: RefineService,
         private salvageService: SalvageService,
@@ -32,7 +26,7 @@ export default class ListService {
             1_800,
             1_800,
         );
-        list.sort((trade1: BasicTrade, trade2: BasicTrade) => this.priceService.getRoi(trade2.price) - this.priceService.getRoi(trade1.price));
+        list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi);
 
         return list;
     }
@@ -70,44 +64,8 @@ export default class ListService {
         ]).toArray();
 
         const ids = result.map(obj => obj.id);
-
-        const [
-            prices,
-            items,
-            bltcs,
-        ] = await Promise.all([
-            this.priceService.getPricesByIds(ids),
-            this.itemService.getAllByIds(ids),
-            this.bltcService.getBltcByIds(ids)
-        ]);
-
-        const trades: Array<BasicTrade> = [];
-
-        for (const price of prices) {
-            if (trades.map(trade => trade.price.id).includes(price.id)) {
-                continue;
-            }
-
-            const profit = this.priceService.getProfit(price);
-            const roi = this.priceService.getRoi(price);
-
-            const basicTrade: BasicTrade = {
-                item: items.find(item => item.id === price.id) as Item,
-                price: price,
-                bltc: bltcs.find(bltc => bltc.id === price.id) as ItemBltc,
-                quantity: 1,
-                totalBuy: price.buys.unit_price,
-                totalSell: price.sells.unit_price,
-                profit: profit,
-                roi: roi,
-            }
-            
-            if (basicTrade.totalBuy < minSell || basicTrade.profit < 10 || basicTrade.roi < minRoi) {
-                continue;
-            }
-
-            trades.push(basicTrade);
-        }
+        let trades: Array<BasicTrade> = this.tradeService.getTradesFromItemIds(ids);
+        trades = trades.filter(trade => trade.totalSell > minSell && trade.profit > 10 && trade.roi > minRoi);
 
         return trades;
     }

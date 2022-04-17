@@ -1,4 +1,4 @@
-import { Item, ItemBltc, ItemPrice, Recipe, RecipeTrade, SalvageRecipe, SalvageTrade, TradeData, TradeItem } from "../../../shared";
+import { BasicTrade, Item, ItemBltc, ItemPrice, Recipe, RecipeTrade, SalvageRecipe, SalvageTrade, TradeData, TradeItem } from "../../../shared";
 import BltcService from "./BltcService";
 import ItemService from "./ItemService";
 import PriceService from "./PriceService";
@@ -9,6 +9,44 @@ export default class TradeService {
         private priceService: PriceService,
         private bltcService: BltcService,
     ) {
+    }
+
+    public async getTradesFromItemIds(ids: Array<number>): Array<BasicTrade> {
+        const [
+            prices,
+            items,
+            bltcs,
+        ] = await Promise.all([
+            this.priceService.getPricesByIds(ids),
+            this.itemService.getAllByIds(ids),
+            this.bltcService.getBltcByIds(ids)
+        ]);
+
+        const trades: Array<BasicTrade> = [];
+
+        for (const price of prices) {
+            if (trades.map(trade => trade.price.id).includes(price.id)) {
+                continue;
+            }
+
+            const profit = this.priceService.getProfit(price);
+            const roi = this.priceService.getRoi(price);
+
+            const basicTrade: BasicTrade = {
+                item: items.find(item => item.id === price.id) as Item,
+                price: price,
+                bltc: bltcs.find(bltc => bltc.id === price.id) as ItemBltc,
+                quantity: 1,
+                totalBuy: price.buys.unit_price,
+                totalSell: price.sells.unit_price,
+                profit: profit,
+                roi: roi,
+            }
+
+            trades.push(basicTrade);
+        }
+
+        return trades;
     }
 
     public getRecipeTradeData(inputs: Array<TradeItem>, outputs: Array<TradeItem>): TradeData {

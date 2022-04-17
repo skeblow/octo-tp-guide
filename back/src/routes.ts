@@ -36,12 +36,9 @@ const salvageService = new SalvageService();
 const cookingService = new CookingService();
 const utilityService = new UtilityService();
 const openService = new OpenService();
-const tradeService = new TradeService();
+const tradeService = new TradeService(itemService, priceService, bltcService);
 const listService = new ListService(
     mongoService,
-    itemService,
-    priceService,
-    bltcService,
     tradeService,
     refineService,
     salvageService,
