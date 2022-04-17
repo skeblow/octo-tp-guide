@@ -26,7 +26,7 @@ export default class ListService {
     async getCheapBasicList(): Promise<Array<BasicTrade>> {
         let list = await this.getBasicList(
             25,
-            40,
+            30,
             1_800,
             1_800,
         );
