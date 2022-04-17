@@ -14,6 +14,7 @@ import OpenService from "./services/OpenService";
 import PriceService from "./services/PriceService";
 import RefineService from "./services/RefineService";
 import SalvageService from "./services/SalvageService";
+import TradeService from "./services/TradeService";
 import UtilityService from "./services/UtilityService";
 
 interface Route
@@ -35,11 +36,13 @@ const salvageService = new SalvageService();
 const cookingService = new CookingService();
 const utilityService = new UtilityService();
 const openService = new OpenService();
+const tradeService = new TradeService();
 const listService = new ListService(
     mongoService,
     itemService,
     priceService,
     bltcService,
+    tradeService,
     refineService,
     salvageService,
     cookingService,
