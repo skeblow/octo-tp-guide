@@ -44,6 +44,12 @@ class ListService {
 
         return await res.json();
     }
+
+    async getWeaponsmithList(): Promise<Array<RecipeTrade>> {
+        const res = await fetch(this.BASE_URL + '/lists/weaponsmith');
+
+        return await res.json();
+    }
 }
 
 export default new ListService();

@@ -6,6 +6,7 @@ import RefineService from "./RefineService";
 import SalvageService from "./SalvageService";
 import TradeService from "./TradeService";
 import UtilityService from "./UtilityService";
+import WeaponsmithService from "./WeaponsmithService";
 
 export default class ListService {
     constructor (
@@ -16,6 +17,7 @@ export default class ListService {
         private cookingService: CookingService,
         private utilityService: UtilityService,
         private openService: OpenService,
+        private weaponsmithService: WeaponsmithService,
     ) {
     }
 
@@ -64,7 +66,7 @@ export default class ListService {
         ]).toArray();
 
         const ids = result.map(obj => obj.id);
-        let trades: Array<BasicTrade> = this.tradeService.getTradesFromItemIds(ids);
+        let trades: Array<BasicTrade> = await this.tradeService.getTradesFromItemIds(ids);
         trades = trades.filter(trade => trade.totalSell > minSell && trade.profit > 10 && trade.roi > minRoi);
 
         return trades;
@@ -96,6 +98,12 @@ export default class ListService {
 
     async getUtilityList(): Promise<Array<RecipeTrade>> {
         const recipes = await this.utilityService.getAll();
+        
+        return this.tradeService.getTradesFromRecipes(recipes);
+    }
+
+    async getWeaponsmithList(): Promise<Array<RecipeTrade>> {
+        const recipes = await this.weaponsmithService.getAll();
         
         return this.tradeService.getTradesFromRecipes(recipes);
     }

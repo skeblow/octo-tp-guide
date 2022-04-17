@@ -47,6 +47,7 @@ export interface Recipe {
     type: RecipeType,
     input: Array<RecipeItem>,
     output: Array<RecipeItem>,
+    cost?: number,
 }
 
 export interface RecipeItem {

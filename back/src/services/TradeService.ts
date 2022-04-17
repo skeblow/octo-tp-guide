@@ -11,7 +11,7 @@ export default class TradeService {
     ) {
     }
 
-    public async getTradesFromItemIds(ids: Array<number>): Array<BasicTrade> {
+    public async getTradesFromItemIds(ids: Array<number>): Promise<Array<BasicTrade>> {
         const [
             prices,
             items,
@@ -49,9 +49,9 @@ export default class TradeService {
         return trades;
     }
 
-    public getRecipeTradeData(inputs: Array<TradeItem>, outputs: Array<TradeItem>): TradeData {
-        const totalBuy = inputs.reduce((total, item: TradeItem) => total + item.price.buys.unit_price * item.quantity, 0)
-        const totalSell = outputs.reduce((total, item: TradeItem) => total +item.price.sells.unit_price * item.quantity, 0)
+    public getRecipeTradeData(inputs: Array<TradeItem>, outputs: Array<TradeItem>, cost: number): TradeData {
+        const totalBuy = inputs.reduce((total, item: TradeItem) => total + item.price.buys.unit_price * item.quantity, 0) + cost;
+        const totalSell = outputs.reduce((total, item: TradeItem) => total +item.price.sells.unit_price * item.quantity, 0);
         const profit = Math.round( 0.85 * totalSell - totalBuy );
         const roi = Math.round( profit / totalBuy * 100 );
 
@@ -122,7 +122,7 @@ export default class TradeService {
                 recipe: recipe,
                 input: inputs,
                 output: outputs[0],
-                ...this.getRecipeTradeData(inputs, outputs),
+                ...this.getRecipeTradeData(inputs, outputs, recipe.cost ?? 0),
             });
         }
 
@@ -179,7 +179,7 @@ export default class TradeService {
                 recipe: recipe,
                 input: inputs[0],
                 output: outputs,
-                ...this.getRecipeTradeData(inputs, outputs),
+                ...this.getRecipeTradeData(inputs, outputs, recipe.cost),
             });
         }
 
