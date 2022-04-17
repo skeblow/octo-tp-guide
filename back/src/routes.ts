@@ -56,6 +56,7 @@ const refreshController = new RefreshController(
     bltcService,
     cookingService,
     utilityService,
+    openService,
 );
 
 export const ROUTES: Route[] = [
