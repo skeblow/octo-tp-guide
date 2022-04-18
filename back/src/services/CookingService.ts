@@ -30,6 +30,105 @@ export default class CookingService {
                 ],
             },
             {
+                // Plate of Beef Rendang 
+                id: 86997,
+                type: RecipeType.cooking,
+                output: [
+                    {id: 86997, quantity: 1},
+                ],
+                input: [
+                    // Slab of Red Meat 
+                    {id: 24359, quantity: 2},
+                    // Bottle of Coconut Milk 
+                    {id: 87289, quantity: 1},
+                    // Rice Ball 
+                    {id: 12145, quantity: 5},
+                    // Onion
+                    {id: 12142, quantity: 2},
+                    // 12163-Head-of-Garlic
+                    {id: 12163, quantity: 2},
+                    // Ginger Root 
+                    {id: 12328, quantity: 2},
+                    // Chili Pepper 
+                    {id: 12331, quantity: 2},
+                    // Cayenne Pepper
+                    {id: 12504, quantity: 2},
+                    // Lemongrass
+                    {id: 12546, quantity: 2},
+                    // Lime
+                    {id: 12339, quantity: 2},
+
+                ],
+            },
+            {
+                // Bowl of "Elon Red"
+                id: 82541,
+                type: RecipeType.cooking,
+                output: [
+                    {id: 82541, quantity: 1},
+                ],
+                input: [
+                    // Lemon
+                    {id: 12252, quantity: 1},
+                    // 	Handful of Red Lentils
+                    {id: 82866, quantity: 2},
+                    // Jar of Vegetable Oil
+                    {id: 12158, quantity: 1},
+                    // 	Jug of Water
+                    {id: 12156, quantity: 2},
+                ],
+            },
+            {
+                // Plate of Truffle Steak
+                id: 12467,
+                type: RecipeType.cooking,
+                output: [
+                    {id: 12467, quantity: 1},
+                ],
+                input: [
+                    // Slab of Red Meat
+                    {id: 24359, quantity: 1},
+                    // Orrian Truffle 
+                    {id: 12545, quantity: 1},
+                    // Snow Truffle
+                    {id: 12144, quantity: 1},
+                    // Stick of Butter 
+                    {id: 12138, quantity: 1},
+                ],
+            },
+            {
+                // 	Bowl of Butternut Squash Soup
+                id: 12449,
+                type: RecipeType.cooking,
+                output: [
+                    {id: 12449, quantity: 2},
+                ],
+                input: [
+                    // Butternut Squash
+                    {id: 12511, quantity: 1},
+                    // Stick of Butter
+                    {id: 12138, quantity: 2},
+                    // Cayenne Pepper
+                    {id: 12504, quantity: 1},
+                    // Glass of Buttermilk 
+                    {id: 12137, quantity: 1},
+                    // 	Packet of Salt
+                    {id: 12153, quantity: 1},
+                    // Black Peppercorn 
+                    {id: 12236, quantity: 1},
+                    // Bag of Flour 
+                    {id: 12136, quantity: 1},
+                    // Carrot
+                    {id: 12134, quantity: 2},
+                    // Onion
+                    {id: 12142, quantity: 2},
+                    // 	Jug of Water
+                    {id: 12156, quantity: 1},
+                    // 	Slab of Poultry Meat 
+                    {id: 24360, quantity: 1},
+                ],
+            },
+            {
                 // Pile-of-Pumpkin-Pie-Spice
                 id: 12519,
                 type: RecipeType.cooking,
