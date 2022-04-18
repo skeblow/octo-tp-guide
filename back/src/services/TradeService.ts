@@ -104,6 +104,7 @@ export default class TradeService {
                     quantity: input.quantity,
                 };
             });
+            inputs.sort((trade1, trade2) => trade2.price.buys.unit_price * trade2.quantity - trade1.price.buys.unit_price * trade1.quantity);
             const outputs: Array<TradeItem> = recipe.output.map(output => {
                 return {
                     item: items.find(i => i.id === output.id) as Item,
@@ -169,6 +170,7 @@ export default class TradeService {
                     quantity: output.quantity,
                 };
             });
+            outputs.sort((trade1, trade2) => trade2.price.buys.unit_price * trade2.quantity - trade1.price.buys.unit_price * trade1.quantity);
 
             if (inputs.length === 0) {
                 continue;
