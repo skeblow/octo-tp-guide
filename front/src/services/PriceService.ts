@@ -1,5 +1,8 @@
 class PriceService {
     formatGold(amount: number): string {
+        const sign = amount < 0 ? '-' : '';
+        amount = Math.abs(amount);
+
         if (amount === 0) {
             return '0';
         }
@@ -23,15 +26,15 @@ class PriceService {
             result.push(gold + 'g');
         }
 
-        if (silver > 0) {
+        if (silver > 0 || gold > 0) {
             result.push(silver + 's');
         }
 
-         if (copper > 0 || silver > 0) {
+         if (copper > 0 || silver > 0 || gold > 0) {
             result.push(Math.floor(copper) + 'c');
         }
 
-        return result.join(' ');
+        return sign+result.join('&nbsp;');
     }
 }
 
