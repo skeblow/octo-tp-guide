@@ -1,20 +1,25 @@
 <template>
       <div class="row">
         <div class="col-4 mb-4" v-for="trade in items" :key="trade.recipe.id">
-            <div class="card">
-                <div class="card-header">
-                    <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.input.item.id" target="_blank">
-                        <img v-bind:src="trade.input.item.icon" alt="">
-                    </a>
-                    {{ trade.input.item.name }}
-                    <small>(Buy)</small>
+            <div class="card" v-bind:class="{'bg-danger': trade.roi < 10, 'text-white': trade.roi < 10}">
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                        <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.input.item.id" target="_blank">
+                            <img v-bind:src="trade.input.item.icon" alt="">
+                        </a>
+                        {{ trade.input.item.name }}
+                    </div>
+                    <div>
+                        Buy:
+                        <strong>{{ formatGold(trade.totalBuy - 3) }}</strong>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-stripped">
                         <tbody>
                             <tr v-for="output in trade.output" :key="output.item.id">
                                 <td>
-                                    {{ output.quantity }}x
+                                    {{ Math.round(output.quantity * 100) / 100 }}x
                                 </td>
                                 <td>
                                     <a v-bind:href="'https://www.gw2bltc.com/en/item/'+output.item.id" target="_blank">

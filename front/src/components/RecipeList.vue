@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-4 mb-4" v-for="trade in items" :key="trade.recipe.id">
-            <div class="card">
+            <div class="card" v-bind:class="{'bg-danger': trade.roi < 10, 'text-white': trade.roi < 10}">
                 <div class="card-header">
                     <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.output.item.id" target="_blank">
                         <img v-bind:src="trade.output.item.icon" alt="">

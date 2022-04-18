@@ -52,6 +52,7 @@ export default class RefineService {
                 id: 19747,
                 type: RecipeType.refine,
                 input: [
+                    // silk scrap
                     {id: 19748, quantity: 3},
                 ],
                 output: [
@@ -63,6 +64,7 @@ export default class RefineService {
                 id: 19746,
                 type: RecipeType.refine,
                 input: [
+                    // gossamer scrap
                     {id: 19745, quantity: 2},
                 ],
                 output: [
@@ -118,6 +120,7 @@ export default class RefineService {
                 id: 19735,
                 type: RecipeType.refine,
                 input: [
+                    // thick leather section
                     {id: 19729, quantity: 4},
                 ],
                 output: [
@@ -151,12 +154,12 @@ export default class RefineService {
                 id: 19679,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19697, quantity: 10},
-                    {id: 19704, quantity: 1},
+                    {id: 19697, quantity: 2},
                 ],
                 output: [
-                    {id: 19679, quantity: 5},
+                    {id: 19679, quantity: 1},
                 ],
+                cost: 8 / 5,
             },
             {
                 // iron ingot
@@ -231,6 +234,7 @@ export default class RefineService {
                 id: 19684,
                 type: RecipeType.refine,
                 input: [
+                    // mithril ore
                     {id: 19700, quantity: 2},
                 ],
                 output: [

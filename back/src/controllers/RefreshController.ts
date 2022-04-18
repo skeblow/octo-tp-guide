@@ -6,6 +6,8 @@ import PriceService from "../services/PriceService";
 import * as fs from 'fs';
 import { Recipe } from "../../../shared";
 import UtilityService from "../services/UtilityService";
+import OpenService from "../services/OpenService";
+import WeaponsmithService from "../services/WeaponsmithService";
 
 export default class RefreshController {
     constructor(
@@ -14,7 +16,25 @@ export default class RefreshController {
         private bltcService: BltcService,
         private cookingService: CookingService,
         private utilityService: UtilityService,
+        private openService: OpenService,
+        private weaponsmithService: WeaponsmithService,
     ) {
+    }
+
+    private async getRecipeIds(): Promise<Array<number>> {
+        let recipes: Array<Recipe> = 
+            (await this.cookingService.getAll())
+            .concat(await this.utilityService.getAll())
+            .concat(await this.openService.getAll())
+            .concat(await this.weaponsmithService.getAll());
+        let ids: Array<number> = [];
+
+        for (const recipe of recipes) {
+            ids = ids.concat(recipe.input.map(item => item.id))
+                .concat(recipe.output.map(item => item.id));
+        }
+
+        return ids;
     }
 
     async refresh(req: Request, res: Response): Promise<void> {
@@ -58,18 +78,5 @@ export default class RefreshController {
 
         console.log('done refreshing');
         res.send('done');
-    }
-
-    private async getRecipeIds(): Promise<Array<number>> {
-        let recipes: Array<Recipe> = await this.cookingService.getAll()
-        recipes = recipes.concat(await this.utilityService.getAll());
-        let ids: Array<number> = [];
-
-        for (const recipe of recipes) {
-            ids = ids.concat(recipe.input.map(item => item.id))
-                .concat(recipe.output.map(item => item.id));
-        }
-
-        return ids;
     }
 }

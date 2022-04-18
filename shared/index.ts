@@ -37,14 +37,22 @@ export enum RecipeType {
     open = 'open',
     cooking = 'cooking',
     artificier = 'artificier',
+    weaponsmith = 'weaponsmith',
+    huntsman = 'huntsman',
 }
 
 export interface Recipe {
     // _id: number,
     id: number,
     type: RecipeType,
-    input: Array<{id: number, quantity: number}>,
-    output: Array<{id: number, quantity: number}>,
+    input: Array<RecipeItem>,
+    output: Array<RecipeItem>,
+    cost?: number,
+}
+
+export interface RecipeItem {
+    id: number,
+    quantity: number,
 }
 
 export interface SalvageRecipe extends Recipe {

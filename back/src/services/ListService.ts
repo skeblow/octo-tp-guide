@@ -1,46 +1,46 @@
-import { BasicTrade, Item, ItemBltc, ItemPrice, RecipeTrade, TradeData, SalvageTrade, TradeItem, Recipe } from "../../../shared";
-import BltcService from "./BltcService";
+import { BasicTrade, Item, ItemBltc, ItemPrice, RecipeTrade, TradeData, SalvageTrade, TradeItem, Recipe, SalvageRecipe } from "../../../shared";
 import CookingService from "./CookingService";
-import ItemService from "./ItemService";
 import MongoService from "./MongoService";
-import PriceService from "./PriceService";
+import OpenService from "./OpenService";
 import RefineService from "./RefineService";
 import SalvageService from "./SalvageService";
+import TradeService from "./TradeService";
 import UtilityService from "./UtilityService";
+import WeaponsmithService from "./WeaponsmithService";
 
 export default class ListService {
     constructor (
         private mongoService: MongoService,
-        private itemService: ItemService,
-        private priceService: PriceService,
-        private bltcService: BltcService,
+        private tradeService: TradeService,
         private refineService: RefineService,
         private salvageService: SalvageService,
         private cookingService: CookingService,
         private utilityService: UtilityService,
+        private openService: OpenService,
+        private weaponsmithService: WeaponsmithService,
     ) {
     }
 
     async getCheapBasicList(): Promise<Array<BasicTrade>> {
-        let list = await this.getBasicList(
-            25,
-            40,
+        const list = await this.getBasicList(
+            30,
+            30,
             1_800,
             1_800,
         );
-        list = list.sort((trade1: BasicTrade, trade2: BasicTrade) => this.priceService.getRoi(trade2.price) - this.priceService.getRoi(trade1.price));
+        list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi);
 
         return list;
     }
 
     async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
-        let list = await this.getBasicList(
-            25,
+        const list = await this.getBasicList(
+            30,
             20_000,
             20,
             20,
         );
-        list = list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade1.item.name.localeCompare(trade2.item.name));
+        list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade1.item.name.localeCompare(trade2.item.name));
 
         return list;
     }
@@ -66,255 +66,54 @@ export default class ListService {
         ]).toArray();
 
         const ids = result.map(obj => obj.id);
-
-        const [
-            prices,
-            items,
-            bltcs,
-        ] = await Promise.all([
-            this.priceService.getPricesByIds(ids),
-            this.itemService.getAllByIds(ids),
-            this.bltcService.getBltcByIds(ids)
-        ]);
-
-        const trades: Array<BasicTrade> = [];
-
-        for (const price of prices) {
-            if (trades.map(trade => trade.price.id).includes(price.id)) {
-                continue;
-            }
-
-            const profit = this.priceService.getProfit(price);
-            const roi = this.priceService.getRoi(price);
-
-            const basicTrade: BasicTrade = {
-                item: items.find(item => item.id === price.id) as Item,
-                price: price,
-                bltc: bltcs.find(bltc => bltc.id === price.id) as ItemBltc,
-                quantity: 1,
-                totalBuy: price.buys.unit_price,
-                totalSell: price.sells.unit_price,
-                profit: profit,
-                roi: roi,
-            }
-            
-            if (basicTrade.totalBuy < minSell || basicTrade.profit < 10 || basicTrade.roi < minRoi) {
-                continue;
-            }
-
-            trades.push(basicTrade);
-        }
+        let trades: Array<BasicTrade> = await this.tradeService.getTradesFromItemIds(ids);
+        trades = trades.filter(trade => trade.totalSell > minSell && trade.profit > 10 && trade.roi > minRoi);
 
         return trades;
     }
 
-    private getRecipeTradeData(inputs: Array<TradeItem>, outputs: Array<TradeItem>): TradeData {
-        const totalBuy = inputs.reduce((total, item: TradeItem) => total + item.price.buys.unit_price * item.quantity, 0)
-        const totalSell = outputs.reduce((total, item: TradeItem) => total +item.price.sells.unit_price * item.quantity, 0)
-        const profit = Math.round( 0.85 * totalSell - totalBuy );
-        const roi = Math.round( profit / totalBuy * 100 );
-        
-        return {
-            totalBuy,
-            totalSell,
-            profit,
-            roi,
-        };
-    }
-
     async getRefineList(): Promise<Array<RecipeTrade>> {
         const recipes = await this.refineService.getAll();
-        let itemIds = recipes
-            .flatMap(
-                recipe => recipe.input
-                    .map(item => item.id)
-                    .concat(recipe.output.map(item => item.id))
-            );
-        itemIds = [...new Set(itemIds)];
 
-        const [
-            items,
-            prices,
-            bltcs,
-        ] = await Promise.all([
-            this.itemService.getAllByIds(itemIds),
-            this.priceService.getPricesByIds(itemIds),
-            this.bltcService.getBltcByIds(itemIds),
-        ]);
+        let trades = await this.tradeService.getTradesFromRecipes(recipes);
+        
+        trades = trades.sort((trade1, trade2) => {
+            const trade1Name = trade1.input[0].item.name.toLocaleLowerCase();
+            const trade2Name = trade2.input[0].item.name.toLocaleLowerCase();
 
-        const trades: Array<RecipeTrade> = [];
-
-        for (const recipe of recipes) {
-            const inputs: Array<TradeItem> = recipe.input.map(input => {
-                return {
-                    item: items.find(i => i.id === input.id) as Item,
-                    price: prices.find(p => p.id === input.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === input.id) as ItemBltc,
-                    quantity: input.quantity,
-                };
-            });
-            const outputs: Array<TradeItem> = recipe.output.map(output => {
-                return {
-                    item: items.find(i => i.id === output.id) as Item,
-                    price: prices.find(p => p.id === output.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
-                    quantity: output.quantity,
-                };
-            });
-
-            if (outputs.length === 0) {
-                continue;
-            }
-
-            trades.push({
-                id: recipe.id,
-                recipe: recipe,
-                input: inputs,
-                output: outputs[0],
-                ...this.getRecipeTradeData(inputs, outputs),
-            });
-        }
-
-        trades.sort((trade1, trade2) => trade2.roi - trade1.roi);
+            return trade1Name.localeCompare(trade2Name);
+        });
 
         return trades;
     }
 
     async getSalvageList(): Promise<Array<SalvageTrade>> {
         const recipes = await this.salvageService.getAll();
-        let itemIds = recipes
-            .flatMap(
-                recipe => recipe.input
-                    .map(item => item.id)
-                    .concat(recipe.output.map(item => item.id))
-            );
-        itemIds = [...new Set(itemIds)];
-
-        const [
-            items,
-            prices,
-            bltcs,
-        ] = await Promise.all([
-            this.itemService.getAllByIds(itemIds),
-            this.priceService.getPricesByIds(itemIds),
-            this.bltcService.getBltcByIds(itemIds),
-        ]);
-
-        const trades: Array<SalvageTrade> = [];
-
-        for (const recipe of recipes) {
-            const inputs: Array<TradeItem> = recipe.input.map(input => {
-                return {
-                    item: items.find(i => i.id === input.id) as Item,
-                    price: prices.find(p => p.id === input.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === input.id) as ItemBltc,
-                    quantity: input.quantity,
-                };
-            });
-            const outputs: Array<TradeItem> = recipe.output.map(output => {
-                return {
-                    item: items.find(i => i.id === output.id) as Item,
-                    price: prices.find(p => p.id === output.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
-                    quantity: output.quantity,
-                };
-            });
-
-            if (inputs.length === 0) {
-                continue;
-            }
-
-            trades.push({
-                id: recipe.id,
-                recipe: recipe,
-                input: inputs[0],
-                output: outputs,
-                ...this.getRecipeTradeData(inputs, outputs),
-            });
-        }
-
-        trades.sort((trade1: SalvageTrade, trade2: SalvageTrade) => trade2.roi - trade1.roi);
-
-        return trades;
+        
+        return this.tradeService.getTradesFromSalvageRecipes(recipes);
     }
 
-    private async getTradesFromRecipes(recipes: Array<Recipe>): Promise<Array<RecipeTrade>> {
-        let itemIds = recipes
-            .flatMap(
-                recipe => recipe.input
-                    .map(item => item.id)
-                    .concat(recipe.output.map(item => item.id))
-            );
-        itemIds = [...new Set(itemIds)];
+    async getOpenList(): Promise<Array<SalvageTrade>> {
+        const recipes = await this.openService.getAll();
 
-        const [
-            items,
-            prices,
-            bltcs,
-        ] = await Promise.all([
-            this.itemService.getAllByIds(itemIds),
-            this.priceService.getPricesByIds(itemIds),
-            this.bltcService.getBltcByIds(itemIds),
-        ]);
-
-        let trades: Array<RecipeTrade> = [];
-
-        for (const recipe of recipes) {
-            for (const input of recipe.input) {
-                if (
-                    prices.find(p => p.id === input.id) === undefined
-                    || bltcs.find(b => b.id === input.id) === undefined
-                ) {
-                    console.log('undefined price of', input.id);
-
-                    return trades;
-                }
-            }
-
-            const inputs: Array<TradeItem> = recipe.input.map(input => {
-                return {
-                    item: items.find(i => i.id === input.id) as Item,
-                    price: prices.find(p => p.id === input.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === input.id) as ItemBltc,
-                    quantity: input.quantity,
-                };
-            });
-            const outputs: Array<TradeItem> = recipe.output.map(output => {
-                return {
-                    item: items.find(i => i.id === output.id) as Item,
-                    price: prices.find(p => p.id === output.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
-                    quantity: output.quantity,
-                };
-            });
-
-            if (outputs.length === 0) {
-                continue;
-            }
-
-            trades.push({
-                id: recipe.id,
-                recipe: recipe,
-                input: inputs,
-                output: outputs[0],
-                ...this.getRecipeTradeData(inputs, outputs),
-            });
-        }
-
-        trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => trade2.roi - trade1.roi);
-
-        return trades;
+        return this.tradeService.getTradesFromSalvageRecipes(recipes);
     }
 
     async getCookingList(): Promise<Array<RecipeTrade>> {
         const recipes = await this.cookingService.getAll();
         
-        return this.getTradesFromRecipes(recipes);
+        return this.tradeService.getTradesFromRecipes(recipes);
     }
 
     async getUtilityList(): Promise<Array<RecipeTrade>> {
         const recipes = await this.utilityService.getAll();
         
-        return this.getTradesFromRecipes(recipes);
+        return this.tradeService.getTradesFromRecipes(recipes);
+    }
+
+    async getWeaponsmithList(): Promise<Array<RecipeTrade>> {
+        const recipes = await this.weaponsmithService.getAll();
+        
+        return this.tradeService.getTradesFromRecipes(recipes);
     }
 }

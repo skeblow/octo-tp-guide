@@ -10,10 +10,13 @@ import GwApiService from "./services/GwApiService";
 import ItemService from "./services/ItemService";
 import ListService from "./services/ListService";
 import MongoService from "./services/MongoService";
+import OpenService from "./services/OpenService";
 import PriceService from "./services/PriceService";
 import RefineService from "./services/RefineService";
 import SalvageService from "./services/SalvageService";
+import TradeService from "./services/TradeService";
 import UtilityService from "./services/UtilityService";
+import WeaponsmithService from "./services/WeaponsmithService";
 
 interface Route
 {
@@ -33,15 +36,18 @@ const refineService = new RefineService();
 const salvageService = new SalvageService();
 const cookingService = new CookingService();
 const utilityService = new UtilityService();
+const openService = new OpenService();
+const tradeService = new TradeService(itemService, priceService, bltcService);
+const weaponsmithService = new WeaponsmithService();
 const listService = new ListService(
     mongoService,
-    itemService,
-    priceService,
-    bltcService,
+    tradeService,
     refineService,
     salvageService,
     cookingService,
     utilityService,
+    openService,
+    weaponsmithService,
 );
 
 const itemController = new ItemController(itemService);
@@ -53,6 +59,8 @@ const refreshController = new RefreshController(
     bltcService,
     cookingService,
     utilityService,
+    openService,
+    weaponsmithService,
 );
 
 export const ROUTES: Route[] = [

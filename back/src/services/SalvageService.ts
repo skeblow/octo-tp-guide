@@ -187,9 +187,9 @@ export default class SalvageService {
                     {id: 21675, quantity: 1},
                 ],
                 output: [
-                   // silk strap
+                   // silk scrap
                    {id: 19748, quantity: 1.622},
-                   // gossamer strap
+                   // gossamer scrap
                    {id: 19745, quantity: 0.084},
                 ],
                 cost: 3,
@@ -202,10 +202,10 @@ export default class SalvageService {
                     {id: 21672, quantity: 1},
                 ],
                 output: [
-                   // wool strap
-                   {id: 19739, quantity: 0},
-                   // cotton strap
-                   {id: 19741, quantity: 0},
+                   // wool scrap
+                   {id: 19739, quantity: 0.4289},
+                   // cotton scrap
+                   {id: 19741, quantity: 1.3964},
                 ],
                 cost: 3,
             },
@@ -217,10 +217,10 @@ export default class SalvageService {
                     {id: 21671, quantity: 1},
                 ],
                 output: [
-                   // jute strap
-                   {id: 19718, quantity: 0},
-                   // wool strap
-                   {id: 19739, quantity: 0},
+                   // jute scrap
+                   {id: 19718, quantity: 0.489},
+                   // wool scrap
+                   {id: 19739, quantity: 1.2972},
                 ],
                 cost: 3,
             },
@@ -232,9 +232,9 @@ export default class SalvageService {
                     {id: 21666, quantity: 1},
                 ],
                 output: [
-                   // silk strap
+                   // silk scrap
                    {id: 19748, quantity: 1.62},
-                   // gossamer strap
+                   // gossamer scrap
                    {id: 19745, quantity: 0.082},
                 ],
                 cost: 3,
@@ -247,17 +247,17 @@ export default class SalvageService {
                     {id: 79138, quantity: 1},
                 ],
                 output: [
-                   // jute strap
+                   // jute scrap
                    {id: 19718, quantity: 0.17},
-                   // wool strap
+                   // wool scrap
                    {id: 19739, quantity: 0.49},
-                   // cotton strap
+                   // cotton scrap
                    {id: 19741, quantity: 0.43},
-                   // linen strap
+                   // linen scrap
                    {id: 19743, quantity: 0.3},
-                   // silk strap
+                   // silk scrap
                    {id: 19748, quantity: 0.17},
-                   // gossamer strap
+                   // gossamer scrap
                    {id: 19745, quantity: 0.15},
                 ],
                 cost: 3,

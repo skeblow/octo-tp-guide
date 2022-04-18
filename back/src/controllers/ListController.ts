@@ -35,6 +35,14 @@ export default class ListController {
                 this.listService.getUtilityList()
                     .then(trades => res.send(trades));
                 break;
+            case 'open':
+                this.listService.getOpenList()
+                    .then(trades => res.send(trades));
+                break;
+            case 'weaponsmith':
+                this.listService.getWeaponsmithList()
+                    .then(trades => res.send(trades));
+                break;
             default: throw 'unknown list';
         }
     }
