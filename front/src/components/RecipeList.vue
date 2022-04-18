@@ -53,7 +53,7 @@
                                     {{ formatGold(trade.profit) }}
                                 </strong></td>
                             </tr>
-                            <tr>
+                            <tr class="table-secondary">
                                 <td colspan="4" class="text-end">Roi:</td>
                                 <td class="text-end"><strong>
                                     {{ trade.roi }}%

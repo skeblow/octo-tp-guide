@@ -37,8 +37,8 @@ export default class ListService {
         const list = await this.getBasicList(
             30,
             20_000,
-            20,
-            20,
+            30,
+            30,
         );
         list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade1.item.name.localeCompare(trade2.item.name));
 

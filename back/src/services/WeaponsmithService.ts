@@ -83,6 +83,22 @@ export default class WeaponsmithService {
                 // milling basin
                 cost: 56,
             },
+            {
+                // 75698-Oiled-Ancient-Staff-Head
+                id: 75698,
+                type: RecipeType.weaponsmith,
+                output: [{id: 75698, quantity: 1}],
+                input: [
+                    // 19725-Ancient-Wood-Log
+                    {id: 19725, quantity: 6},
+                    // 74090-Pile-of-Flax-Seeds
+                    {id: 74090, quantity: 75},
+                    // 77256-Milling-Stone
+                    {id: 77256, quantity: 25},
+                ],
+                // milling basin
+                cost: 56,
+            },
         ];
     }
 }
