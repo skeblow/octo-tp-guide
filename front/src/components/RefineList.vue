@@ -22,11 +22,13 @@
                     <th>Input sell</th>
                     <th>Output sell</th>
                     <th>Diff</th>
-                    <th>Roi if bought</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="trade in getItems()" :key="trade.recipe.id">
+                <tr
+                    v-for="trade in getItems()" :key="trade.recipe.id"
+                    v-bind:class="{'table-danger': getDiff(trade) < 0}"
+                >
                     <td>
                         {{ trade.input[0].quantity }}x
                         <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.input[0].item.id" target="_blank">
@@ -51,10 +53,7 @@
                         {{ formatGold(trade.totalSell) }}
                     </td>
                     <td>
-                        {{ formatGold(trade.totalSell - getInputSell(trade)) }}
-                    </td>
-                    <td>
-                        {{ trade.roi }}%
+                        {{ formatGold(getDiff(trade)) }}
                     </td>
                 </tr>
             </tbody>
@@ -77,6 +76,10 @@ export default class RefineList extends Vue.with(RefineListProps) {
 
     getInputSell(trade: RecipeTrade): number {
         return trade.input.reduce((total, input) => total + (input.price.sells.unit_price * input.quantity), 0);
+    }
+
+    getDiff(trade: RecipeTrade): number {
+        return trade.totalSell - this.getInputSell(trade);
     }
 
     clearSearch(): void {

@@ -154,12 +154,12 @@ export default class RefineService {
                 id: 19679,
                 type: RecipeType.refine,
                 input: [
-                    {id: 19697, quantity: 10},
-                    {id: 19704, quantity: 1},
+                    {id: 19697, quantity: 2},
                 ],
                 output: [
-                    {id: 19679, quantity: 5},
+                    {id: 19679, quantity: 1},
                 ],
+                cost: 8 / 5,
             },
             {
                 // iron ingot

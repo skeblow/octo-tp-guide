@@ -23,7 +23,7 @@ export default class ListService {
 
     async getCheapBasicList(): Promise<Array<BasicTrade>> {
         const list = await this.getBasicList(
-            25,
+            30,
             30,
             1_800,
             1_800,
@@ -35,7 +35,7 @@ export default class ListService {
 
     async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
         const list = await this.getBasicList(
-            25,
+            30,
             20_000,
             20,
             20,
@@ -75,7 +75,16 @@ export default class ListService {
     async getRefineList(): Promise<Array<RecipeTrade>> {
         const recipes = await this.refineService.getAll();
 
-        return this.tradeService.getTradesFromRecipes(recipes);
+        let trades = await this.tradeService.getTradesFromRecipes(recipes);
+        
+        trades = trades.sort((trade1, trade2) => {
+            const trade1Name = trade1.input[0].item.name.toLocaleLowerCase();
+            const trade2Name = trade2.input[0].item.name.toLocaleLowerCase();
+
+            return trade1Name.localeCompare(trade2Name);
+        });
+
+        return trades;
     }
 
     async getSalvageList(): Promise<Array<SalvageTrade>> {
