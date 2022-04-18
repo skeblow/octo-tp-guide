@@ -127,6 +127,10 @@ export default class PriceService {
             23043, // Master's Salvage Kit
             6736, // Vigorous Apprentice Gloves
             12240, //Celery Stalk
+            87289, // Bottle of Coconut Milk
+            12339,	//Lime
+            12252,	//Lemon
+            12137,	//Glass of Buttermilk
         ];
     }
 }
