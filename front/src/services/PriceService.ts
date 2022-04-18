@@ -34,7 +34,7 @@ class PriceService {
             result.push(Math.floor(copper) + 'c');
         }
 
-        return sign+result.join('&nbsp;');
+        return sign+result.join(' ');
     }
 }
 
