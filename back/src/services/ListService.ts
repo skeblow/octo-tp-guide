@@ -23,7 +23,7 @@ export default class ListService {
 
     public getCheapBasicList(): Promise<Array<BasicTrade>> {
         return this.getBasicList({
-            minRoi: 30,
+            minRoi: 25,
             minSell: 30,
             minSells: 1_800,
             minBuys: 1_800,
@@ -35,8 +35,8 @@ export default class ListService {
         return this.getBasicList({
             minRoi: 30,
             minSell: 20_000,
-            minSells: 30,
-            minBuys: 30,
+            minSells: 25,
+            minBuys: 25,
         })
             .then(list => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade1.item.name.localeCompare(trade2.item.name)));
     }
