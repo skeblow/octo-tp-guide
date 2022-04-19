@@ -21,7 +21,7 @@ export default class ListService {
     ) {
     }
 
-    getCheapBasicList(): Promise<Array<BasicTrade>> {
+    public getCheapBasicList(): Promise<Array<BasicTrade>> {
         return this.getBasicList({
             minRoi: 30,
             minSell: 30,
@@ -31,7 +31,7 @@ export default class ListService {
             .then(list => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi));
     }
 
-    getExpensiveBasicList(): Promise<Array<BasicTrade>> {
+    public getExpensiveBasicList(): Promise<Array<BasicTrade>> {
         return this.getBasicList({
             minRoi: 30,
             minSell: 20_000,
@@ -67,7 +67,7 @@ export default class ListService {
             .then(trades => trades.filter(trade => trade.totalSell > options.minSell && trade.profit > 10 && trade.roi > options.minRoi));
     }
 
-    getRefineList(): Promise<Array<RecipeTrade>> {
+    public getRefineList(): Promise<Array<RecipeTrade>> {
         return this.refineService.getAll()
             .then(recipes => this.tradeService.getTradesFromRecipes(recipes))
             .then(trades => trades.sort(
@@ -80,33 +80,28 @@ export default class ListService {
             ));
     }
 
-    async getSalvageList(): Promise<Array<SalvageTrade>> {
-        const recipes = await this.salvageService.getAll();
-        
-        return this.tradeService.getTradesFromSalvageRecipes(recipes);
+    public getSalvageList(): Promise<Array<SalvageTrade>> {
+        return this.salvageService.getAll()
+            .then(recipes => this.tradeService.getTradesFromSalvageRecipes(recipes));
     }
 
-    async getOpenList(): Promise<Array<SalvageTrade>> {
-        const recipes = await this.openService.getAll();
-
-        return this.tradeService.getTradesFromSalvageRecipes(recipes);
+    public getOpenList(): Promise<Array<SalvageTrade>> {
+        return this.openService.getAll()
+            .then(recipes => this.tradeService.getTradesFromSalvageRecipes(recipes));
     }
 
-    async getCookingList(): Promise<Array<RecipeTrade>> {
-        const recipes = await this.cookingService.getAll();
-        
-        return this.tradeService.getTradesFromRecipes(recipes);
+    public getCookingList(): Promise<Array<RecipeTrade>> {
+        return this.cookingService.getAll()
+            .then(recipes => this.tradeService.getTradesFromRecipes(recipes));
     }
 
-    async getUtilityList(): Promise<Array<RecipeTrade>> {
-        const recipes = await this.utilityService.getAll();
-        
-        return this.tradeService.getTradesFromRecipes(recipes);
+    public getUtilityList(): Promise<Array<RecipeTrade>> {
+        return this.utilityService.getAll()
+            .then(recipes => this.tradeService.getTradesFromRecipes(recipes));
     }
 
-    async getWeaponsmithList(): Promise<Array<RecipeTrade>> {
-        const recipes = await this.weaponsmithService.getAll();
-        
-        return this.tradeService.getTradesFromRecipes(recipes);
+    public getWeaponsmithList(): Promise<Array<RecipeTrade>> {
+        return this.weaponsmithService.getAll()
+            .then(recipes => this.tradeService.getTradesFromRecipes(recipes));
     }
 }

@@ -11,42 +11,32 @@ export default class TradeService {
     ) {
     }
 
-    public async getTradesFromItemIds(ids: Array<number>): Promise<Array<BasicTrade>> {
-        const [
-            prices,
-            items,
-            bltcs,
-        ] = await Promise.all([
+    public getTradesFromItemIds(ids: Array<number>): Promise<Array<BasicTrade>> {
+        return Promise.all([
             this.priceService.getPricesByIds(ids),
             this.itemService.getAllByIds(ids),
-            this.bltcService.getBltcByIds(ids)
-        ]);
+            this.bltcService.getBltcByIds(ids),
+        ])
+            .then(
+                ([prices, items, bltcs]) => prices.map((price: ItemPrice) => {
+                    const profit = this.priceService.getProfit(price);
+                    const roi = this.priceService.getRoi(price);
 
-        const trades: Array<BasicTrade> = [];
+                    const basicTrade: BasicTrade = {
+                        item: items.find(item => item.id === price.id) as Item,
+                        price: price,
+                        bltc: bltcs.find(bltc => bltc.id === price.id) as ItemBltc,
+                        quantity: 1,
+                        totalBuy: price.buys.unit_price,
+                        totalSell: price.sells.unit_price,
+                        profit: profit,
+                        roi: roi,
+                    }
 
-        for (const price of prices) {
-            if (trades.map(trade => trade.price.id).includes(price.id)) {
-                continue;
-            }
+                    return basicTrade;
+                })
+            );
 
-            const profit = this.priceService.getProfit(price);
-            const roi = this.priceService.getRoi(price);
-
-            const basicTrade: BasicTrade = {
-                item: items.find(item => item.id === price.id) as Item,
-                price: price,
-                bltc: bltcs.find(bltc => bltc.id === price.id) as ItemBltc,
-                quantity: 1,
-                totalBuy: price.buys.unit_price,
-                totalSell: price.sells.unit_price,
-                profit: profit,
-                roi: roi,
-            }
-
-            trades.push(basicTrade);
-        }
-
-        return trades;
     }
 
     public getRecipeTradeData(inputs: Array<TradeItem>, outputs: Array<TradeItem>, cost: number): TradeData {

@@ -36,6 +36,21 @@ export default class PriceService {
                 $lt: to,
             },
         }).toArray();
+        prices = prices.concat(prices);
+
+        if (prices.length > ids.length) {
+            const uniquePrices: Array<ItemPrice> = [];
+
+            for (const price of prices) {
+                if (uniquePrices.find(p => p.id === price.id)) {
+                    continue;
+                }
+
+                uniquePrices.push(price);
+            }
+
+            prices = uniquePrices;
+        }
 
         if (requestedZeroPriceIds.length > 0) {
             prices = prices.concat(this.getZeroPricesByIds(requestedZeroPriceIds));
