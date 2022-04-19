@@ -21,70 +21,63 @@ export default class ListService {
     ) {
     }
 
-    async getCheapBasicList(): Promise<Array<BasicTrade>> {
-        const list = await this.getBasicList(
-            30,
-            30,
-            1_800,
-            1_800,
-        );
-        list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi);
-
-        return list;
+    getCheapBasicList(): Promise<Array<BasicTrade>> {
+        return this.getBasicList({
+            minRoi: 30,
+            minSell: 30,
+            minSells: 1_800,
+            minBuys: 1_800,
+        })
+            .then(list => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi));
     }
 
-    async getExpensiveBasicList(): Promise<Array<BasicTrade>> {
-        const list = await this.getBasicList(
-            30,
-            20_000,
-            30,
-            30,
-        );
-        list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade1.item.name.localeCompare(trade2.item.name));
-
-        return list;
+    getExpensiveBasicList(): Promise<Array<BasicTrade>> {
+        return this.getBasicList({
+            minRoi: 30,
+            minSell: 20_000,
+            minSells: 30,
+            minBuys: 30,
+        })
+            .then(list => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade1.item.name.localeCompare(trade2.item.name)));
     }
 
-    private async getBasicList(minRoi: number, minSell: number, minSells: number, minBuys: number): Promise<Array<BasicTrade>> {
-        const collection = await this.mongoService.getBltcCollection();
-
-        const result = await collection.aggregate([
-            {
-                $group: {
-                    _id: '$id',
-                    id: {$first: '$id'},
-                    bought: {$last: '$bought'},
-                    sold: {$last: '$sold'},
-                },
-            },
-            {
-                $match: {
-                    bought: {$gt: minBuys},
-                    sold: {$gt: minSells},
-                },
-            },
-        ]).toArray();
-
-        const ids = result.map(obj => obj.id);
-        let trades: Array<BasicTrade> = await this.tradeService.getTradesFromItemIds(ids);
-        trades = trades.filter(trade => trade.totalSell > minSell && trade.profit > 10 && trade.roi > minRoi);
-
-        return trades;
+    private getBasicList(options: {minRoi: number, minSell: number, minSells: number, minBuys: number}): Promise<Array<BasicTrade>> {
+        return this.mongoService.getBltcCollection()
+            .then(
+                collection => collection.aggregate([
+                    {
+                        $group: {
+                            _id: '$id',
+                            id: {$first: '$id'},
+                            bought: {$last: '$bought'},
+                            sold: {$last: '$sold'},
+                        },
+                    },
+                    {
+                        $match: {
+                            bought: {$gt: options.minBuys},
+                            sold: {$gt: options.minSells},
+                        },
+                    },
+                ])
+                .toArray()
+            )
+            .then(result => result.map(obj => obj.id))
+            .then(ids => this.tradeService.getTradesFromItemIds(ids))
+            .then(trades => trades.filter(trade => trade.totalSell > options.minSell && trade.profit > 10 && trade.roi > options.minRoi));
     }
 
-    async getRefineList(): Promise<Array<RecipeTrade>> {
-        const recipes = await this.refineService.getAll();
-
-        let trades = await this.tradeService.getTradesFromRecipes(recipes);
+    getRefineList(): Promise<Array<RecipeTrade>> {
+        return this.refineService.getAll()
+            .then(recipes => this.tradeService.getTradesFromRecipes(recipes))
+            .then(trades => trades.sort(
+                (trade1, trade2) => {
+                    const trade1Name = trade1.input[0].item.name.toLocaleLowerCase();
+                    const trade2Name = trade2.input[0].item.name.toLocaleLowerCase();
         
-        trades = trades.sort((trade1, trade2) => {
-            const trade1Name = trade1.input[0].item.name.toLocaleLowerCase();
-            const trade2Name = trade2.input[0].item.name.toLocaleLowerCase();
-
-            return trade1Name.localeCompare(trade2Name);
-        });
-
-        return trades;
+                    return trade1Name.localeCompare(trade2Name);
+                }
+            ));
     }
 
     async getSalvageList(): Promise<Array<SalvageTrade>> {
