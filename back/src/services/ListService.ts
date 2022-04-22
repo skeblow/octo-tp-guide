@@ -1,4 +1,4 @@
-import { BasicTrade, Item, ItemBltc, ItemPrice, RecipeTrade, TradeData, SalvageTrade, TradeItem, Recipe, SalvageRecipe } from "../../../shared";
+import { BasicTrade, RecipeTrade, SalvageTrade } from "../../../shared";
 import CookingService from "./CookingService";
 import MongoService from "./MongoService";
 import OpenService from "./OpenService";
@@ -25,8 +25,8 @@ export default class ListService {
         return this.getBasicList({
             minRoi: 25,
             minSell: 30,
-            minSells: 1_800,
-            minBuys: 1_800,
+            minSells: 1_500,
+            minBuys: 1_500,
         })
             .then(list => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi));
     }
