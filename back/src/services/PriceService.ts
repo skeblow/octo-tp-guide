@@ -1,9 +1,9 @@
-import { ItemPrice } from "../../../shared";
-import GwApiService from "./GwApiService";
-import MongoService from "./MongoService";
+import { ItemPrice } from '../../../shared';
+import GwApiService from './GwApiService';
+import MongoService from './MongoService';
 
 export default class PriceService {
-    constructor (
+    constructor(
         private mongoService: MongoService,
         private gwApiService: GwApiService,
     ) {
@@ -26,11 +26,13 @@ export default class PriceService {
         to.setMinutes(date.getMinutes() + 5);
 
         const zeroPriceIds = this.getZeroPriceIds();
-        const requestedZeroPriceIds = ids.filter(id => zeroPriceIds.includes(id));
-        ids = ids.filter(id => ! zeroPriceIds.includes(id));
+        const requestedZeroPriceIds = ids.filter((id) =>
+            zeroPriceIds.includes(id)
+        );
+        ids = ids.filter((id) => !zeroPriceIds.includes(id));
 
         let prices = await collection.find({
-            id: {$in: ids},
+            id: { $in: ids },
             date: {
                 $gt: from,
                 $lt: to,
@@ -42,7 +44,7 @@ export default class PriceService {
             const uniquePrices: Array<ItemPrice> = [];
 
             for (const price of prices) {
-                if (uniquePrices.find(p => p.id === price.id)) {
+                if (uniquePrices.find((p) => p.id === price.id)) {
                     continue;
                 }
 
@@ -53,19 +55,27 @@ export default class PriceService {
         }
 
         if (requestedZeroPriceIds.length > 0) {
-            prices = prices.concat(this.getZeroPricesByIds(requestedZeroPriceIds));
+            prices = prices.concat(
+                this.getZeroPricesByIds(requestedZeroPriceIds),
+            );
         }
 
         const foundIds = prices.map((price: ItemPrice) => price.id);
-        const missingIds = ids.filter(id => ! foundIds.includes(id));
+        const missingIds = ids.filter((id) => !foundIds.includes(id));
 
         if (missingIds.length === 0) {
             return prices;
         }
 
-        console.log('need to fetch prices', missingIds.slice(0, 10), missingIds.length);
+        console.log(
+            'need to fetch prices',
+            missingIds.slice(0, 10),
+            missingIds.length,
+        );
 
-        const missingPrices = await this.gwApiService.getItemPrices(missingIds.slice(0, 100));
+        const missingPrices = await this.gwApiService.getItemPrices(
+            missingIds.slice(0, 100),
+        );
 
         if (missingPrices.length === 0) {
             return prices;
@@ -127,7 +137,7 @@ export default class PriceService {
             12159,
             // Almond
             12337,
-	        // Pear
+            // Pear
             12514,
             // Rice-Ball
             12145,
@@ -143,9 +153,9 @@ export default class PriceService {
             6736, // Vigorous Apprentice Gloves
             12240, //Celery Stalk
             87289, // Bottle of Coconut Milk
-            12339,	//Lime
-            12252,	//Lemon
-            12137,	//Glass of Buttermilk
+            12339, //Lime
+            12252, //Lemon
+            12137, //Glass of Buttermilk
         ];
     }
 }

@@ -1,49 +1,78 @@
-import { BasicTrade, Item, ItemBltc, ItemPrice, Recipe, RecipeTrade, SalvageRecipe, SalvageTrade, TradeData, TradeItem } from "../../../shared";
-import BltcService from "./BltcService";
-import ItemService from "./ItemService";
-import PriceService from "./PriceService";
+import {
+    BasicTrade,
+    Item,
+    ItemBltc,
+    ItemPrice,
+    Recipe,
+    RecipeTrade,
+    SalvageRecipe,
+    SalvageTrade,
+    TradeData,
+    TradeItem,
+} from '../../../shared';
+import BltcService from './BltcService';
+import ItemService from './ItemService';
+import PriceService from './PriceService';
 
 export default class TradeService {
-    constructor (
+    constructor(
         private itemService: ItemService,
         private priceService: PriceService,
         private bltcService: BltcService,
     ) {
     }
 
-    public getTradesFromItemIds(ids: Array<number>): Promise<Array<BasicTrade>> {
+    public getTradesFromItemIds(
+        ids: Array<number>,
+    ): Promise<Array<BasicTrade>> {
         return Promise.all([
             this.priceService.getPricesByIds(ids),
             this.itemService.getAllByIds(ids),
             this.bltcService.getBltcByIds(ids),
         ])
             .then(
-                ([prices, items, bltcs]) => prices.map((price: ItemPrice) => {
-                    const profit = this.priceService.getProfit(price);
-                    const roi = this.priceService.getRoi(price);
+                ([prices, items, bltcs]) =>
+                    prices.map((price: ItemPrice) => {
+                        const profit = this.priceService.getProfit(price);
+                        const roi = this.priceService.getRoi(price);
 
-                    const basicTrade: BasicTrade = {
-                        item: items.find(item => item.id === price.id) as Item,
-                        price: price,
-                        bltc: bltcs.find(bltc => bltc.id === price.id) as ItemBltc,
-                        quantity: 1,
-                        totalBuy: price.buys.unit_price,
-                        totalSell: price.sells.unit_price,
-                        profit: profit,
-                        roi: roi,
-                    }
+                        const basicTrade: BasicTrade = {
+                            item: items.find((item) =>
+                                item.id === price.id
+                            ) as Item,
+                            price: price,
+                            bltc: bltcs.find((bltc) =>
+                                bltc.id === price.id
+                            ) as ItemBltc,
+                            quantity: 1,
+                            totalBuy: price.buys.unit_price,
+                            totalSell: price.sells.unit_price,
+                            profit: profit,
+                            roi: roi,
+                        };
 
-                    return basicTrade;
-                })
+                        return basicTrade;
+                    }),
             );
-
     }
 
-    public getRecipeTradeData(inputs: Array<TradeItem>, outputs: Array<TradeItem>, cost: number): TradeData {
-        const totalBuy = inputs.reduce((total, item: TradeItem) => total + item.price.buys.unit_price * item.quantity, 0) + cost;
-        const totalSell = outputs.reduce((total, item: TradeItem) => total +item.price.sells.unit_price * item.quantity, 0);
-        const profit = Math.round( 0.85 * totalSell - totalBuy );
-        const roi = Math.round( profit / totalBuy * 100 );
+    public getRecipeTradeData(
+        inputs: Array<TradeItem>,
+        outputs: Array<TradeItem>,
+        cost: number,
+    ): TradeData {
+        const totalBuy = inputs.reduce(
+            (total, item: TradeItem) =>
+                total + item.price.buys.unit_price * item.quantity,
+            0,
+        ) + cost;
+        const totalSell = outputs.reduce(
+            (total, item: TradeItem) =>
+                total + item.price.sells.unit_price * item.quantity,
+            0,
+        );
+        const profit = Math.round(0.85 * totalSell - totalBuy);
+        const roi = Math.round(profit / totalBuy * 100);
 
         return {
             totalBuy,
@@ -53,12 +82,15 @@ export default class TradeService {
         };
     }
 
-    public async getTradesFromRecipes(recipes: Array<Recipe>): Promise<Array<RecipeTrade>> {
+    public async getTradesFromRecipes(
+        recipes: Array<Recipe>,
+    ): Promise<Array<RecipeTrade>> {
         let itemIds = recipes
             .flatMap(
-                recipe => recipe.input
-                    .map(item => item.id)
-                    .concat(recipe.output.map(item => item.id))
+                (recipe) =>
+                    recipe.input
+                        .map((item) => item.id)
+                        .concat(recipe.output.map((item) => item.id)),
             );
         itemIds = [...new Set(itemIds)];
 
@@ -77,8 +109,8 @@ export default class TradeService {
         for (const recipe of recipes) {
             for (const input of recipe.input) {
                 if (
-                    prices.find(p => p.id === input.id) === undefined
-                    || bltcs.find(b => b.id === input.id) === undefined
+                    prices.find((p) => p.id === input.id) === undefined ||
+                    bltcs.find((b) => b.id === input.id) === undefined
                 ) {
                     console.log('undefined price of', input.id);
 
@@ -86,20 +118,23 @@ export default class TradeService {
                 }
             }
 
-            const inputs: Array<TradeItem> = recipe.input.map(input => {
+            const inputs: Array<TradeItem> = recipe.input.map((input) => {
                 return {
-                    item: items.find(i => i.id === input.id) as Item,
-                    price: prices.find(p => p.id === input.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === input.id) as ItemBltc,
+                    item: items.find((i) => i.id === input.id) as Item,
+                    price: prices.find((p) => p.id === input.id) as ItemPrice,
+                    bltc: bltcs.find((b) => b.id === input.id) as ItemBltc,
                     quantity: input.quantity,
                 };
             });
-            inputs.sort((trade1, trade2) => trade2.price.buys.unit_price * trade2.quantity - trade1.price.buys.unit_price * trade1.quantity);
-            const outputs: Array<TradeItem> = recipe.output.map(output => {
+            inputs.sort((trade1, trade2) =>
+                trade2.price.buys.unit_price * trade2.quantity -
+                trade1.price.buys.unit_price * trade1.quantity
+            );
+            const outputs: Array<TradeItem> = recipe.output.map((output) => {
                 return {
-                    item: items.find(i => i.id === output.id) as Item,
-                    price: prices.find(p => p.id === output.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
+                    item: items.find((i) => i.id === output.id) as Item,
+                    price: prices.find((p) => p.id === output.id) as ItemPrice,
+                    bltc: bltcs.find((b) => b.id === output.id) as ItemBltc,
                     quantity: output.quantity,
                 };
             });
@@ -117,17 +152,22 @@ export default class TradeService {
             });
         }
 
-        trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) => trade2.roi - trade1.roi);
+        trades.sort((trade1: RecipeTrade, trade2: RecipeTrade) =>
+            trade2.roi - trade1.roi
+        );
 
         return trades;
     }
 
-    public async getTradesFromSalvageRecipes(recipes: Array<SalvageRecipe>): Promise<Array<SalvageTrade>> {
+    public async getTradesFromSalvageRecipes(
+        recipes: Array<SalvageRecipe>,
+    ): Promise<Array<SalvageTrade>> {
         let itemIds = recipes
             .flatMap(
-                recipe => recipe.input
-                    .map(item => item.id)
-                    .concat(recipe.output.map(item => item.id))
+                (recipe) =>
+                    recipe.input
+                        .map((item) => item.id)
+                        .concat(recipe.output.map((item) => item.id)),
             );
         itemIds = [...new Set(itemIds)];
 
@@ -144,23 +184,26 @@ export default class TradeService {
         const trades: Array<SalvageTrade> = [];
 
         for (const recipe of recipes) {
-            const inputs: Array<TradeItem> = recipe.input.map(input => {
+            const inputs: Array<TradeItem> = recipe.input.map((input) => {
                 return {
-                    item: items.find(i => i.id === input.id) as Item,
-                    price: prices.find(p => p.id === input.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === input.id) as ItemBltc,
+                    item: items.find((i) => i.id === input.id) as Item,
+                    price: prices.find((p) => p.id === input.id) as ItemPrice,
+                    bltc: bltcs.find((b) => b.id === input.id) as ItemBltc,
                     quantity: input.quantity,
                 };
             });
-            const outputs: Array<TradeItem> = recipe.output.map(output => {
+            const outputs: Array<TradeItem> = recipe.output.map((output) => {
                 return {
-                    item: items.find(i => i.id === output.id) as Item,
-                    price: prices.find(p => p.id === output.id) as ItemPrice,
-                    bltc: bltcs.find(b => b.id === output.id) as ItemBltc,
+                    item: items.find((i) => i.id === output.id) as Item,
+                    price: prices.find((p) => p.id === output.id) as ItemPrice,
+                    bltc: bltcs.find((b) => b.id === output.id) as ItemBltc,
                     quantity: output.quantity,
                 };
             });
-            outputs.sort((trade1, trade2) => trade2.price.buys.unit_price * trade2.quantity - trade1.price.buys.unit_price * trade1.quantity);
+            outputs.sort((trade1, trade2) =>
+                trade2.price.buys.unit_price * trade2.quantity -
+                trade1.price.buys.unit_price * trade1.quantity
+            );
 
             if (inputs.length === 0) {
                 continue;
@@ -175,7 +218,9 @@ export default class TradeService {
             });
         }
 
-        trades.sort((trade1: SalvageTrade, trade2: SalvageTrade) => trade2.roi - trade1.roi);
+        trades.sort((trade1: SalvageTrade, trade2: SalvageTrade) =>
+            trade2.roi - trade1.roi
+        );
 
         return trades;
     }

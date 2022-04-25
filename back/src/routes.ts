@@ -1,30 +1,29 @@
-import { Request, Response } from "express";
-import { MongoClient } from "mongodb";
-import ItemController from "./controllers/ItemController";
-import ListController from "./controllers/ListController";
-import PriceController from "./controllers/PriceController";
-import RefreshController from "./controllers/RefreshController";
-import BltcService from "./services/BltcService";
-import CookingService from "./services/CookingService";
-import GwApiService from "./services/GwApiService";
-import ItemService from "./services/ItemService";
-import JewelcraftingService from "./services/JewelcraftingService";
-import ListService from "./services/ListService";
-import MongoService from "./services/MongoService";
-import OpenService from "./services/OpenService";
-import PriceService from "./services/PriceService";
-import RefineService from "./services/RefineService";
-import SalvageService from "./services/SalvageService";
-import TradeService from "./services/TradeService";
-import UtilityService from "./services/UtilityService";
-import WeaponsmithService from "./services/WeaponsmithService";
+// import { Request, Response } from 'express';
+// import { MongoClient } from 'mongodb';
+import ItemController from './controllers/ItemController.ts';
+import ListController from './controllers/ListController.ts';
+import PriceController from './controllers/PriceController.ts';
+import RefreshController from './controllers/RefreshController.ts';
+import BltcService from './services/BltcService.ts';
+import CookingService from './services/CookingService.ts';
+import GwApiService from './services/GwApiService.ts';
+import ItemService from './services/ItemService.ts';
+import JewelcraftingService from './services/JewelcraftingService.ts';
+import ListService from './services/ListService.ts';
+import MongoService from './services/MongoService.ts';
+import OpenService from './services/OpenService.ts';
+import PriceService from './services/PriceService.ts';
+import RefineService from './services/RefineService.ts';
+import SalvageService from './services/SalvageService.ts';
+import TradeService from './services/TradeService.ts';
+import UtilityService from './services/UtilityService.ts';
+import WeaponsmithService from './services/WeaponsmithService.ts';
 
-interface Route
-{
-    method: 'get'|'post'|'patch'|'delete';
+interface Route {
+    method: 'get' | 'post' | 'patch' | 'delete';
     route: string;
-    handler: (req: Request, res: Response) => void,
-};
+    handler: (req: Request, res: Response) => void;
+}
 
 const client = new MongoClient('mongodb://root:example@localhost/');
 
@@ -79,7 +78,7 @@ export const ROUTES: Route[] = [
         handler: (req, res) => itemController.getAll(req, res),
     },
     {
-        route: "/items/:id",
+        route: '/items/:id',
         method: 'get',
         handler: (req, res) => itemController.get(req, res),
     },

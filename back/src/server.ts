@@ -1,14 +1,15 @@
-import express, { Request, Response} from 'express';
-import { ROUTES } from './routes';
-import cors from 'cors';
+// import express, { Request, Response } from 'express';
+import { ROUTES } from './routes.ts';
+// import cors from 'cors';
+import { opine } from './deps.ts';
 
-const app = express();
+const app = opine()
 const port: number = 3000;
 
-app.use(cors());
+// app.use(cors());
 
 for (let route of ROUTES) {
-    switch(route.method) {
+    switch (route.method) {
         case 'get':
             app.get(route.route, route.handler as any);
             break;

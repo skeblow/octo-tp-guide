@@ -1,14 +1,14 @@
-import { Request, Response } from "express";
-import BltcService from "../services/BltcService";
-import CookingService from "../services/CookingService";
-import ItemService from "../services/ItemService";
-import PriceService from "../services/PriceService";
+import { Request, Response } from 'express';
+import BltcService from '../services/BltcService';
+import CookingService from '../services/CookingService';
+import ItemService from '../services/ItemService';
+import PriceService from '../services/PriceService';
 import * as fs from 'fs';
-import { Recipe } from "../../../shared";
-import UtilityService from "../services/UtilityService";
-import OpenService from "../services/OpenService";
-import WeaponsmithService from "../services/WeaponsmithService";
-import JewelcraftingService from "../services/JewelcraftingService";
+import { Recipe } from '../../../shared';
+import UtilityService from '../services/UtilityService';
+import OpenService from '../services/OpenService';
+import WeaponsmithService from '../services/WeaponsmithService';
+import JewelcraftingService from '../services/JewelcraftingService';
 
 export default class RefreshController {
     constructor(
@@ -24,8 +24,7 @@ export default class RefreshController {
     }
 
     private async getRecipeIds(): Promise<Array<number>> {
-        let recipes: Array<Recipe> = 
-            (await this.cookingService.getAll())
+        let recipes: Array<Recipe> = (await this.cookingService.getAll())
             .concat(await this.utilityService.getAll())
             .concat(await this.openService.getAll())
             .concat(await this.weaponsmithService.getAll())
@@ -33,26 +32,28 @@ export default class RefreshController {
         let ids: Array<number> = [];
 
         for (const recipe of recipes) {
-            ids = ids.concat(recipe.input.map(item => item.id))
-                .concat(recipe.output.map(item => item.id));
+            ids = ids.concat(recipe.input.map((item) => item.id))
+                .concat(recipe.output.map((item) => item.id));
         }
 
         return ids;
     }
 
     async refresh(req: Request, res: Response): Promise<void> {
-        const requestIds: Array<number> = ((req.query.ids || '') + '').split(',')
-            .filter(id => !! id)
-            .map(id => +id);
+        const requestIds: Array<number> = ((req.query.ids || '') + '').split(
+            ',',
+        )
+            .filter((id) => !!id)
+            .map((id) => +id);
 
         const filename = './data/ids';
         let fileIds: string = fs.readFileSync(filename, 'utf-8').toString();
 
         let ids: Array<any> = fileIds
             .split('\n')
-            .flatMap(ids => ids.split(','))
-            .map(id => +id)
-            .filter(id => id > 0)
+            .flatMap((ids) => ids.split(','))
+            .map((id) => +id)
+            .filter((id) => id > 0)
             .concat(await this.getRecipeIds())
             .concat(requestIds);
         ids = [...new Set(ids)];
@@ -64,8 +65,8 @@ export default class RefreshController {
         for (let i = 0; i < ids.length; i += chunkSize) {
             const chunk = ids.slice(i, i + chunkSize);
 
-            fs.appendFileSync(filename, chunk.join(',') + '\n');            
-        }       
+            fs.appendFileSync(filename, chunk.join(',') + '\n');
+        }
 
         chunkSize = 100;
 

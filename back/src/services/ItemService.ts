@@ -1,9 +1,9 @@
-import { Item, ItemPrice } from "../../../shared";
-import GwApiService from "./GwApiService";
+import { Item, ItemPrice } from '../../../shared';
+import GwApiService from './GwApiService';
 import MongoService from './MongoService';
 
 export default class ItemService {
-    constructor (
+    constructor(
         private mongoService: MongoService,
         private gwApiService: GwApiService,
     ) {
@@ -24,11 +24,11 @@ export default class ItemService {
         const collection = await this.mongoService.getItemsCollection();
 
         let items = await collection.find({
-            _id: {$in: ids},
+            _id: { $in: ids },
         }).toArray();
 
         const foundIds = items.map((item: Item) => item.id);
-        const missingIds = ids.filter(id => ! foundIds.includes(id));
+        const missingIds = ids.filter((id) => !foundIds.includes(id));
 
         if (missingIds.length > 0) {
             const missingItems = await this.gwApiService.getItems(missingIds);
@@ -36,7 +36,7 @@ export default class ItemService {
             for (const item of missingItems) {
                 item._id = item.id;
             }
-    
+
             if (missingItems.length > 0) {
                 await collection.insertMany(missingItems);
 
@@ -47,9 +47,9 @@ export default class ItemService {
         return items;
     }
 
-    async getItemById(id: number): Promise<Item|null> {
+    async getItemById(id: number): Promise<Item | null> {
         const collection = await this.mongoService.getItemsCollection();
-        const item: Item|null = await collection.findOne({ _id: id });
+        const item: Item | null = await collection.findOne({ _id: id });
 
         if (item !== null) {
             return item;

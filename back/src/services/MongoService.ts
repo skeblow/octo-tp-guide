@@ -1,5 +1,5 @@
-import { Collection, Db, MongoClient } from "mongodb";
-import { Item, ItemBltc, ItemPrice } from "../../../shared";
+import { Collection, Db, MongoClient } from 'mongodb';
+import { Item, ItemBltc, ItemPrice } from '../../../shared';
 
 export default class MongoService {
     constructor(

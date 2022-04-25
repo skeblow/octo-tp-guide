@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
-import ListService from "../services/ListService";
+import { Request, Response } from 'express';
+import ListService from '../services/ListService';
 
 export default class ListController {
-    constructor (
+    constructor(
         private listService: ListService,
     ) {
     }
@@ -13,41 +13,42 @@ export default class ListController {
         switch (type) {
             case 'cheap':
                 this.listService.getCheapBasicList()
-                    .then(trades => res.send(trades));
+                    .then((trades) => res.send(trades));
                 break;
             case 'expensive':
                 this.listService.getExpensiveBasicList()
-                    .then(trades => res.send(trades));
+                    .then((trades) => res.send(trades));
                 break;
             case 'refine':
                 this.listService.getRefineList()
-                    .then(trades => res.send(trades));
+                    .then((trades) => res.send(trades));
                 break;
             case 'salvage':
                 this.listService.getSalvageList()
-                    .then(trades => res.send(trades));
+                    .then((trades) => res.send(trades));
                 break;
             case 'cooking':
                 this.listService.getCookingList()
-                    .then(trades => res.send(trades));
+                    .then((trades) => res.send(trades));
                 break;
             case 'utility':
                 this.listService.getUtilityList()
-                    .then(trades => res.send(trades));
+                    .then((trades) => res.send(trades));
                 break;
             case 'open':
                 this.listService.getOpenList()
-                    .then(trades => res.send(trades));
+                    .then((trades) => res.send(trades));
                 break;
             case 'weaponsmith':
                 this.listService.getWeaponsmithList()
-                    .then(trades => res.send(trades));
+                    .then((trades) => res.send(trades));
                 break;
             case 'jewelcrafting':
                 this.listService.getJewelcraftingList()
-                    .then(trades => res.send(trades));
+                    .then((trades) => res.send(trades));
                 break;
-            default: throw 'unknown list';
+            default:
+                throw 'unknown list';
         }
     }
 }
