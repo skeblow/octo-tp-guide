@@ -1,12 +1,11 @@
 // import express, { Request, Response } from 'express';
 import { ROUTES } from './routes.ts';
-// import cors from 'cors';
-import { opine } from './deps.ts';
+import { opine, opineCors } from './deps.ts';
 
 const app = opine();
 const port: number = 3000;
 
-// app.use(cors());
+app.use(opineCors());
 
 for (const route of ROUTES) {
     switch (route.method) {

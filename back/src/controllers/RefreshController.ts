@@ -27,7 +27,7 @@ export default class RefreshController {
             .concat(await this.utilityService.getAll())
             .concat(await this.openService.getAll())
             .concat(await this.weaponsmithService.getAll())
-            .concat(this.jewelcraftingService.getAll());
+            .concat(this.jewelcraftingService.getAll())
         let ids: Array<number> = [];
 
         for (const recipe of recipes) {
@@ -45,8 +45,8 @@ export default class RefreshController {
             .filter((id) => !!id)
             .map((id) => +id);
 
-        const filename = './data/ids';
-        let fileIds: string = Deno.readFileSync(filename).toString();
+        const filename = '../data/ids';
+        let fileIds: string = Deno.readTextFileSync(filename);
 
         let ids: Array<any> = fileIds
             .split('\n')

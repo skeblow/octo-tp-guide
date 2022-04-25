@@ -5,3 +5,5 @@ export {
     Database,
     Collection
   } from "https://deno.land/x/mongo@v0.29.4/mod.ts";
+
+export { opineCors } from "https://deno.land/x/cors/mod.ts";
