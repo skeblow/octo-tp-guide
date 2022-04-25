@@ -1,6 +1,6 @@
-import { Item, ItemPrice } from '../../../shared';
-import GwApiService from './GwApiService';
-import MongoService from './MongoService';
+import { Item, ItemPrice } from '../../../shared/index.ts';
+import GwApiService from './GwApiService.ts';
+import MongoService from './MongoService.ts';
 
 export default class ItemService {
     constructor(
@@ -49,9 +49,9 @@ export default class ItemService {
 
     async getItemById(id: number): Promise<Item | null> {
         const collection = await this.mongoService.getItemsCollection();
-        const item: Item | null = await collection.findOne({ _id: id });
+        const item: Item | undefined = await collection.findOne({ _id: id });
 
-        if (item !== null) {
+        if (item !== undefined) {
             return item;
         }
 

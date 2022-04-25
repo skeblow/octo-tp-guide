@@ -1,4 +1,4 @@
-import { Recipe, RecipeItem, RecipeType, SalvageRecipe } from '../../../shared';
+import { Recipe, RecipeItem, RecipeType, SalvageRecipe } from '../../../shared/index.ts';
 
 export default class OpenService {
     async getAll(): Promise<Array<SalvageRecipe>> {

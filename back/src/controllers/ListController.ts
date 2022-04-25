@@ -1,5 +1,4 @@
-import { Request, Response } from 'express';
-import ListService from '../services/ListService';
+import ListService from '../services/ListService.ts';
 
 export default class ListController {
     constructor(
@@ -7,7 +6,7 @@ export default class ListController {
     ) {
     }
 
-    get(req: Request, res: Response): void {
+    get(req: any, res: any): void {
         const type = req.params.type + '';
 
         switch (type) {

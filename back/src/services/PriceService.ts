@@ -1,6 +1,6 @@
-import { ItemPrice } from '../../../shared';
-import GwApiService from './GwApiService';
-import MongoService from './MongoService';
+import { ItemPrice } from '../../../shared/index.ts';
+import GwApiService from './GwApiService.ts';
+import MongoService from './MongoService.ts';
 
 export default class PriceService {
     constructor(

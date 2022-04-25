@@ -9,10 +9,10 @@ import {
     SalvageTrade,
     TradeData,
     TradeItem,
-} from '../../../shared';
-import BltcService from './BltcService';
-import ItemService from './ItemService';
-import PriceService from './PriceService';
+} from '../../../shared/index.ts';
+import BltcService from './BltcService.ts';
+import ItemService from './ItemService.ts';
+import PriceService from './PriceService.ts';
 
 export default class TradeService {
     constructor(

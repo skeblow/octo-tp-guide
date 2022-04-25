@@ -1,5 +1,6 @@
-import { Collection, Db, MongoClient } from 'mongodb';
-import { Item, ItemBltc, ItemPrice } from '../../../shared';
+// import { Collection, Db, MongoClient } from 'mongodb';
+import { MongoClient, Database, Collection } from '../deps.ts';
+import { Item, ItemBltc, ItemPrice } from '../../../shared/index.ts';
 
 export default class MongoService {
     constructor(
@@ -7,10 +8,8 @@ export default class MongoService {
     ) {
     }
 
-    private async getDb(): Promise<Db> {
-        const client = await this.client.connect();
-
-        return client.db('octo-tp-guide');
+    private async getDb(): Promise<Database> {
+        return this.client.database('octo-tp-guide');
     }
 
     async getItemsCollection(): Promise<Collection<Item>> {

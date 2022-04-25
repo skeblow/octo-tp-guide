@@ -1,5 +1,5 @@
-import fetch, { Response } from 'node-fetch';
-import { Item, ItemPrice } from '../../../shared';
+// import fetch, { Response } from 'node-fetch';
+import { Item, ItemPrice } from '../../../shared/index.ts';
 
 export default class GwApiService {
     private readonly BASE_URL = 'https://api.guildwars2.com/v2';

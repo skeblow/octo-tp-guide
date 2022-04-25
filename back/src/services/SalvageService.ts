@@ -1,10 +1,4 @@
-import {
-    BasicTrade,
-    RecipeType,
-    SalvageRecipe,
-    SalvageTrade,
-    TradeItem,
-} from '../../../shared';
+import { RecipeType, SalvageRecipe } from '../../../shared/index.ts';
 
 export default class SalvageService {
     async getAll(): Promise<Array<SalvageRecipe>> {

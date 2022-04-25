@@ -1,13 +1,13 @@
-import { BasicTrade, RecipeTrade, SalvageTrade } from '../../../shared';
-import CookingService from './CookingService';
-import JewelcraftingService from './JewelcraftingService';
-import MongoService from './MongoService';
-import OpenService from './OpenService';
-import RefineService from './RefineService';
-import SalvageService from './SalvageService';
-import TradeService from './TradeService';
-import UtilityService from './UtilityService';
-import WeaponsmithService from './WeaponsmithService';
+import { BasicTrade, RecipeTrade, SalvageTrade } from '../../../shared/index.ts';
+import CookingService from './CookingService.ts';
+import JewelcraftingService from './JewelcraftingService.ts';
+import MongoService from './MongoService.ts';
+import OpenService from './OpenService.ts';
+import RefineService from './RefineService.ts';
+import SalvageService from './SalvageService.ts';
+import TradeService from './TradeService.ts';
+import UtilityService from './UtilityService.ts';
+import WeaponsmithService from './WeaponsmithService.ts';
 
 export default class ListService {
     constructor(
@@ -85,7 +85,7 @@ export default class ListService {
                     ])
                         .toArray(),
             )
-            .then((result) => result.map((obj) => obj.id))
+            .then((result) => result.map((obj: any) => obj.id))
             .then((ids) => this.tradeService.getTradesFromItemIds(ids))
             .then((trades) =>
                 trades.filter((trade) =>

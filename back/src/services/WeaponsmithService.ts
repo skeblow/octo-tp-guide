@@ -1,4 +1,4 @@
-import { Recipe, RecipeType, SalvageRecipe } from '../../../shared';
+import { Recipe, RecipeType, SalvageRecipe } from '../../../shared/index.ts';
 
 export default class WeaponsmithService {
     async getAll(): Promise<Array<Recipe>> {

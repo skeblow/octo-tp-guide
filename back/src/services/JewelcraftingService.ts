@@ -1,4 +1,4 @@
-import { Recipe, RecipeType } from '../../../shared';
+import { Recipe, RecipeType } from '../../../shared/index.ts';
 
 export default class JewelcraftingService {
     public getAll(): Array<Recipe> {

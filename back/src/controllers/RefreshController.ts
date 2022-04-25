@@ -1,14 +1,13 @@
-import { Request, Response } from 'express';
-import BltcService from '../services/BltcService';
-import CookingService from '../services/CookingService';
-import ItemService from '../services/ItemService';
-import PriceService from '../services/PriceService';
-import * as fs from 'fs';
-import { Recipe } from '../../../shared';
-import UtilityService from '../services/UtilityService';
-import OpenService from '../services/OpenService';
-import WeaponsmithService from '../services/WeaponsmithService';
-import JewelcraftingService from '../services/JewelcraftingService';
+// import { Request, Response } from 'express';
+import BltcService from '../services/BltcService.ts';
+import CookingService from '../services/CookingService.ts';
+import ItemService from '../services/ItemService.ts';
+import PriceService from '../services/PriceService.ts';
+import { Recipe } from '../../../shared/index.ts';
+import UtilityService from '../services/UtilityService.ts';
+import OpenService from '../services/OpenService.ts';
+import WeaponsmithService from '../services/WeaponsmithService.ts';
+import JewelcraftingService from '../services/JewelcraftingService.ts';
 
 export default class RefreshController {
     constructor(
@@ -39,7 +38,7 @@ export default class RefreshController {
         return ids;
     }
 
-    async refresh(req: Request, res: Response): Promise<void> {
+    async refresh(req: any, res: any): Promise<void> {
         const requestIds: Array<number> = ((req.query.ids || '') + '').split(
             ',',
         )
@@ -47,7 +46,7 @@ export default class RefreshController {
             .map((id) => +id);
 
         const filename = './data/ids';
-        let fileIds: string = fs.readFileSync(filename, 'utf-8').toString();
+        let fileIds: string = Deno.readFileSync(filename).toString();
 
         let ids: Array<any> = fileIds
             .split('\n')
@@ -60,13 +59,8 @@ export default class RefreshController {
 
         let chunkSize = 20;
 
-        fs.truncateSync(filename);
-
-        for (let i = 0; i < ids.length; i += chunkSize) {
-            const chunk = ids.slice(i, i + chunkSize);
-
-            fs.appendFileSync(filename, chunk.join(',') + '\n');
-        }
+        Deno.truncateSync(filename);
+        Deno.writeTextFileSync(filename, ids.join(','))
 
         chunkSize = 100;
 

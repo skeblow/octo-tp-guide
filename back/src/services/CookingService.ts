@@ -1,4 +1,4 @@
-import { Recipe, RecipeTrade, RecipeType } from '../../../shared';
+import { Recipe, RecipeTrade, RecipeType } from '../../../shared/index.ts';
 
 export default class CookingService {
     getCookingRoi(trade: RecipeTrade): number {

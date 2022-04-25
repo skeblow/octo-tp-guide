@@ -3,12 +3,12 @@ import { ROUTES } from './routes.ts';
 // import cors from 'cors';
 import { opine } from './deps.ts';
 
-const app = opine()
+const app = opine();
 const port: number = 3000;
 
 // app.use(cors());
 
-for (let route of ROUTES) {
+for (const route of ROUTES) {
     switch (route.method) {
         case 'get':
             app.get(route.route, route.handler as any);

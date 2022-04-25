@@ -1,5 +1,6 @@
 // import { Request, Response } from 'express';
 // import { MongoClient } from 'mongodb';
+import { MongoClient } from './deps.ts';
 import ItemController from './controllers/ItemController.ts';
 import ListController from './controllers/ListController.ts';
 import PriceController from './controllers/PriceController.ts';
@@ -22,10 +23,11 @@ import WeaponsmithService from './services/WeaponsmithService.ts';
 interface Route {
     method: 'get' | 'post' | 'patch' | 'delete';
     route: string;
-    handler: (req: Request, res: Response) => void;
+    handler: (req: any, res: any) => void;
 }
 
-const client = new MongoClient('mongodb://root:example@localhost/');
+const client = new MongoClient();
+await client.connect('mongodb://root:example@localhost/');
 
 const mongoService = new MongoService(client);
 const gwApiService = new GwApiService();

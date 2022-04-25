@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import ItemService from '../services/ItemService';
+// import { Request, Response } from 'express';
+import ItemService from '../services/ItemService.ts';
 
 export default class ItemController {
     constructor(
@@ -7,7 +7,7 @@ export default class ItemController {
     ) {
     }
 
-    getAll(req: Request, res: Response): void {
+    getAll(req: any, res: any): void {
         const ids = ((req.query.ids || '') + '').split(',')
             .filter((id) => !!id)
             .map((id) => +id);
@@ -23,7 +23,7 @@ export default class ItemController {
             .then((items) => res.send(items));
     }
 
-    get(req: Request, res: Response): void {
+    get(req: any, res: any): void {
         const id = parseInt(req.params['id']);
 
         this.itemService.getItemById(id)

@@ -1,7 +1,7 @@
-import fetch, { Response } from 'node-fetch';
-import { ItemBltc } from '../../../shared';
-import MongoService from './MongoService';
-import PriceService from './PriceService';
+// import fetch, { Response } from 'node-fetch';
+import { ItemBltc } from '../../../shared/index.ts';
+import MongoService from './MongoService.ts';
+import PriceService from './PriceService.ts';
 
 export default class BltcService {
     readonly BASE_URL = 'https://www.gw2bltc.com/en/item/';

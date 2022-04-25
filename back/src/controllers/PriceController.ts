@@ -1,5 +1,4 @@
-import { Request, Response } from 'express';
-import PriceService from '../services/PriceService';
+import PriceService from '../services/PriceService.ts';
 
 export default class PriceController {
     constructor(
@@ -7,7 +6,7 @@ export default class PriceController {
     ) {
     }
 
-    get(req: Request, res: Response): void {
+    get(req: any, res: any): void {
         const ids = ((req.query.ids || '') + '').split(',')
             .filter((id) => !!id)
             .map((id) => +id);
