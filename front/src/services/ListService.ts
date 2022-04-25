@@ -50,6 +50,12 @@ class ListService {
 
         return await res.json();
     }
+
+    async getJewelcraftingList(): Promise<Array<RecipeTrade>> {
+        const res = await fetch(this.BASE_URL + '/lists/jewelcrafting');
+
+        return await res.json();
+    }
 }
 
 export default new ListService();

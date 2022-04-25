@@ -4,6 +4,20 @@ export default class WeaponsmithService {
     async getAll(): Promise<Array<Recipe>> {
         return [
             {
+                // 9440-Hardened-Sharpening-Stone
+                id: 9440,
+                type: RecipeType.artificier,
+                output: [
+                   {id: 9440, quantity: 5},
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    {id: 24276, quantity: 3},
+                    // 19684-Mithril-Ingot
+                    {id: 19684, quantity: 3},
+                ],
+            },
+            {
                 // 71331-Oiled-Orichalcum-Dagger-Blade
                 id: 71331,
                 type: RecipeType.weaponsmith,

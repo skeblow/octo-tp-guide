@@ -8,6 +8,7 @@ import { Recipe } from "../../../shared";
 import UtilityService from "../services/UtilityService";
 import OpenService from "../services/OpenService";
 import WeaponsmithService from "../services/WeaponsmithService";
+import JewelcraftingService from "../services/JewelcraftingService";
 
 export default class RefreshController {
     constructor(
@@ -18,6 +19,7 @@ export default class RefreshController {
         private utilityService: UtilityService,
         private openService: OpenService,
         private weaponsmithService: WeaponsmithService,
+        private jewelcraftingService: JewelcraftingService,
     ) {
     }
 
@@ -26,7 +28,8 @@ export default class RefreshController {
             (await this.cookingService.getAll())
             .concat(await this.utilityService.getAll())
             .concat(await this.openService.getAll())
-            .concat(await this.weaponsmithService.getAll());
+            .concat(await this.weaponsmithService.getAll())
+            .concat(this.jewelcraftingService.getAll());
         let ids: Array<number> = [];
 
         for (const recipe of recipes) {

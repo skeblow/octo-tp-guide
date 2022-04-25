@@ -8,6 +8,7 @@ import BltcService from "./services/BltcService";
 import CookingService from "./services/CookingService";
 import GwApiService from "./services/GwApiService";
 import ItemService from "./services/ItemService";
+import JewelcraftingService from "./services/JewelcraftingService";
 import ListService from "./services/ListService";
 import MongoService from "./services/MongoService";
 import OpenService from "./services/OpenService";
@@ -39,6 +40,7 @@ const utilityService = new UtilityService();
 const openService = new OpenService();
 const tradeService = new TradeService(itemService, priceService, bltcService);
 const weaponsmithService = new WeaponsmithService();
+const jewelcraftingService = new JewelcraftingService();
 const listService = new ListService(
     mongoService,
     tradeService,
@@ -48,6 +50,7 @@ const listService = new ListService(
     utilityService,
     openService,
     weaponsmithService,
+    jewelcraftingService,
 );
 
 const itemController = new ItemController(itemService);
@@ -61,6 +64,7 @@ const refreshController = new RefreshController(
     utilityService,
     openService,
     weaponsmithService,
+    jewelcraftingService,
 );
 
 export const ROUTES: Route[] = [

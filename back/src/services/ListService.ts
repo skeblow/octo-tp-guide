@@ -1,5 +1,6 @@
 import { BasicTrade, RecipeTrade, SalvageTrade } from "../../../shared";
 import CookingService from "./CookingService";
+import JewelcraftingService from "./JewelcraftingService";
 import MongoService from "./MongoService";
 import OpenService from "./OpenService";
 import RefineService from "./RefineService";
@@ -18,12 +19,13 @@ export default class ListService {
         private utilityService: UtilityService,
         private openService: OpenService,
         private weaponsmithService: WeaponsmithService,
+        private jewelcraftingService: JewelcraftingService,
     ) {
     }
 
     public getCheapBasicList(): Promise<Array<BasicTrade>> {
         return this.getBasicList({
-            minRoi: 25,
+            minRoi: 30,
             minSell: 30,
             minSells: 1_500,
             minBuys: 1_500,
@@ -38,6 +40,7 @@ export default class ListService {
             minSells: 25,
             minBuys: 25,
         })
+            .then(list => list.filter((trade: BasicTrade) => ! trade.item.name.includes('Antique')))
             .then(list => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade1.item.name.localeCompare(trade2.item.name)));
     }
 
@@ -103,5 +106,9 @@ export default class ListService {
     public getWeaponsmithList(): Promise<Array<RecipeTrade>> {
         return this.weaponsmithService.getAll()
             .then(recipes => this.tradeService.getTradesFromRecipes(recipes));
+    }
+
+    public getJewelcraftingList(): Promise<Array<RecipeTrade>> {
+        return this.tradeService.getTradesFromRecipes(this.jewelcraftingService.getAll());
     }
 }
