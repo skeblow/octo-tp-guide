@@ -137,8 +137,9 @@ export default class ListService {
     }
 
     public getWeaponsmithList(): Promise<Array<RecipeTrade>> {
-        return this.weaponsmithService.getAll()
-            .then((recipes) => this.tradeService.getTradesFromRecipes(recipes));
+        return this.tradeService.getTradesFromRecipes(
+            this.weaponsmithService.getAll(),
+        );
     }
 
     public getJewelcraftingList(): Promise<Array<RecipeTrade>> {

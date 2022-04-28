@@ -1,7 +1,7 @@
 import { Recipe, RecipeType, SalvageRecipe } from '../../../shared/index.ts';
 
 export default class WeaponsmithService {
-    async getAll(): Promise<Array<Recipe>> {
+    public getAll(): Array<Recipe> {
         return [
             {
                 // 9440-Hardened-Sharpening-Stone
@@ -112,6 +112,23 @@ export default class WeaponsmithService {
                 ],
                 // milling basin
                 cost: 56,
+            },
+            {
+                // 15433-Berserkers-Pearl-Reaver
+                id: 15433,
+                type: RecipeType.weaponsmith,
+                output: [{ id: 15433, quantity: 1 }],
+                input: [
+                    // 24295 Vial of Powerful Blood
+                    { id: 24295, quantity: 5 },
+                    // 19721-Glob-of-Ectoplasm
+                    { id: 19721, quantity: 5 },
+                    // orichalcum ore
+                    { id: 19701, quantity: 36 },
+                    // ancient wood log
+                    { id: 19725, quantity: 33 },
+                ],
+                cost: 0,
             },
         ];
     }

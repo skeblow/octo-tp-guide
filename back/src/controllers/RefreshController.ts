@@ -26,7 +26,7 @@ export default class RefreshController {
         let recipes: Array<Recipe> = (await this.cookingService.getAll())
             .concat(await this.utilityService.getAll())
             .concat(await this.openService.getAll())
-            .concat(await this.weaponsmithService.getAll())
+            .concat(this.weaponsmithService.getAll())
             .concat(this.jewelcraftingService.getAll())
         let ids: Array<number> = [];
 
