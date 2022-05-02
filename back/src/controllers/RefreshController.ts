@@ -23,7 +23,7 @@ export default class RefreshController {
     }
 
     private async getRecipeIds(): Promise<Array<number>> {
-        let recipes: Array<Recipe> = (await this.cookingService.getAll())
+        let recipes: Array<Recipe> = this.cookingService.getAll()
             .concat(await this.utilityService.getAll())
             .concat(await this.openService.getAll())
             .concat(this.weaponsmithService.getAll())
@@ -38,7 +38,7 @@ export default class RefreshController {
         return ids;
     }
 
-    async refresh(req: any, res: any): Promise<void> {
+    public async refresh(req: any, res: any): Promise<void> {
         const requestIds: Array<number> = ((req.query.ids || '') + '').split(
             ',',
         )
@@ -55,6 +55,8 @@ export default class RefreshController {
             .filter((id) => id > 0)
             .concat(await this.getRecipeIds())
             .concat(requestIds);
+
+        ids = ids.concat(await this.itemService.getAllMissingIds(ids));
         ids = [...new Set(ids)];
 
         let chunkSize = 20;

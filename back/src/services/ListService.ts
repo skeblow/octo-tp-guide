@@ -127,8 +127,9 @@ export default class ListService {
     }
 
     public getCookingList(): Promise<Array<RecipeTrade>> {
-        return this.cookingService.getAll()
-            .then((recipes) => this.tradeService.getTradesFromRecipes(recipes));
+        return this.tradeService.getTradesFromRecipes(
+            this.cookingService.getAll()
+        );
     }
 
     public getUtilityList(): Promise<Array<RecipeTrade>> {

@@ -1,7 +1,7 @@
 import { Recipe, RecipeTrade, RecipeType } from '../../../shared/index.ts';
 
 export default class CookingService {
-    getCookingRoi(trade: RecipeTrade): number {
+    public getCookingRoi(trade: RecipeTrade): number {
         const sellPrice = trade.output.price?.sells?.unit_price *
             trade.output.quantity;
         const buyPrice = trade.input.reduce(
@@ -14,7 +14,7 @@ export default class CookingService {
         return Math.round(profit / buyPrice * 100);
     }
 
-    async getAll(): Promise<Array<Recipe>> {
+    public getAll(): Array<Recipe> {
         return [
             {
                 // Cup-of-Light-Roasted-Coffee

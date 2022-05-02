@@ -12,7 +12,7 @@ export default class BltcService {
     ) {
     }
 
-    async getBltcByIds(ids: Array<number>): Promise<Array<ItemBltc>> {
+    public async getBltcByIds(ids: Array<number>): Promise<Array<ItemBltc>> {
         const collection = await this.mongoService.getBltcCollection();
         const date = new Date();
         const from = new Date();
@@ -65,7 +65,7 @@ export default class BltcService {
         return bltcs;
     }
 
-    async fetchBltc(id: number, date: Date): Promise<ItemBltc | null> {
+    public async fetchBltc(id: number, date: Date): Promise<ItemBltc | null> {
         const res = await fetch(this.BASE_URL + id);
         const html = await res.text();
         const found = html.match(/\s+tp:.*/g);
@@ -92,7 +92,7 @@ export default class BltcService {
         return itemBltc;
     }
 
-    getZeroBltcsByIds(ids: Array<number>): Array<ItemBltc> {
+    public getZeroBltcsByIds(ids: Array<number>): Array<ItemBltc> {
         const bltcs: Array<ItemBltc> = [];
         const date = new Date();
 

@@ -9,18 +9,16 @@ export default class ItemService {
     ) {
     }
 
-    async getAll(): Promise<Array<Item>> {
-        const collection = await this.mongoService.getItemsCollection();
-
-        return await collection
-            .find({})
-            .sort({
-                name: 1,
-            })
-            .toArray();
+    public getAll(): Promise<Array<Item>> {
+        return this.mongoService.getItemsCollection()
+            .then(
+                collection => collection.find({})
+                .sort({ name: 1 })
+                .toArray()
+            );
     }
 
-    async getAllByIds(ids: Array<number>): Promise<Array<Item>> {
+    public async getAllByIds(ids: Array<number>): Promise<Array<Item>> {
         const collection = await this.mongoService.getItemsCollection();
 
         let items = await collection.find({
@@ -47,7 +45,41 @@ export default class ItemService {
         return items;
     }
 
-    async getItemById(id: number): Promise<Item | null> {
+    public async getAllMissingIds(ids: Array<number>): Promise<Array<any>> {
+        return this.mongoService.getItemsCollection()
+            .then(collection => collection.aggregate([
+                    {
+                        $match: {_id: {$nin: ids}},
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            ids: {$addToSet: '$id'},
+                        },
+                    },
+                ])
+            )
+            .then(aggregated => aggregated.toArray())
+            .then((obj: Array<any>) => obj.flatMap((o: any) => o.ids));
+
+            // const collection = await this.mongoService.getItemsCollection();
+            
+            // return collection.aggregate([
+            //     {
+            //         $match: {_id: {$nin: ids}},
+            //     },
+            //     {
+            //         $group: {
+            //             _id: null,
+            //             ids: {$addToSet: '$id'},
+            //         },
+            //     },
+            // ])
+            //     .toArray()
+            //     .then((obj: Array<any>) => obj.flatMap((o: any) => o.ids));
+    }
+
+    public async getItemById(id: number): Promise<Item | null> {
         const collection = await this.mongoService.getItemsCollection();
         const item: Item | undefined = await collection.findOne({ _id: id });
 
