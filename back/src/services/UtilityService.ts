@@ -1,7 +1,7 @@
 import { Recipe, RecipeType } from '../../../shared/index.ts';
 
 export default class UtilityService {
-    async getAll(): Promise<Array<Recipe>> {
+    public getAll(): Array<Recipe> {
         return [
             {
                 // 77567-Tuning-Icicle
@@ -39,34 +39,6 @@ export default class UtilityService {
                 input: [
                     // 24277-Pile-of-Crystalline-Dust
                     { id: 24277, quantity: 30 },
-                ],
-            },
-            {
-                // 9443-Superior-Sharpening-Stone
-                id: 9443,
-                type: RecipeType.artificier,
-                output: [
-                    { id: 9443, quantity: 5 },
-                ],
-                input: [
-                    // 24277-Pile-of-Crystalline-Dust
-                    { id: 24277, quantity: 3 },
-                    // 19685-Orichalcum-Ingot
-                    { id: 19685, quantity: 1 },
-                ],
-            },
-            {
-                // 43451-Potent-Superior-Sharpening-Stone
-                id: 43451,
-                type: RecipeType.artificier,
-                output: [
-                    { id: 43451, quantity: 5 },
-                ],
-                input: [
-                    // 24277-Pile-of-Crystalline-Dust
-                    { id: 24277, quantity: 15 + 3 },
-                    // 19685-Orichalcum-Ingot
-                    { id: 19685, quantity: 5 + 1 },
                 ],
             },
             {

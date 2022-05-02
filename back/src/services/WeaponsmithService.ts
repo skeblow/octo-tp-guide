@@ -130,6 +130,34 @@ export default class WeaponsmithService {
                 ],
                 cost: 0,
             },
+            {
+                // 9443-Superior-Sharpening-Stone
+                id: 9443,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 9443, quantity: 5 },
+                ],
+                input: [
+                    // 24277-Pile-of-Crystalline-Dust
+                    { id: 24277, quantity: 3 },
+                    // 19685-Orichalcum-Ingot
+                    { id: 19685, quantity: 1 },
+                ],
+            },
+            {
+                // 43451-Potent-Superior-Sharpening-Stone
+                id: 43451,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 43451, quantity: 5 },
+                ],
+                input: [
+                    // 24277-Pile-of-Crystalline-Dust
+                    { id: 24277, quantity: 15 + 3 },
+                    // 19685-Orichalcum-Ingot
+                    { id: 19685, quantity: 5 + 1 },
+                ],
+            },
         ];
     }
 }

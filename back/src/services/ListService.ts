@@ -120,10 +120,7 @@ export default class ListService {
     }
 
     public getOpenList(): Promise<Array<SalvageTrade>> {
-        return this.openService.getAll()
-            .then((recipes) =>
-                this.tradeService.getTradesFromSalvageRecipes(recipes)
-            );
+        return this.tradeService.getTradesFromSalvageRecipes(this.openService.getAll());
     }
 
     public getCookingList(): Promise<Array<RecipeTrade>> {
@@ -133,8 +130,7 @@ export default class ListService {
     }
 
     public getUtilityList(): Promise<Array<RecipeTrade>> {
-        return this.utilityService.getAll()
-            .then((recipes) => this.tradeService.getTradesFromRecipes(recipes));
+        return this.tradeService.getTradesFromRecipes(this.utilityService.getAll());
     }
 
     public getWeaponsmithList(): Promise<Array<RecipeTrade>> {

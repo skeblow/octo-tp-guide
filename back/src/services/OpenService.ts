@@ -1,7 +1,7 @@
 import { Recipe, RecipeItem, RecipeType, SalvageRecipe } from '../../../shared/index.ts';
 
 export default class OpenService {
-    async getAll(): Promise<Array<SalvageRecipe>> {
+    public getAll(): Array<SalvageRecipe> {
         return [
             {
                 // 8920-Heavy-Loot-Bag

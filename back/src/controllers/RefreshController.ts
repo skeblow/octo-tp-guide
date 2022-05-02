@@ -22,10 +22,10 @@ export default class RefreshController {
     ) {
     }
 
-    private async getRecipeIds(): Promise<Array<number>> {
-        let recipes: Array<Recipe> = this.cookingService.getAll()
-            .concat(await this.utilityService.getAll())
-            .concat(await this.openService.getAll())
+    private getRecipeIds(): Array<number> {
+        const recipes: Array<Recipe> = this.cookingService.getAll()
+            .concat(this.utilityService.getAll())
+            .concat(this.openService.getAll())
             .concat(this.weaponsmithService.getAll())
             .concat(this.jewelcraftingService.getAll())
         let ids: Array<number> = [];
@@ -39,28 +39,26 @@ export default class RefreshController {
     }
 
     public async refresh(req: any, res: any): Promise<void> {
-        const requestIds: Array<number> = ((req.query.ids || '') + '').split(
-            ',',
-        )
+        const requestIds: Array<number> = ((req.query.ids || '') + '')
+            .split(',')
             .filter((id) => !!id)
             .map((id) => +id);
 
         const filename = '../data/ids';
-        let fileIds: string = Deno.readTextFileSync(filename);
+        const fileIds = Deno.readTextFileSync(filename);
 
-        let ids: Array<any> = fileIds
+        let ids: Array<number> = fileIds
             .split('\n')
             .flatMap((ids) => ids.split(','))
             .map((id) => +id)
             .filter((id) => id > 0)
-            .concat(await this.getRecipeIds())
+            .concat(this.getRecipeIds())
             .concat(requestIds);
 
         ids = ids.concat(await this.itemService.getAllMissingIds(ids));
         ids = [...new Set(ids)];
 
         let chunkSize = 20;
-
         let chunked = [];
 
         for (let i = 0; i < ids.length; i+= chunkSize) {
