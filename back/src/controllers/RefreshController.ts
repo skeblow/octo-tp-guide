@@ -61,8 +61,14 @@ export default class RefreshController {
 
         let chunkSize = 20;
 
+        let chunked = [];
+
+        for (let i = 0; i < ids.length; i+= chunkSize) {
+            chunked.push(ids.slice(i, i + chunkSize).join(','));
+        }
+
         Deno.truncateSync(filename);
-        Deno.writeTextFileSync(filename, ids.join(','))
+        Deno.writeTextFileSync(filename, chunked.join("\n"));
 
         chunkSize = 100;
 
