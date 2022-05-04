@@ -131,6 +131,36 @@ export default class WeaponsmithService {
                 cost: 0,
             },
             {
+                // 15272-Berserkers-Pearl-Carver
+                id: 15272,
+                type: RecipeType.weaponsmith,
+                output: [{ id: 15272, quantity: 1 }],
+                input: [
+                    // 24295 Vial of Powerful Blood
+                    { id: 24295, quantity: 5 },
+                    // 19721-Glob-of-Ectoplasm
+                    { id: 19721, quantity: 5 },
+                    // orichalcum ore
+                    { id: 19701, quantity: 40 },
+                ],
+                cost: 0,
+            },
+            {
+                // 15314-Berserkers-Pearl-Sabre
+                id: 15314,
+                type: RecipeType.weaponsmith,
+                output: [{ id: 15314, quantity: 1 }],
+                input: [
+                    // 24295 Vial of Powerful Blood
+                    { id: 24295, quantity: 5 },
+                    // 19721-Glob-of-Ectoplasm
+                    { id: 19721, quantity: 5 },
+                    // orichalcum ore
+                    { id: 19701, quantity: 42 },
+                ],
+                cost: 0,
+            },
+            {
                 // 9443-Superior-Sharpening-Stone
                 id: 9443,
                 type: RecipeType.artificier,
