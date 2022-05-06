@@ -163,7 +163,7 @@ export default class WeaponsmithService {
             {
                 // 9443-Superior-Sharpening-Stone
                 id: 9443,
-                type: RecipeType.artificier,
+                type: RecipeType.weaponsmith,
                 output: [
                     { id: 9443, quantity: 5 },
                 ],
@@ -177,7 +177,7 @@ export default class WeaponsmithService {
             {
                 // 43451-Potent-Superior-Sharpening-Stone
                 id: 43451,
-                type: RecipeType.artificier,
+                type: RecipeType.weaponsmith,
                 output: [
                     { id: 43451, quantity: 5 },
                 ],
@@ -187,6 +187,66 @@ export default class WeaponsmithService {
                     // 19685-Orichalcum-Ingot
                     { id: 19685, quantity: 5 + 1 },
                 ],
+            },
+            {
+                // 74471-Marauder-Pearl-Sabre
+                id: 74471,
+                type: RecipeType.weaponsmith,
+                output: [
+                    { id: 74471, quantity: 1 },
+                ],
+                input: [
+                    // 75654-Ebony-Orb
+                    { id: 75654, quantity: 3 },
+                    // 19721-Glob-of-Ectoplasm
+                    { id: 19721, quantity: 5 },
+                    // orichalcum ore
+                    { id: 19701, quantity: 42 },
+                    // 19725-Ancient-Wood-Log
+                    { id: 19725, quantity: 30 },
+                ],
+                // barbed thorns
+                cost: 30 * 16,
+            },
+            {
+                // 74062-Marauder-Pearl-Carver
+                id: 74062,
+                type: RecipeType.weaponsmith,
+                output: [
+                    { id: 74062, quantity: 1 },
+                ],
+                input: [
+                    // 75654-Ebony-Orb
+                    { id: 75654, quantity: 3 },
+                    // 19721-Glob-of-Ectoplasm
+                    { id: 19721, quantity: 5 },
+                    // orichalcum ore
+                    { id: 19701, quantity: 38 },
+                    // 19725-Ancient-Wood-Log
+                    { id: 19725, quantity: 30 },
+                ],
+                // barbed thorns
+                cost: 30 * 16,
+            },
+            {
+                // 75226-Marauder-Pearl-Reaver
+                id: 75226,
+                type: RecipeType.weaponsmith,
+                output: [
+                    { id: 75226, quantity: 1 },
+                ],
+                input: [
+                    // 75654-Ebony-Orb
+                    { id: 75654, quantity: 3 },
+                    // 19721-Glob-of-Ectoplasm
+                    { id: 19721, quantity: 5 },
+                    // orichalcum ore
+                    { id: 19701, quantity: 36 },
+                    // 19725-Ancient-Wood-Log
+                    { id: 19725, quantity: 36 },
+                ],
+                // barbed thorns
+                cost: 30 * 16,
             },
         ];
     }
