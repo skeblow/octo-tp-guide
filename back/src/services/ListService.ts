@@ -39,14 +39,16 @@ export default class ListService {
 
     public getExpensiveBasicList(): Promise<Array<BasicTrade>> {
         return this.getBasicList({
-            minRoi: 30,
+            minRoi: 25,
             minSell: 20_000,
             minSells: 25,
             minBuys: 25,
         })
             .then((list) =>
                 list.filter((trade: BasicTrade) =>
-                    !trade.item.name.includes('Antique')
+                    ! trade.item.name.includes('Antique')
+                    && ! trade.item.name.includes('Berserk')
+                    && ! trade.item.name.includes('Marauder')
                 )
             )
             .then((list) =>
