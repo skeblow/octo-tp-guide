@@ -22,9 +22,7 @@ export default class TradeService {
     ) {
     }
 
-    public getTradesFromItemIds(
-        ids: Array<number>,
-    ): Promise<Array<BasicTrade>> {
+    public getTradesFromItemIds(ids: Array<number>): Promise<Array<BasicTrade>> {
         return Promise.all([
             this.priceService.getPricesByIds(ids),
             this.itemService.getAllByIds(ids),
@@ -62,13 +60,11 @@ export default class TradeService {
         cost: number,
     ): TradeData {
         const totalBuy = inputs.reduce(
-            (total, item: TradeItem) =>
-                total + item.price.buys.unit_price * item.quantity,
+            (total, item: TradeItem) => total + item.price.buys.unit_price * item.quantity,
             0,
         ) + cost;
         const totalSell = outputs.reduce(
-            (total, item: TradeItem) =>
-                total + item.price.sells.unit_price * item.quantity,
+            (total, item: TradeItem) => total + item.price.sells.unit_price * item.quantity,
             0,
         );
         const profit = Math.round(0.85 * totalSell - totalBuy);

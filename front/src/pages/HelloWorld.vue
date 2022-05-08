@@ -21,6 +21,8 @@ import Gold from '../components/Gold.vue';
 export default class HelloWorld extends Vue {
     getAmounts(): Array<number> {
         return [
+            0,
+            9,
             99,
             100,
             101,
@@ -30,6 +32,11 @@ export default class HelloWorld extends Vue {
             9999,
             10000,
             10001,
+            10100,
+            10101,
+            11000,
+            11010,
+            -10101,
         ];
     }
 }
