@@ -3,6 +3,55 @@ import { Recipe, RecipeType, SalvageRecipe } from '../../../shared/index.ts';
 export default class WeaponsmithService {
     public getAll(): Array<Recipe> {
         return [
+            // 15433-Berserkers-Pearl-Reaver
+            this.createBerserkPearlRecipe({
+                output: 15433,
+                orichalcumOre: 30 + 6,
+                ancientWood: 30 + 6,
+            }),
+            // 15272-Berserkers-Pearl-Carver
+            this.createBerserkPearlRecipe({
+                output: 15272,
+                orichalcumOre: 30 + 10,
+                ancientWood: 30,
+            }),
+            // 15314-Berserkers-Pearl-Sabre
+            this.createBerserkPearlRecipe({
+                output: 15314,
+                orichalcumOre: 30 + 12,
+                ancientWood: 30,
+            }),
+             // 15356-Berserkers-Pearl-Bludgeoner
+             this.createBerserkPearlRecipe({
+                output: 15356,
+                orichalcumOre: 30 + 6,
+                ancientWood: 30 + 6,
+            }),
+
+            // 74471-Marauder-Pearl-Sabre
+            this.createMarauderPearlRecipe({
+               output: 74471,
+               orichalcumOre: 30 + 12,
+               ancientWood: 30,
+            }),
+            // 75226-Marauder-Pearl-Reaver
+            this.createMarauderPearlRecipe({
+                output: 75226,
+                orichalcumOre: 30 + 6,
+                ancientWood: 30 + 6,
+            }),
+            // 74062-Marauder-Pearl-Carver
+            this.createMarauderPearlRecipe({
+                output: 74062,
+                orichalcumOre: 30 + 10,
+                ancientWood: 30,
+            }),
+            // 77012-Marauder-Pearl-Broadsword
+            this.createMarauderPearlRecipe({
+                output: 77012,
+                orichalcumOre: 30 + 12,
+                ancientWood: 30,
+            }),
             {
                 // 9440-Hardened-Sharpening-Stone
                 id: 9440,
@@ -114,53 +163,6 @@ export default class WeaponsmithService {
                 cost: 56,
             },
             {
-                // 15433-Berserkers-Pearl-Reaver
-                id: 15433,
-                type: RecipeType.weaponsmith,
-                output: [{ id: 15433, quantity: 1 }],
-                input: [
-                    // 24295 Vial of Powerful Blood
-                    { id: 24295, quantity: 5 },
-                    // 19721-Glob-of-Ectoplasm
-                    { id: 19721, quantity: 5 },
-                    // orichalcum ore
-                    { id: 19701, quantity: 36 },
-                    // ancient wood log
-                    { id: 19725, quantity: 33 },
-                ],
-                cost: 0,
-            },
-            {
-                // 15272-Berserkers-Pearl-Carver
-                id: 15272,
-                type: RecipeType.weaponsmith,
-                output: [{ id: 15272, quantity: 1 }],
-                input: [
-                    // 24295 Vial of Powerful Blood
-                    { id: 24295, quantity: 5 },
-                    // 19721-Glob-of-Ectoplasm
-                    { id: 19721, quantity: 5 },
-                    // orichalcum ore
-                    { id: 19701, quantity: 40 },
-                ],
-                cost: 0,
-            },
-            {
-                // 15314-Berserkers-Pearl-Sabre
-                id: 15314,
-                type: RecipeType.weaponsmith,
-                output: [{ id: 15314, quantity: 1 }],
-                input: [
-                    // 24295 Vial of Powerful Blood
-                    { id: 24295, quantity: 5 },
-                    // 19721-Glob-of-Ectoplasm
-                    { id: 19721, quantity: 5 },
-                    // orichalcum ore
-                    { id: 19701, quantity: 42 },
-                ],
-                cost: 0,
-            },
-            {
                 // 9443-Superior-Sharpening-Stone
                 id: 9443,
                 type: RecipeType.weaponsmith,
@@ -188,66 +190,53 @@ export default class WeaponsmithService {
                     { id: 19685, quantity: 5 + 1 },
                 ],
             },
-            {
-                // 74471-Marauder-Pearl-Sabre
-                id: 74471,
-                type: RecipeType.weaponsmith,
-                output: [
-                    { id: 74471, quantity: 1 },
-                ],
-                input: [
-                    // 75654-Ebony-Orb
-                    { id: 75654, quantity: 3 },
-                    // 19721-Glob-of-Ectoplasm
-                    { id: 19721, quantity: 5 },
-                    // orichalcum ore
-                    { id: 19701, quantity: 42 },
-                    // 19725-Ancient-Wood-Log
-                    { id: 19725, quantity: 30 },
-                ],
-                // barbed thorns
-                cost: 30 * 16,
-            },
-            {
-                // 74062-Marauder-Pearl-Carver
-                id: 74062,
-                type: RecipeType.weaponsmith,
-                output: [
-                    { id: 74062, quantity: 1 },
-                ],
-                input: [
-                    // 75654-Ebony-Orb
-                    { id: 75654, quantity: 3 },
-                    // 19721-Glob-of-Ectoplasm
-                    { id: 19721, quantity: 5 },
-                    // orichalcum ore
-                    { id: 19701, quantity: 38 },
-                    // 19725-Ancient-Wood-Log
-                    { id: 19725, quantity: 30 },
-                ],
-                // barbed thorns
-                cost: 30 * 16,
-            },
-            {
-                // 75226-Marauder-Pearl-Reaver
-                id: 75226,
-                type: RecipeType.weaponsmith,
-                output: [
-                    { id: 75226, quantity: 1 },
-                ],
-                input: [
-                    // 75654-Ebony-Orb
-                    { id: 75654, quantity: 3 },
-                    // 19721-Glob-of-Ectoplasm
-                    { id: 19721, quantity: 5 },
-                    // orichalcum ore
-                    { id: 19701, quantity: 36 },
-                    // 19725-Ancient-Wood-Log
-                    { id: 19725, quantity: 36 },
-                ],
-                // barbed thorns
-                cost: 30 * 16,
-            },
         ];
+    }
+
+    private createBerserkPearlRecipe(options: {
+        output: number,
+        orichalcumOre: number,
+        ancientWood: number,
+    }): Recipe {
+        return {
+            id: options.output,
+            type: RecipeType.weaponsmith,
+            output: [{ id: options.output, quantity: 1 }],
+            input: [
+                // 24295 Vial of Powerful Blood
+                { id: 24295, quantity: 5 },
+                // 19721-Glob-of-Ectoplasm
+                { id: 19721, quantity: 5 },
+                // orichalcum ore
+                { id: 19701, quantity: options.orichalcumOre },
+                // 19725-Ancient-Wood-Log
+                { id: 19725, quantity: options.ancientWood },
+            ],
+            cost: 0,
+        };
+    }
+
+    private createMarauderPearlRecipe(options: {
+        output: number,
+        orichalcumOre: number,
+        ancientWood: number,
+    }): Recipe {
+        return {
+            id: options.output,
+            type: RecipeType.weaponsmith,
+            output: [{ id: options.output, quantity: 1 }],
+            input: [
+                 // 75654-Ebony-Orb
+                 { id: 75654, quantity: 3 },
+                // 19721-Glob-of-Ectoplasm
+                { id: 19721, quantity: 5 },
+                // orichalcum ore
+                { id: 19701, quantity: options.orichalcumOre },
+                // 19725-Ancient-Wood-Log
+                { id: 19725, quantity: options.ancientWood },
+            ],
+            // barbed thorns
+            cost: 30 * 16,
+        };
     }
 }
