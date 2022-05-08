@@ -6,4 +6,4 @@ export {
     Collection
   } from "https://deno.land/x/mongo@v0.29.4/mod.ts";
 
-export { opineCors } from "https://deno.land/x/cors/mod.ts";
+export { opineCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
