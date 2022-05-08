@@ -37,21 +37,23 @@
                                         </a>
                                     </td>
                                     <td>{{ input.item.name }}</td>
-                                    <td class="text-end">{{ formatGold(input.price.buys.unit_price) }}</td>
-                                    <td class="text-end"><strong>
-                                        {{ formatGold(input.price.buys.unit_price * input.quantity) }}
-                                    </strong></td>
+                                    <td class="text-end">
+                                        <Gold :amount="input.price.buys.unit_price"></Gold>
+                                    </td>
+                                    <td class="text-end">
+                                        <Gold :amount="input.price.buys.unit_price * input.quantity" bold="true"></Gold>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-end">Total buy:</td>
                                     <td class="text-end">
-                                        <strong>{{ formatGold(trade.totalBuy) }}</strong>
+                                        <Gold :amount="trade.totalBuy" bold="true"></Gold>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-end">Raw sell:</td>
                                     <td class="text-end">
-                                        <strong>{{ formatGold(getRawSell(trade)) }}</strong>
+                                        <Gold :amount="getRawSell(trade)" bold="true"></Gold>
                                     </td>
                                 </tr>
                                 <tr>
@@ -59,14 +61,14 @@
                                     <td><strong>{{ trade.output.bltc.sold }}</strong></td>
                                     <td colspan="2" class="text-end">Total sell:</td>
                                     <td class="text-end">
-                                        <strong>{{ formatGold(trade.totalSell) }}</strong>
+                                        <Gold :amount="trade.totalSell" bold="true"></Gold>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-end">Profit:</td>
-                                    <td class="text-end"><strong>
-                                        {{ formatGold(trade.profit) }}
-                                    </strong></td>
+                                    <td class="text-end">
+                                        <Gold :amount="trade.profit" bold="true"></Gold>
+                                    </td>
                                 </tr>
                                 <tr class="table-secondary">
                                     <td colspan="4" class="text-end">Roi:</td>
@@ -85,16 +87,19 @@
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
 import { RecipeTrade } from '../../../shared';
-import PriceService from '../services/PriceService';
+import Gold from './Gold.vue';
 
 class RecipeListProps {
     items = prop<Array<RecipeTrade>>({required: true});
 }
 
-@Options({})
+@Options({
+    components: {
+        Gold,
+    },
+})
 export default class RecipeList extends Vue.with(RecipeListProps) {
     search: string = '';
-    public formatGold = PriceService.formatGold;
 
     public getRawSell(trade: RecipeTrade): number {
         return trade.input.reduce((total, input) => total + (input.price.sells.unit_price * input.quantity), 0);

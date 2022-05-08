@@ -1,5 +1,20 @@
-class PriceService {
-    formatGold(amount: number): string {
+<template>
+    <span v-bind:class="{'fw-bold': bold}">
+        {{ formatGold(amount) }}
+    </span>
+</template>
+
+<script lang="ts">
+import { Options, Vue, prop } from 'vue-class-component';
+
+class GoldProps {
+    amount = prop<number>({required: true});
+    bold = prop<boolean>({required: false, default: false});
+}
+
+@Options({})
+export default class Gold extends Vue.with(GoldProps) {
+    public formatGold(amount: number): string {
         const sign = amount < 0 ? '-' : '';
         amount = Math.abs(amount);
 
@@ -37,5 +52,8 @@ class PriceService {
         return sign+result.join(' ');
     }
 }
+</script>
 
-export default new PriceService();
+<style scoped>
+
+</style>

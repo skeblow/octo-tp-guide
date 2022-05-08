@@ -44,16 +44,16 @@
                         {{ trade.output.item.name }}
                     </td>
                     <td>
-                        {{ formatGold(trade.totalBuy) }}
+                        <Gold :amount="trade.totalBuy"></Gold>
                     </td>
                     <td>
-                        {{ formatGold(getInputSell(trade)) }}
+                        <Gold :amount="getInputSell(trade)"></Gold>
                     </td>
                     <td>
-                        {{ formatGold(trade.totalSell) }}
+                        <Gold :amount="trade.totalSell"></Gold>
                     </td>
                     <td>
-                        {{ formatGold(getDiff(trade)) }}
+                        <Gold :amount="getDiff(trade)"></Gold>
                     </td>
                 </tr>
             </tbody>
@@ -63,7 +63,6 @@
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
 import { RecipeTrade } from '../../../shared';
-import PriceService from '../services/PriceService';
 
 class RefineListProps {
     items = prop<Array<RecipeTrade>>({required: true});
@@ -72,7 +71,6 @@ class RefineListProps {
 @Options({})
 export default class RefineList extends Vue.with(RefineListProps) {
     search: string = '';
-    formatGold = PriceService.formatGold;
 
     getInputSell(trade: RecipeTrade): number {
         return trade.input.reduce((total, input) => total + (input.price.sells.unit_price * input.quantity), 0);

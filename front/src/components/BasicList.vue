@@ -22,9 +22,9 @@
                 </td>
                 <td>{{ trade.item.id }}</td>
                 <td>{{ trade.item.name }}</td>
-                <td class="text-end">{{ formatGold(trade.totalBuy) }}</td>
-                <td class="text-end">{{ formatGold(trade.totalSell) }}</td>
-                <td class="text-end">{{ formatGold(trade.profit) }}</td>
+                <td class="text-end"><Gold :amount="trade.totalBuy"></Gold></td>
+                <td class="text-end"><Gold :amount="trade.totalSell"></Gold></td>
+                <td class="text-end"><Gold :amount="trade.profit"></Gold></td>
                 <td>{{ trade.roi }}%</td>
                 <td>{{ trade.bltc.bought }} <small>({{ getBoughtDiff(trade) }})</small></td>
                 <td>{{ trade.bltc.sold }} <small>({{ getSoldDiff(trade) }})</small></td>
@@ -35,24 +35,26 @@
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
 import { BasicTrade } from '../../../shared';
-import PriceService from '../services/PriceService';
+import Gold from './Gold.vue';
 
 class BasicListProps {
     items = prop<Array<BasicTrade>>({required: true})
 }
 
-@Options({})
+@Options({
+    components: {
+        Gold,
+    }
+})
 export default class BasicList extends Vue.with(BasicListProps) {
-    formatGold = PriceService.formatGold;
-
-    getSoldDiff(trade: BasicTrade): string {
+    public getSoldDiff(trade: BasicTrade): string {
         const diff = trade.bltc.sold - trade.bltc.oldSold;
         const sign = diff > 0 ? '+' : '';
 
         return sign+diff;
     }
 
-    getBoughtDiff(trade: BasicTrade): string {
+    public getBoughtDiff(trade: BasicTrade): string {
         const diff = trade.bltc.bought - trade.bltc.oldBought;
         const sign = diff > 0 ? '+' : '';
 

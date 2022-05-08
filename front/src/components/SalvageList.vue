@@ -11,7 +11,7 @@
                     </div>
                     <div>
                         Buy:
-                        <strong>{{ formatGold(trade.totalBuy - 3) }}</strong>
+                        <Gold :amount="trade.totalBuy - 3" bold="true"></Gold>
                     </div>
                 </div>
                 <div class="card-body">
@@ -27,31 +27,31 @@
                                     </a>
                                 </td>
                                 <td>{{ output.item.name }}</td>
-                                <td class="text-end">{{ formatGold(output.price.sells.unit_price) }}</td>
                                 <td class="text-end">
-                                    <strong>
-                                        {{ formatGold(Math.round(output.price.sells.unit_price * output.quantity)) }}
-                                    </strong>
+                                    <Gold :amount="output.price.sells.unit_price"></Gold>
+                                </td>
+                                <td class="text-end">
+                                    <Gold :amount="output.price.sells.unit_price * output.quantity" bold="true"></Gold>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Bought:</td>
                                 <td><strong>{{ trade.input.bltc.bought }}</strong></td>
                                 <td colspan="2" class="text-end">Total buy:</td>
-                                <td class="text-end"><strong>
-                                    {{ formatGold(trade.totalBuy) }}
-                                </strong></td>
+                                <td class="text-end">
+                                    <Gold :amount="trade.totalBuy" bold="true"></Gold>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="4" class="text-end">Total sell:</td>
-                                <td class="text-end"><strong>
-                                    {{ formatGold(trade.totalSell) }}
-                                </strong></td>
+                                <td class="text-end">
+                                    <Gold :amount="trade.totalSell" bold="true"></Gold>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="4" class="text-end">Profit:</td>
                                 <td class="text-end"><strong>
-                                    {{ formatGold(trade.profit) }}
+                                    <Gold :amount="trade.profit"></Gold>
                                 </strong></td>
                             </tr>
                             <tr>
@@ -70,15 +70,19 @@
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
 import { SalvageTrade } from '../../../shared';
-import PriceService from '../services/PriceService';
+import Gold from './Gold.vue';
 
 class SalvageListProps {
     items = prop<Array<SalvageTrade>>({required: true});
 }
 
-@Options({})
+@Options({
+    components: {
+        Gold,
+    },
+})
 export default class SalvageList extends Vue.with(SalvageListProps) {
-    formatGold = PriceService.formatGold;
+
 }
 </script>
 <style scoped>
