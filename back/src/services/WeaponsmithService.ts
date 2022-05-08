@@ -78,6 +78,24 @@ export default class WeaponsmithService {
                 output: 77064,
                 orichalcumOre: 6,
             }),
+            // 73959-Vipers-Pearl-Carver
+            this.recipeService.createViperPearlRecipe({
+                output: 73959,
+                orichalcumOre: 30 + 10,
+                ancientWood: 30,
+            }),
+            // 76641-Vipers-Pearl-Bludgeoner
+            this.recipeService.createViperPearlRecipe({
+                output: 76641,
+                orichalcumOre: 30 + 6,
+                ancientWood: 30 + 6,
+            }),
+            // 74122-Vipers-Pearl-Reaver
+            this.recipeService.createViperPearlRecipe({
+                output: 74122,
+                orichalcumOre: 30 + 6,
+                ancientWood: 30 + 6,
+            }),
             {
                 // 9440-Hardened-Sharpening-Stone
                 id: 9440,
