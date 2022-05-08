@@ -19,6 +19,7 @@ import SalvageService from './services/SalvageService.ts';
 import TradeService from './services/TradeService.ts';
 import UtilityService from './services/UtilityService.ts';
 import WeaponsmithService from './services/WeaponsmithService.ts';
+import ArtificierService from "./services/ArtificierService.ts";
 
 interface Route {
     method: 'get' | 'post' | 'patch' | 'delete';
@@ -42,6 +43,7 @@ const openService = new OpenService();
 const tradeService = new TradeService(itemService, priceService, bltcService);
 const weaponsmithService = new WeaponsmithService();
 const jewelcraftingService = new JewelcraftingService();
+const artificierService = new ArtificierService();
 const listService = new ListService(
     mongoService,
     tradeService,
@@ -52,6 +54,7 @@ const listService = new ListService(
     openService,
     weaponsmithService,
     jewelcraftingService,
+    artificierService,
 );
 
 const itemController = new ItemController(itemService);
@@ -66,6 +69,7 @@ const refreshController = new RefreshController(
     openService,
     weaponsmithService,
     jewelcraftingService,
+    artificierService,
 );
 
 export const ROUTES: Route[] = [

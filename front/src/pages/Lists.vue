@@ -75,6 +75,14 @@
                     v-bind:class="{ active: isJewelcraftingTabActive }"
                 >#8 jewelcrafting</button>
             </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('artificier')"
+                    class="nav-link"
+                    v-bind:class="{ active: isArtificierTabActive }"
+                >#9 artificier</button>
+            </li>
         </ul>
         <div class="tab-content">
             <div 
@@ -167,6 +175,16 @@
                     </div>
                  </div>
             </div>
+            <div 
+                class="tab-pane fade"
+                v-bind:class="{ show: isArtificierTabActive, active: isArtificierTabActive }"
+            >
+                 <div class="card">
+                    <div class="card-body">
+                        <RecipeList :items="artificierTrades"></RecipeList>
+                    </div>
+                 </div>
+            </div>
         </div>
     </div>
 </template>
@@ -198,6 +216,7 @@ export default class Lists extends Vue {
     isUtilityTabActive = false;
     isWeaponsmithTabActive = false;
     isJewelcraftingTabActive = false;
+    isArtificierTabActive = false;
     cheapTrades: Array<BasicTrade> = [];
     expensiveTrades: Array<BasicTrade> = [];
     refineTrades: Array<RecipeTrade> = [];
@@ -207,6 +226,7 @@ export default class Lists extends Vue {
     openTrades: Array<RecipeTrade> = [];
     weaponsmithTrades: Array<RecipeTrade> = [];
     jewelcraftingTrades: Array<RecipeTrade> = [];
+    artificierTrades: Array<RecipeTrade> = [];
 
     toggleTab(tab: string): void {
         this.isCheapTabActive = tab === 'cheap';
@@ -218,6 +238,7 @@ export default class Lists extends Vue {
         this.isOpenTabActive = tab === 'open';
         this.isWeaponsmithTabActive = tab === 'weaponsmith';
         this.isJewelcraftingTabActive = tab === 'jewelcrafting';
+        this.isArtificierTabActive = tab === 'artificier';
     }
 
     mounted(): void {
@@ -230,6 +251,7 @@ export default class Lists extends Vue {
         ListService.getOpenList().then(trades => this.openTrades = trades);
         ListService.getWeaponsmithList().then(trades => this.weaponsmithTrades = trades);
         ListService.getJewelcraftingList().then(trades => this.jewelcraftingTrades = trades);
+        ListService.getArtificierList().then(trades => this.artificierTrades = trades);
     }
 }
 </script>

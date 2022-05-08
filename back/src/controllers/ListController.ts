@@ -46,6 +46,10 @@ export default class ListController {
                 this.listService.getJewelcraftingList()
                     .then((trades) => res.send(trades));
                 break;
+            case 'artificier':
+                this.listService.getArtificierList()
+                    .then((trades) => res.send(trades));
+                break;
             default:
                 throw 'unknown list';
         }

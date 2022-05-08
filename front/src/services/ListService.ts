@@ -56,6 +56,12 @@ class ListService {
 
         return await res.json();
     }
+
+    async getArtificierList(): Promise<Array<RecipeTrade>> {
+        const res = await fetch(this.BASE_URL + '/lists/artificier');
+
+        return await res.json();
+    }
 }
 
 export default new ListService();
