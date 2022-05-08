@@ -1,6 +1,12 @@
 import { Recipe, RecipeType } from "../../../shared/index.ts";
+import RecipeService from "./RecipeService.ts";
 
 export default class ArtificierService {
+    constructor (
+        private recipeService: RecipeService,
+    ) {
+    }
+
     public getAll(): Array<Recipe> {
         return [
             // 74825-Oiled-Ancient-Scepter-Core
@@ -12,6 +18,25 @@ export default class ArtificierService {
             this.createOiledAncientRecipe({
                 output: 75698,
                 ancientLog: 6,
+            }),
+
+            // 76286-Marauder-Pearl-Quarterstaff
+            this.recipeService.createMarauderPearlRecipe({
+                output: 76286,
+                orichalcumOre: 30,
+                ancientWood: 30 + 18,
+            }),
+            // 72740-Marauder-Pearl-Rod
+            this.recipeService.createMarauderPearlRecipe({
+                output: 72740,
+                orichalcumOre: 30,
+                ancientWood: 30 + 15,
+            }),
+            // 76109-Marauder-Pearl-Conch
+            this.recipeService.createMarauderPearlRecipe({
+                output: 76109,
+                orichalcumOre: 30,
+                ancientWood: 30 + 15,
             }),
         ];
     }

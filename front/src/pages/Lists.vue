@@ -70,18 +70,18 @@
             <li class="nav-item">
                 <button
                     type="button"
-                    v-on:click="toggleTab('jewelcrafting')"
-                    class="nav-link"
-                    v-bind:class="{ active: isJewelcraftingTabActive }"
-                >#8 jewelcrafting</button>
-            </li>
-            <li class="nav-item">
-                <button
-                    type="button"
                     v-on:click="toggleTab('artificier')"
                     class="nav-link"
                     v-bind:class="{ active: isArtificierTabActive }"
                 >#9 artificier</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('jewelcrafting')"
+                    class="nav-link"
+                    v-bind:class="{ active: isJewelcraftingTabActive }"
+                >#10 jewelcrafting</button>
             </li>
         </ul>
         <div class="tab-content">

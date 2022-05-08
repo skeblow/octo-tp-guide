@@ -1,5 +1,3 @@
-// import { Request, Response } from 'express';
-// import { MongoClient } from 'mongodb';
 import { MongoClient } from './deps.ts';
 import ItemController from './controllers/ItemController.ts';
 import ListController from './controllers/ListController.ts';
@@ -20,6 +18,7 @@ import TradeService from './services/TradeService.ts';
 import UtilityService from './services/UtilityService.ts';
 import WeaponsmithService from './services/WeaponsmithService.ts';
 import ArtificierService from "./services/ArtificierService.ts";
+import RecipeService from "./services/RecipeService.ts";
 
 interface Route {
     method: 'get' | 'post' | 'patch' | 'delete';
@@ -41,9 +40,10 @@ const cookingService = new CookingService();
 const utilityService = new UtilityService();
 const openService = new OpenService();
 const tradeService = new TradeService(itemService, priceService, bltcService);
-const weaponsmithService = new WeaponsmithService();
+const recipeService = new RecipeService();
+const weaponsmithService = new WeaponsmithService(recipeService);
 const jewelcraftingService = new JewelcraftingService();
-const artificierService = new ArtificierService();
+const artificierService = new ArtificierService(recipeService);
 const listService = new ListService(
     mongoService,
     tradeService,

@@ -1,71 +1,63 @@
-import { Recipe, RecipeType, SalvageRecipe } from '../../../shared/index.ts';
+import { Recipe, RecipeType } from '../../../shared/index.ts';
+import RecipeService from "./RecipeService.ts";
 
 export default class WeaponsmithService {
+    constructor (
+        private recipeService: RecipeService,
+    ) {
+    }
+
     public getAll(): Array<Recipe> {
         return [
             // 15433-Berserkers-Pearl-Reaver
-            this.createBerserkPearlRecipe({
+            this.recipeService.createBerserkPearlRecipe({
                 output: 15433,
                 orichalcumOre: 30 + 6,
                 ancientWood: 30 + 6,
             }),
             // 15272-Berserkers-Pearl-Carver
-            this.createBerserkPearlRecipe({
+            this.recipeService.createBerserkPearlRecipe({
                 output: 15272,
                 orichalcumOre: 30 + 10,
                 ancientWood: 30,
             }),
             // 15314-Berserkers-Pearl-Sabre
-            this.createBerserkPearlRecipe({
+            this.recipeService.createBerserkPearlRecipe({
                 output: 15314,
                 orichalcumOre: 30 + 12,
                 ancientWood: 30,
             }),
              // 15356-Berserkers-Pearl-Bludgeoner
-             this.createBerserkPearlRecipe({
+             this.recipeService.createBerserkPearlRecipe({
                 output: 15356,
                 orichalcumOre: 30 + 6,
                 ancientWood: 30 + 6,
             }),
 
             // 74471-Marauder-Pearl-Sabre
-            this.createMarauderPearlRecipe({
+            this.recipeService.createMarauderPearlRecipe({
                output: 74471,
                orichalcumOre: 30 + 12,
                ancientWood: 30,
             }),
             // 75226-Marauder-Pearl-Reaver
-            this.createMarauderPearlRecipe({
+            this.recipeService.createMarauderPearlRecipe({
                 output: 75226,
                 orichalcumOre: 30 + 6,
                 ancientWood: 30 + 6,
             }),
             // 74062-Marauder-Pearl-Carver
-            this.createMarauderPearlRecipe({
+            this.recipeService.createMarauderPearlRecipe({
                 output: 74062,
                 orichalcumOre: 30 + 10,
                 ancientWood: 30,
             }),
             // 77012-Marauder-Pearl-Broadsword
-            this.createMarauderPearlRecipe({
+            this.recipeService.createMarauderPearlRecipe({
                 output: 77012,
                 orichalcumOre: 30 + 12,
                 ancientWood: 30,
             }),
-            {
-                // 9440-Hardened-Sharpening-Stone
-                id: 9440,
-                type: RecipeType.artificier,
-                output: [
-                    { id: 9440, quantity: 5 },
-                ],
-                input: [
-                    // 24276-Pile-of-Incandescent-Dust
-                    { id: 24276, quantity: 3 },
-                    // 19684-Mithril-Ingot
-                    { id: 19684, quantity: 3 },
-                ],
-            },
             // 71331-Oiled-Orichalcum-Dagger-Blade
             this.createOiledOrichalcumRecipe({
                 output: 71331,
@@ -86,6 +78,20 @@ export default class WeaponsmithService {
                 output: 77064,
                 orichalcumOre: 6,
             }),
+            {
+                // 9440-Hardened-Sharpening-Stone
+                id: 9440,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 9440, quantity: 5 },
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    { id: 24276, quantity: 3 },
+                    // 19684-Mithril-Ingot
+                    { id: 19684, quantity: 3 },
+                ],
+            },
             {
                 // 9443-Superior-Sharpening-Stone
                 id: 9443,
