@@ -123,53 +123,6 @@ export default class WeaponsmithService {
         ];
     }
 
-    private createBerserkPearlRecipe(options: {
-        output: number,
-        orichalcumOre: number,
-        ancientWood: number,
-    }): Recipe {
-        return {
-            id: options.output,
-            type: RecipeType.weaponsmith,
-            output: [{ id: options.output, quantity: 1 }],
-            input: [
-                // 24295 Vial of Powerful Blood
-                { id: 24295, quantity: 5 },
-                // 19721-Glob-of-Ectoplasm
-                { id: 19721, quantity: 5 },
-                // orichalcum ore
-                { id: 19701, quantity: options.orichalcumOre },
-                // 19725-Ancient-Wood-Log
-                { id: 19725, quantity: options.ancientWood },
-            ],
-            cost: 0,
-        };
-    }
-
-    private createMarauderPearlRecipe(options: {
-        output: number,
-        orichalcumOre: number,
-        ancientWood: number,
-    }): Recipe {
-        return {
-            id: options.output,
-            type: RecipeType.weaponsmith,
-            output: [{ id: options.output, quantity: 1 }],
-            input: [
-                 // 75654-Ebony-Orb
-                 { id: 75654, quantity: 3 },
-                // 19721-Glob-of-Ectoplasm
-                { id: 19721, quantity: 5 },
-                // orichalcum ore
-                { id: 19701, quantity: options.orichalcumOre },
-                // 19725-Ancient-Wood-Log
-                { id: 19725, quantity: options.ancientWood },
-            ],
-            // barbed thorns
-            cost: 30 * 16,
-        };
-    }
-
     private createOiledOrichalcumRecipe(options: {
         output: number,
         orichalcumOre: number,
@@ -183,11 +136,9 @@ export default class WeaponsmithService {
                 { id: 19701, quantity: options.orichalcumOre },
                 // 74090-Pile-of-Flax-Seeds
                 { id: 74090, quantity: 75 },
-                // 77256-Milling-Stone
-                { id: 77256, quantity: 25 },
             ],
-            // milling basin
-            cost: 56,
+            // milling basin + milling stone
+            cost: 56 + 25 * 11,
         };
     }
 }

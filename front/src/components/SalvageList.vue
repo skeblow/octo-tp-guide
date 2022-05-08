@@ -49,15 +49,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="4" class="text-end">Profit:</td>
+                                <td class="table-secondary">Roi:</td>
+                                <td class="text-end table-secondary"><strong>
+                                    {{ trade.roi }}%
+                                </strong></td>
+                                <td class="text-end" colspan="2">Profit:</td>
                                 <td class="text-end"><strong>
                                     <Gold :amount="trade.profit"></Gold>
-                                </strong></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" class="text-end">Roi:</td>
-                                <td class="text-end"><strong>
-                                    {{ trade.roi }}%
                                 </strong></td>
                             </tr>
                         </tbody>

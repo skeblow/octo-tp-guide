@@ -54,11 +54,9 @@ export default class ArtificierService {
                 { id: 19725, quantity: options.ancientLog },
                 // 74090-Pile-of-Flax-Seeds
                 { id: 74090, quantity: 75 },
-                // 77256-Milling-Stone
-                { id: 77256, quantity: 25 },
             ],
-            // milling basin
-            cost: 56,
+            // milling basin + milling stone
+            cost: 56 + 25 * 11,
         };
     }
 }
