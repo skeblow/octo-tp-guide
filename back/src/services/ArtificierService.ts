@@ -38,6 +38,24 @@ export default class ArtificierService {
                 orichalcumOre: 30,
                 ancientWood: 30 + 15,
             }),
+            // 71768-Vipers-Pearl-Rod
+            this.recipeService.createViperPearlRecipe({
+                output: 71768,
+                orichalcumOre: 30,
+                ancientWood: 30 + 15,
+            }),
+            // 72064-Vipers-Pearl-Quarterstaff
+            this.recipeService.createViperPearlRecipe({
+                output: 72064,
+                orichalcumOre: 30,
+                ancientWood: 30 + 18,
+            }),
+            // 73000-Vipers-Pearl-Conch
+            this.recipeService.createViperPearlRecipe({
+                output: 73000,
+                orichalcumOre: 30,
+                ancientWood: 30 + 15,
+            }),
         ];
     }
 
