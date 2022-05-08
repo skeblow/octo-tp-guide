@@ -46,12 +46,12 @@ export default class HuntsmanService {
                 ancientWood: 30 + 6,
             }),
             // 70581-Vipers-Pearl-Needler
-            this.recipeService.createViperPearlRecipe({
-                output: 70581,
-                // fake +30 ore, ~eq value as 3 hardened leathers
-                orichalcumOre: 30 + 30,
-                ancientWood: 30,
-            }),
+            // this.recipeService.createViperPearlRecipe({
+            //     output: 70581,
+            //     // fake +30 ore, ~eq value as 3 hardened leathers
+            //     orichalcumOre: 30 + 30,
+            //     ancientWood: 30,
+            // }),
         ];
     }
 }
