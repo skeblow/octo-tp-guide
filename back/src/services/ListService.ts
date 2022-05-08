@@ -1,6 +1,7 @@
 import { BasicTrade, RecipeTrade, SalvageTrade } from '../../../shared/index.ts';
 import ArtificierService from "./ArtificierService.ts";
 import CookingService from './CookingService.ts';
+import HuntsmanService from "./HuntsmanService.ts";
 import JewelcraftingService from './JewelcraftingService.ts';
 import MongoService from './MongoService.ts';
 import OpenService from './OpenService.ts';
@@ -22,6 +23,7 @@ export default class ListService {
         private weaponsmithService: WeaponsmithService,
         private jewelcraftingService: JewelcraftingService,
         private artificierService: ArtificierService,
+        private huntsmanService: HuntsmanService,
     ) {
     }
 
@@ -153,6 +155,12 @@ export default class ListService {
     public getArtificierList(): Promise<Array<RecipeTrade>> {
         return this.tradeService.getTradesFromRecipes(
             this.artificierService.getAll(),
+        );
+    }
+
+    public getHuntsmanList(): Promise<Array<RecipeTrade>> {
+        return this.tradeService.getTradesFromRecipes(
+            this.huntsmanService.getAll(),
         );
     }
 }

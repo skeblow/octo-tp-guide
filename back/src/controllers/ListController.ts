@@ -50,6 +50,10 @@ export default class ListController {
                 this.listService.getArtificierList()
                     .then((trades) => res.send(trades));
                 break;
+            case 'huntsman':
+                this.listService.getHuntsmanList()
+                    .then((trades) => res.send(trades));
+                break;
             default:
                 throw 'unknown list';
         }

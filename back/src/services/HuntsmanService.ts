@@ -15,16 +15,22 @@ export default class HuntsmanService {
                 orichalcumOre: 30 + 4,
                 ancientWood: 30 + 6,
             }),
+            // 14577-Berserkers-Pearl-Handcannon
+            this.recipeService.createBerserkPearlRecipe({
+                output: 14577,
+                orichalcumOre: 30 + 6,
+                ancientWood: 30 + 6,
+            }),
             // 74371-Marauder-Pearl-Handcannon
             this.recipeService.createMarauderPearlRecipe({
                 output: 74371,
-                orichalcumOre: 30 + 5,
+                orichalcumOre: 30 + 6,
                 ancientWood: 30 + 6,
             }),
             // 76756-Vipers-Pearl-Handcannon
             this.recipeService.createViperPearlRecipe({
                 output: 76756,
-                orichalcumOre: 30 + 5,
+                orichalcumOre: 30 + 6,
                 ancientWood: 30 + 6,
             }),
             // 75575-Vipers-Pearl-Siren

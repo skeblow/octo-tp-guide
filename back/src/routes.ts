@@ -19,6 +19,7 @@ import UtilityService from './services/UtilityService.ts';
 import WeaponsmithService from './services/WeaponsmithService.ts';
 import ArtificierService from "./services/ArtificierService.ts";
 import RecipeService from "./services/RecipeService.ts";
+import HuntsmanService from "./services/HuntsmanService.ts";
 
 interface Route {
     method: 'get' | 'post' | 'patch' | 'delete';
@@ -44,6 +45,7 @@ const recipeService = new RecipeService();
 const weaponsmithService = new WeaponsmithService(recipeService);
 const jewelcraftingService = new JewelcraftingService();
 const artificierService = new ArtificierService(recipeService);
+const huntsmanService = new HuntsmanService(recipeService);
 const listService = new ListService(
     mongoService,
     tradeService,
@@ -55,6 +57,7 @@ const listService = new ListService(
     weaponsmithService,
     jewelcraftingService,
     artificierService,
+    huntsmanService,
 );
 
 const itemController = new ItemController(itemService);
@@ -70,6 +73,7 @@ const refreshController = new RefreshController(
     weaponsmithService,
     jewelcraftingService,
     artificierService,
+    huntsmanService,
 );
 
 export const ROUTES: Route[] = [
