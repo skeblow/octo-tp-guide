@@ -4,7 +4,7 @@
     
     <div v-for="amount in getAmounts()" :key="amount" class="row main">
       <div class="col-6">{{ amount }}</div>
-      <div class="col-6"><Gold :amount="amount"></Gold></div>
+      <div class="col-6 text-end"><Gold :amount="amount"></Gold></div>
     </div>
   </div>
 </template>
@@ -24,6 +24,12 @@ export default class HelloWorld extends Vue {
             99,
             100,
             101,
+            999,
+            1000,
+            1001,
+            9999,
+            10000,
+            10001,
         ];
     }
 }
