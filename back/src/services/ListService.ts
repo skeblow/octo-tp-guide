@@ -51,6 +51,7 @@ export default class ListService {
                     ! trade.item.name.includes('Antique')
                     && ! trade.item.name.includes('Berserk')
                     && ! trade.item.name.includes('Marauder')
+                    && ! trade.item.name.includes('Viper')
                 )
             )
             .then((list) =>

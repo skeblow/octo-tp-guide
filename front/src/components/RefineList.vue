@@ -63,12 +63,17 @@
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
 import { RecipeTrade } from '../../../shared';
+import Gold from './Gold.vue';
 
 class RefineListProps {
     items = prop<Array<RecipeTrade>>({required: true});
 }
 
-@Options({})
+@Options({
+    components: {
+        Gold,
+    },
+})
 export default class RefineList extends Vue.with(RefineListProps) {
     search: string = '';
 

@@ -26,11 +26,10 @@ export default class JewelcraftingService {
         orichalcumOre: number,
     }) {
         return {
-            // 71686-Freshwater-Pearl-Orichalcum-Amulet
-            id: 71686,
+            id: options.output,
             type: RecipeType.jewelcrafting,
             output: [
-                { id: 71686, quantity: 1 },
+                { id: options.output, quantity: 1 },
             ],
             input: [
                 // 76179-Freshwater-Pearl
