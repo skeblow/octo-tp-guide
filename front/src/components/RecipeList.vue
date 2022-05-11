@@ -45,7 +45,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" class="text-end">Total buy:</td>
+                                    <td>Cost:</td>
+                                    <td class="text-end"><Gold :amount="trade.recipe.cost"></Gold></td>
+                                    <td colspan="2" class="text-end">Total buy:</td>
                                     <td class="text-end">
                                         <Gold :amount="trade.totalBuy" bold="true"></Gold>
                                     </td>
