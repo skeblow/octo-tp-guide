@@ -62,8 +62,13 @@ class ListService {
         return await res.json();
     }
 
-    public async getHuntsmanList(): Promise<Array<RecipeTrade>> {
+    public getHuntsmanList(): Promise<Array<RecipeTrade>> {
         return fetch(BASE_URL + '/lists/huntsman')
+            .then(res => res.json());
+    }
+
+    public getTailorList(): Promise<Array<RecipeTrade>> {
+        return fetch(BASE_URL + '/lists/tailor')
             .then(res => res.json());
     }
 }

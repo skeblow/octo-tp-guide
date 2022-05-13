@@ -40,6 +40,7 @@ export enum RecipeType {
     weaponsmith = 'weaponsmith',
     huntsman = 'huntsman',
     jewelcrafting = 'jewelcrafting',
+    tailoring = 'tailoring',
 }
 
 export interface Recipe {

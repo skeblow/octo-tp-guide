@@ -54,6 +54,10 @@ export default class ListController {
                 this.listService.getHuntsmanList()
                     .then((trades) => res.send(trades));
                 break;
+            case 'tailor':
+                this.listService.getTailorList()
+                    .then((trades) => res.send(trades));
+                break;
             default:
                 throw 'unknown list';
         }

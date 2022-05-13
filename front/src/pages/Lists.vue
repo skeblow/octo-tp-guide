@@ -65,7 +65,7 @@
                     v-on:click="toggleTab('weaponsmith')"
                     class="nav-link"
                     v-bind:class="{ active: isWeaponsmithTabActive }"
-                >#8 weaponsmith</button>
+                >#8 weapon</button>
             </li>
             <li class="nav-item">
                 <button
@@ -81,7 +81,15 @@
                     v-on:click="toggleTab('jewelcrafting')"
                     class="nav-link"
                     v-bind:class="{ active: isJewelcraftingTabActive }"
-                >#10 jewelcrafting</button>
+                >#10 jwc</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('tailor')"
+                    class="nav-link"
+                    v-bind:class="{ active: isTailorTabActive }"
+                >#11 tailor</button>
             </li>
             <li class="nav-item">
                 <button
@@ -89,9 +97,10 @@
                     v-on:click="toggleTab('huntsman')"
                     class="nav-link"
                     v-bind:class="{ active: isHuntsmanTabActive }"
-                >#11 huntsman</button>
+                >#12 huntsman</button>
             </li>
         </ul>
+
         <div class="tab-content">
             <div 
                 class="tab-pane fade" 
@@ -203,6 +212,16 @@
                     </div>
                  </div>
             </div>
+            <div 
+                class="tab-pane fade"
+                v-bind:class="{ show: isTailorTabActive, active: isTailorTabActive }"
+            >
+                 <div class="card">
+                    <div class="card-body">
+                        <RecipeList :items="tailorTrades"></RecipeList>
+                    </div>
+                 </div>
+            </div>
         </div>
     </div>
 </template>
@@ -236,6 +255,8 @@ export default class Lists extends Vue {
     isJewelcraftingTabActive = false;
     isArtificierTabActive = false;
     isHuntsmanTabActive = false;
+    isTailorTabActive = false;
+
     cheapTrades: Array<BasicTrade> = [];
     expensiveTrades: Array<BasicTrade> = [];
     refineTrades: Array<RecipeTrade> = [];
@@ -247,6 +268,7 @@ export default class Lists extends Vue {
     jewelcraftingTrades: Array<RecipeTrade> = [];
     artificierTrades: Array<RecipeTrade> = [];
     huntsmanTrades: Array<RecipeTrade> = [];
+    tailorTrades: Array<RecipeTrade> = [];
 
     toggleTab(tab: string): void {
         this.isCheapTabActive = tab === 'cheap';
@@ -260,6 +282,7 @@ export default class Lists extends Vue {
         this.isJewelcraftingTabActive = tab === 'jewelcrafting';
         this.isArtificierTabActive = tab === 'artificier';
         this.isHuntsmanTabActive = tab === 'huntsman';
+        this.isTailorTabActive = tab === 'tailor';
     }
 
     mounted(): void {
@@ -274,6 +297,7 @@ export default class Lists extends Vue {
         ListService.getJewelcraftingList().then(trades => this.jewelcraftingTrades = trades);
         ListService.getArtificierList().then(trades => this.artificierTrades = trades);
         ListService.getHuntsmanList().then(trades => this.huntsmanTrades = trades);
+        ListService.getTailorList().then(trades => this.tailorTrades = trades);
     }
 }
 </script>

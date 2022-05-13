@@ -132,6 +132,7 @@ export default class RefineService {
                 id: 19737,
                 type: RecipeType.refine,
                 input: [
+                    // hardened leather section
                     { id: 19732, quantity: 3 },
                 ],
                 output: [

@@ -34,8 +34,8 @@ export default class RecipeService {
             type: RecipeType.weaponsmith,
             output: [{ id: options.output, quantity: 1 }],
             input: [
-                 // 75654-Ebony-Orb
-                 { id: 75654, quantity: 3 },
+                // 75654-Ebony-Orb
+                { id: 75654, quantity: 3 },
                 // 19721-Glob-of-Ectoplasm
                 { id: 19721, quantity: 5 },
                 // orichalcum ore

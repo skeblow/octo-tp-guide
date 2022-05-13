@@ -10,6 +10,7 @@ import SalvageService from './SalvageService.ts';
 import TradeService from './TradeService.ts';
 import UtilityService from './UtilityService.ts';
 import WeaponsmithService from './WeaponsmithService.ts';
+import TailorService from './TailorService.ts';
 
 export default class ListService {
     constructor(
@@ -24,6 +25,7 @@ export default class ListService {
         private jewelcraftingService: JewelcraftingService,
         private artificierService: ArtificierService,
         private huntsmanService: HuntsmanService,
+        private tailorService: TailorService,
     ) {
     }
 
@@ -161,6 +163,12 @@ export default class ListService {
     public getHuntsmanList(): Promise<Array<RecipeTrade>> {
         return this.tradeService.getTradesFromRecipes(
             this.huntsmanService.getAll(),
+        );
+    }
+
+    public getTailorList(): Promise<Array<RecipeTrade>> {
+        return this.tradeService.getTradesFromRecipes(
+            this.tailorService.getAll(),
         );
     }
 }
