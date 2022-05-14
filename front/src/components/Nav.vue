@@ -22,6 +22,9 @@
             <li class="nav-item">
               <a href="http://localhost:3000/refresh" target="_blank" class="nav-link">Refresh</a>
             </li>
+            <li class="nav-item">
+              <router-link to="/token" class="nav-link" exact-active-class="active">Token</router-link>
+            </li>
           </ul>
         </header>
     </div>

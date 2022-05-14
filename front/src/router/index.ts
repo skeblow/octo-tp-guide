@@ -21,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'items',
     component: () => import(/* webpackChunkName: "items" */ '../pages/Items.vue')
   },
+  {
+    path: '/token',
+    name: 'token',
+    component: () => import(/* webpackChunkName: "token" */ '../pages/Token.vue')
+  },
 ];
 
 const router = createRouter({

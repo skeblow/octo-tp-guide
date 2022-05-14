@@ -234,6 +234,7 @@ import RecipeList from '../components/RecipeList.vue';
 import RefineList from '../components/RefineList.vue';
 import SalvageList from '../components/SalvageList.vue';
 import ListService from '../services/ListService';
+import TokenService from '../services/TokenService';
 
 @Options({
     components: {
@@ -298,6 +299,14 @@ export default class Lists extends Vue {
         ListService.getArtificierList().then(trades => this.artificierTrades = trades);
         ListService.getHuntsmanList().then(trades => this.huntsmanTrades = trades);
         ListService.getTailorList().then(trades => this.tailorTrades = trades);
+
+        const token = TokenService.getToken();
+
+        if (token) {
+            fetch('https://api.guildwars2.com/v2/commerce/transactions/current/sells?access_token=' + token + '&page=1')
+                .then(res => res.json())
+                .then(res => console.log(res));
+        }
     }
 }
 </script>
