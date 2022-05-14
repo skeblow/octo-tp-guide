@@ -16,13 +16,17 @@
         <div class="row">
             <div class="col-4 mb-4" v-for="trade in getItems()" :key="trade.recipe.id">
                 <div class="card" v-bind:class="{'bg-danger': trade.roi < 10, 'text-white': trade.roi < 10}">
-                    <div class="card-header">
-                        {{ trade.output.quantity }}x
-                        <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.output.item.id" target="_blank">
-                            <img v-bind:src="trade.output.item.icon" alt="">
-                        </a>
-                        {{ trade.output.item.name }}
-                        <small>(Sell)</small>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            {{ trade.output.quantity }}x
+                            <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.output.item.id" target="_blank">
+                                <img v-bind:src="trade.output.item.icon" alt="">
+                            </a>
+                            {{ trade.output.item.name }}
+                            <small>(Sell)</small>
+                        </div>
+                        
+                        <span class="badge bg-success" v-if="isListed(trade)">&#10004;</span>
                     </div>
                     <div class="card-body">
                         <table class="table table-stripped">
@@ -91,6 +95,7 @@ import Gold from './Gold.vue';
 
 class RecipeListProps {
     items = prop<Array<RecipeTrade>>({required: true});
+    activeListingIds = prop<Array<number>>({required: true});
 }
 
 @Options({
@@ -117,6 +122,10 @@ export default class RecipeList extends Vue.with(RecipeListProps) {
                     .toLowerCase()
                     .includes(this.search),
             );
+    }
+
+    public isListed(trade: RecipeTrade): boolean {
+        return this.activeListingIds.includes(trade.id);
     }
 }
 </script>

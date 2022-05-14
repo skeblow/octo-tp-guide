@@ -148,7 +148,7 @@
             >
                  <div class="card">
                     <div class="card-body">
-                        <RecipeList :items="cookingTrades"></RecipeList>
+                        <RecipeList :items="cookingTrades" :activeListingIds="activeListingIds"></RecipeList>
                     </div>
                  </div>
             </div>
@@ -158,7 +158,7 @@
             >
                  <div class="card">
                     <div class="card-body">
-                        <RecipeList :items="utilityTrades"></RecipeList>
+                        <RecipeList :items="utilityTrades" :activeListingIds="activeListingIds"></RecipeList>
                     </div>
                  </div>
             </div>
@@ -178,7 +178,7 @@
             >
                  <div class="card">
                     <div class="card-body">
-                        <RecipeList :items="weaponsmithTrades"></RecipeList>
+                        <RecipeList :items="weaponsmithTrades" :activeListingIds="activeListingIds"></RecipeList>
                     </div>
                  </div>
             </div>
@@ -188,7 +188,7 @@
             >
                  <div class="card">
                     <div class="card-body">
-                        <RecipeList :items="jewelcraftingTrades"></RecipeList>
+                        <RecipeList :items="jewelcraftingTrades" :activeListingIds="activeListingIds"></RecipeList>
                     </div>
                  </div>
             </div>
@@ -198,7 +198,7 @@
             >
                  <div class="card">
                     <div class="card-body">
-                        <RecipeList :items="artificierTrades"></RecipeList>
+                        <RecipeList :items="artificierTrades" :activeListingIds="activeListingIds"></RecipeList>
                     </div>
                  </div>
             </div>
@@ -208,7 +208,7 @@
             >
                  <div class="card">
                     <div class="card-body">
-                        <RecipeList :items="huntsmanTrades"></RecipeList>
+                        <RecipeList :items="huntsmanTrades" :activeListingIds="activeListingIds"></RecipeList>
                     </div>
                  </div>
             </div>
@@ -218,7 +218,7 @@
             >
                  <div class="card">
                     <div class="card-body">
-                        <RecipeList :items="tailorTrades"></RecipeList>
+                        <RecipeList :items="tailorTrades" :activeListingIds="activeListingIds"></RecipeList>
                     </div>
                  </div>
             </div>
@@ -235,6 +235,7 @@ import RefineList from '../components/RefineList.vue';
 import SalvageList from '../components/SalvageList.vue';
 import ListService from '../services/ListService';
 import TokenService from '../services/TokenService';
+import ApiService from '../services/ApiService';
 
 @Options({
     components: {
@@ -245,6 +246,8 @@ import TokenService from '../services/TokenService';
     },
 })
 export default class Lists extends Vue {
+    activeListingIds: Array<number> = [];
+
     isCheapTabActive = true;
     isExpensiveTabActive = false;
     isRefineTabActive = false;
@@ -303,9 +306,8 @@ export default class Lists extends Vue {
         const token = TokenService.getToken();
 
         if (token) {
-            fetch('https://api.guildwars2.com/v2/commerce/transactions/current/sells?access_token=' + token + '&page=1')
-                .then(res => res.json())
-                .then(res => console.log(res));
+            ApiService.getActiveListingIds(token)
+                .then(res => this.activeListingIds = res);
         }
     }
 }
