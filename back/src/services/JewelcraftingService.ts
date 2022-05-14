@@ -52,7 +52,7 @@ export default class JewelcraftingService {
                 // 19721-Glob-of-Ectoplasm
                 { id: 19721, quantity: 5 },
                 // orichalcum ore
-                { id: 19701, quantity: 32 },
+                { id: 19701, quantity: options.orichalcumOre },
             ],
         };
     }

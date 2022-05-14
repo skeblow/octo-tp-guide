@@ -59,7 +59,7 @@ export default class RecipeService {
             output: [{ id: options.output, quantity: 1 }],
             input: [
                 // 74090-Pile-of-Flax-Seeds
-                { id: 74090, quantity: 125 },
+                { id: 74090, quantity: 150 },
                 // 76491-Black-Diamond
                 { id: 76491, quantity: 3 },
                 // 19721-Glob-of-Ectoplasm
