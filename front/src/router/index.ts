@@ -26,11 +26,16 @@ const routes: Array<RouteRecordRaw> = [
     name: 'token',
     component: () => import(/* webpackChunkName: "token" */ '../pages/Token.vue')
   },
+  {
+    path: '/shopping',
+    name: 'shopping',
+    component: () => import(/* webpackChunkName: "shopping" */ '../pages/Shopping.vue')
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 });
 
 export default router

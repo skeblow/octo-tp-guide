@@ -10,8 +10,11 @@
             <li class="nav-item">
               <router-link to="/" class="nav-link" exact-active-class="active">Home</router-link>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
               <router-link to="/lists" class="nav-link" exact-active-class="active">Lists</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/shopping" class="nav-link" exact-active-class="active">Shopping list</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/items" class="nav-link" exact-active-class="active">Items</router-link>

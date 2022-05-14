@@ -9,6 +9,11 @@ class ApiService {
             .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
             .then(val => val.flatMap(val => val.map((obj: any) => obj.item_id)));
     }
+
+    public getBankMaterials(token: string): Promise<Array<any>> {
+        return fetch('https://api.guildwars2.com/v2/account/materials?access_token=' + token)
+            .then(res => res.json());
+    }
 }
 
 export default new ApiService();
