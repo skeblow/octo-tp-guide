@@ -71,6 +71,11 @@ class ListService {
         return fetch(BASE_URL + '/lists/tailor')
             .then(res => res.json());
     }
+
+    public getArmorsmithList(): Promise<Array<RecipeTrade>> {
+        return fetch(BASE_URL + '/lists/armorsmith')
+            .then(res => res.json());
+    }
 }
 
 export default new ListService();

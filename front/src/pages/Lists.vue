@@ -97,7 +97,15 @@
                     v-on:click="toggleTab('huntsman')"
                     class="nav-link"
                     v-bind:class="{ active: isHuntsmanTabActive }"
-                >#12 huntsman</button>
+                >#12 hunt</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('armorsmith')"
+                    class="nav-link"
+                    v-bind:class="{ active: isArmorsmithTabActive }"
+                >#13 armor</button>
             </li>
         </ul>
 
@@ -222,6 +230,16 @@
                     </div>
                  </div>
             </div>
+            <div 
+                class="tab-pane fade"
+                v-bind:class="{ show: isArmorsmithTabActive, active: isArmorsmithTabActive }"
+            >
+                 <div class="card">
+                    <div class="card-body">
+                        <RecipeList :items="armorsmithTrades" :activeListingIds="activeListingIds"></RecipeList>
+                    </div>
+                 </div>
+            </div>
         </div>
     </div>
 </template>
@@ -260,6 +278,7 @@ export default class Lists extends Vue {
     isArtificierTabActive = false;
     isHuntsmanTabActive = false;
     isTailorTabActive = false;
+    isArmorsmithTabActive = false;
 
     cheapTrades: Array<BasicTrade> = [];
     expensiveTrades: Array<BasicTrade> = [];
@@ -273,6 +292,7 @@ export default class Lists extends Vue {
     artificierTrades: Array<RecipeTrade> = [];
     huntsmanTrades: Array<RecipeTrade> = [];
     tailorTrades: Array<RecipeTrade> = [];
+    armorsmithTrades: Array<RecipeTrade> = [];
 
     toggleTab(tab: string): void {
         this.isCheapTabActive = tab === 'cheap';
@@ -287,6 +307,7 @@ export default class Lists extends Vue {
         this.isArtificierTabActive = tab === 'artificier';
         this.isHuntsmanTabActive = tab === 'huntsman';
         this.isTailorTabActive = tab === 'tailor';
+        this.isArmorsmithTabActive = tab === 'armorsmith';
     }
 
     mounted(): void {
@@ -302,6 +323,7 @@ export default class Lists extends Vue {
         ListService.getArtificierList().then(trades => this.artificierTrades = trades);
         ListService.getHuntsmanList().then(trades => this.huntsmanTrades = trades);
         ListService.getTailorList().then(trades => this.tailorTrades = trades);
+        ListService.getArmorsmithList().then(trades => this.armorsmithTrades = trades);
 
         const token = TokenService.getToken();
 

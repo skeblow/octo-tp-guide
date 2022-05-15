@@ -11,6 +11,7 @@ import JewelcraftingService from '../services/JewelcraftingService.ts';
 import ArtificierService from '../services/ArtificierService.ts';
 import HuntsmanService from '../services/HuntsmanService.ts';
 import TailorService from "../services/TailorService.ts";
+import ArmorsmithService from "../services/ArmorsmithService.ts";
 
 export default class RefreshController {
     constructor(
@@ -25,6 +26,7 @@ export default class RefreshController {
         private artificierService: ArtificierService,
         private huntsmanService: HuntsmanService,
         private tailorService: TailorService,
+        private armorsmithService: ArmorsmithService,
     ) {
     }
 
@@ -37,6 +39,7 @@ export default class RefreshController {
             .concat(this.artificierService.getAll())
             .concat(this.huntsmanService.getAll())
             .concat(this.tailorService.getAll())
+            .concat(this.armorsmithService.getAll())
         ;
         let ids: Array<number> = [];
 
