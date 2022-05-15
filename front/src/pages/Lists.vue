@@ -9,7 +9,7 @@
                     v-on:click="toggleTab('cheap')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'cheap' }"
-                >#1 cheap</button>
+                >cheap</button>
             </li>
             <li class="nav-item">
                 <button
@@ -17,7 +17,7 @@
                     v-on:click="toggleTab('expensive')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'expensive' }"
-                >#2 expensive</button>
+                >expensive</button>
             </li>
             <li class="nav-item">
                 <button
@@ -25,7 +25,7 @@
                     v-on:click="toggleTab('refine')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'refine' }"
-                >#3 refine</button>
+                >refine</button>
             </li>
             <li class="nav-item">
                 <button
@@ -33,7 +33,7 @@
                     v-on:click="toggleTab('salvage')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'salvage' }"
-                >#4 salvage</button>
+                >salvage</button>
             </li>
             <li class="nav-item">
                 <button
@@ -41,7 +41,7 @@
                     v-on:click="toggleTab('cooking')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'cooking' }"
-                >#5 food</button>
+                >food</button>
             </li>
             <li class="nav-item">
                 <button
@@ -49,7 +49,7 @@
                     v-on:click="toggleTab('utility')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'utility' }"
-                >#6 utility</button>
+                >utility</button>
             </li>
             <li class="nav-item">
                 <button
@@ -57,7 +57,7 @@
                     v-on:click="toggleTab('open')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'open' }"
-                >#7 open</button>
+                >open</button>
             </li>
             <li class="nav-item">
                 <button
@@ -65,7 +65,7 @@
                     v-on:click="toggleTab('weaponsmith')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'weaponsmith' }"
-                >#8 weapon</button>
+                >weapon</button>
             </li>
             <li class="nav-item">
                 <button
@@ -73,7 +73,7 @@
                     v-on:click="toggleTab('artificier')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'artificier' }"
-                >#9 artificier</button>
+                >artificier</button>
             </li>
             <li class="nav-item">
                 <button
@@ -81,7 +81,7 @@
                     v-on:click="toggleTab('jewelcrafting')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'jewelcrafting' }"
-                >#10 jwc</button>
+                >jwc</button>
             </li>
             <li class="nav-item">
                 <button
@@ -89,7 +89,7 @@
                     v-on:click="toggleTab('tailor')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'tailor' }"
-                >#11 tailor</button>
+                >tailor</button>
             </li>
             <li class="nav-item">
                 <button
@@ -97,7 +97,7 @@
                     v-on:click="toggleTab('huntsman')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'huntsman' }"
-                >#12 hunt</button>
+                >hunt</button>
             </li>
             <li class="nav-item">
                 <button
@@ -105,7 +105,7 @@
                     v-on:click="toggleTab('armorsmith')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'armorsmith' }"
-                >#13 armor</button>
+                >armor</button>
             </li>
         </ul>
 
