@@ -62,6 +62,10 @@ export default class ListController {
                 this.listService.getArmorsmithList()
                     .then((trades) => res.send(trades));
                 break;
+            case 'leatherworker':
+                this.listService.getLeatherworkerList()
+                    .then((trades) => res.send(trades));
+                break;
             default:
                 throw 'unknown list';
         }

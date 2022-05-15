@@ -12,6 +12,7 @@ import ArtificierService from '../services/ArtificierService.ts';
 import HuntsmanService from '../services/HuntsmanService.ts';
 import TailorService from "../services/TailorService.ts";
 import ArmorsmithService from "../services/ArmorsmithService.ts";
+import LeatherworkderService from "../services/LeatherworkerService.ts";
 
 export default class RefreshController {
     constructor(
@@ -27,6 +28,7 @@ export default class RefreshController {
         private huntsmanService: HuntsmanService,
         private tailorService: TailorService,
         private armorsmithService: ArmorsmithService,
+        private leatherworkerService: LeatherworkderService,
     ) {
     }
 
@@ -40,6 +42,7 @@ export default class RefreshController {
             .concat(this.huntsmanService.getAll())
             .concat(this.tailorService.getAll())
             .concat(this.armorsmithService.getAll())
+            .concat(this.leatherworkerService.getAll())
         ;
         let ids: Array<number> = [];
 

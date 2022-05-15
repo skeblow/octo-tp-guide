@@ -107,6 +107,14 @@
                     v-bind:class="{ active: activeTab === 'armorsmith' }"
                 >armor</button>
             </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('leatherworker')"
+                    class="nav-link"
+                    v-bind:class="{ active: activeTab === 'leatherworker' }"
+                >lw</button>
+            </li>
         </ul>
 
         <div class="tab-content">
