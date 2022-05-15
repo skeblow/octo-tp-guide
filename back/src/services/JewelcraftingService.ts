@@ -33,6 +33,21 @@ export default class JewelcraftingService {
                 output: 13501,
                 orichalcumOre: 16 * 2,
             }),
+            // 72686-Ebony-Orichalcum-Earring
+            this.createEbonyOrichalcumRecipe({
+                output: 72686,
+                orichalcumOre: 28,
+            }),
+            // 75574-Ebony-Orichalcum-Ring
+            this.createEbonyOrichalcumRecipe({
+                output: 75574,
+                orichalcumOre: 30,
+            }),
+            // 76138-Ebony-Orichalcum-Amulet
+            this.createEbonyOrichalcumRecipe({
+                output: 76138,
+                orichalcumOre: 32,
+            }),
         ];
     }
 
@@ -76,6 +91,27 @@ export default class JewelcraftingService {
                 { id: 24474, quantity: 10 },
                 // 24276-Pile-of-Incandescent-Dust
                 { id: 24276, quantity: 25 },
+            ],
+        };
+    }
+
+    private createEbonyOrichalcumRecipe(options: {
+        output: number,
+        orichalcumOre: number,
+    }) {
+        return {
+            id: options.output,
+            type: RecipeType.jewelcrafting,
+            output: [
+                { id: options.output, quantity: 1 },
+            ],
+            input: [
+                // 75654 Ebony Orb
+                { id: 75654, quantity: 5 },
+                // 19721-Glob-of-Ectoplasm
+                { id: 19721, quantity: 5 },
+                // orichalcum ore
+                { id: 19701, quantity: options.orichalcumOre },
             ],
         };
     }

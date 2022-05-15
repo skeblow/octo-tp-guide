@@ -103,7 +103,7 @@ export default class Shopping extends Vue {
     }
 
     public getMissing(item: Item): number {
-        return this.getRequestedCount(item) - this.getCountInBank(item);
+        return Math.max(this.getRequestedCount(item) - this.getCountInBank(item), 0);
     }
 }
 </script>
