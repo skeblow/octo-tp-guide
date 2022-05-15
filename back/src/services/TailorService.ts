@@ -39,15 +39,43 @@ export default class TailorService {
                 gossamerScrap: 12,
                 hardenedSection: 33,
             }),
+
             // 71075-Vipers-Exalted-Pants
-            // this.createViperExaltedRecipe({
-        //     output: 71075,
-            // }),
+            this.createViperExaltedRecipe({
+                 output: 71075,
+                 gossamerScrap: 18,
+                 hardenedSection: 30,
+            }),
             // 74671-Vipers-Exalted-Gloves
+            this.createViperExaltedRecipe({
+                output: 74671,
+                gossamerScrap: 12,
+                hardenedSection: 33,
+            }),
             // 74101-Vipers-Exalted-Coat
+            this.createViperExaltedRecipe({
+                output: 74101,
+                gossamerScrap: 18,
+                hardenedSection: 33,
+            }),
             // 71794-Vipers-Exalted-Masque
+            this.createViperExaltedRecipe({
+                output: 71794,
+                gossamerScrap: 12,
+                hardenedSection: 33,
+            }),
             // 75779-Vipers-Exalted-Boots
+            this.createViperExaltedRecipe({
+                output: 75779,
+                gossamerScrap: 12,
+                hardenedSection: 36,
+            }),
             // 71073-Vipers-Exalted-Mantle
+            this.createViperExaltedRecipe({
+                output: 71073,
+                gossamerScrap: 12,
+                hardenedSection: 33,
+            }),
         ];
     }
 
@@ -91,14 +119,15 @@ export default class TailorService {
             input: [
                 // 74090-Pile-of-Flax-Seeds
                 { id: 74090, quantity: 150 },
+                // hardened leather section
+                { id: 19732, quantity: options.hardenedSection },
                 // 76491-Black-Diamond
                 { id: 76491, quantity: 3 },
                 // 19721-Glob-of-Ectoplasm
                 { id: 19721, quantity: 5 },
                 // gossamer scrap
                 { id: 19745, quantity: options.gossamerScrap },
-                // hardened leather section
-                { id: 19732, quantity: options.hardenedSection },
+                
             ],
             // spool + leaf fossil + milling basin + milling stone
             cost: 2.8 * 6.4 + 30 * 19 + 10 * 56 + 50 * 11,
