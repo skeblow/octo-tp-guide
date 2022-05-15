@@ -8,7 +8,7 @@
                     type="button"
                     v-on:click="toggleTab('cheap')"
                     class="nav-link"
-                    v-bind:class="{ active: isCheapTabActive }"
+                    v-bind:class="{ active: activeTab === 'cheap' }"
                 >#1 cheap</button>
             </li>
             <li class="nav-item">
@@ -16,7 +16,7 @@
                     type="button"
                     v-on:click="toggleTab('expensive')"
                     class="nav-link"
-                    v-bind:class="{ active: isExpensiveTabActive }"
+                    v-bind:class="{ active: activeTab === 'expensive' }"
                 >#2 expensive</button>
             </li>
             <li class="nav-item">
@@ -24,7 +24,7 @@
                     type="button"
                     v-on:click="toggleTab('refine')"
                     class="nav-link"
-                    v-bind:class="{ active: isRefineTabActive }"
+                    v-bind:class="{ active: activeTab === 'refine' }"
                 >#3 refine</button>
             </li>
             <li class="nav-item">
@@ -32,7 +32,7 @@
                     type="button"
                     v-on:click="toggleTab('salvage')"
                     class="nav-link"
-                    v-bind:class="{ active: isSalvageTabActive }"
+                    v-bind:class="{ active: activeTab === 'salvage' }"
                 >#4 salvage</button>
             </li>
             <li class="nav-item">
@@ -40,7 +40,7 @@
                     type="button"
                     v-on:click="toggleTab('cooking')"
                     class="nav-link"
-                    v-bind:class="{ active: isCookingTabActive }"
+                    v-bind:class="{ active: activeTab === 'cooking' }"
                 >#5 food</button>
             </li>
             <li class="nav-item">
@@ -48,7 +48,7 @@
                     type="button"
                     v-on:click="toggleTab('utility')"
                     class="nav-link"
-                    v-bind:class="{ active: isUtilityTabActive }"
+                    v-bind:class="{ active: activeTab === 'utility' }"
                 >#6 utility</button>
             </li>
             <li class="nav-item">
@@ -56,7 +56,7 @@
                     type="button"
                     v-on:click="toggleTab('open')"
                     class="nav-link"
-                    v-bind:class="{ active: isOpenTabActive }"
+                    v-bind:class="{ active: activeTab === 'open' }"
                 >#7 open</button>
             </li>
             <li class="nav-item">
@@ -64,7 +64,7 @@
                     type="button"
                     v-on:click="toggleTab('weaponsmith')"
                     class="nav-link"
-                    v-bind:class="{ active: isWeaponsmithTabActive }"
+                    v-bind:class="{ active: activeTab === 'weaponsmith' }"
                 >#8 weapon</button>
             </li>
             <li class="nav-item">
@@ -72,7 +72,7 @@
                     type="button"
                     v-on:click="toggleTab('artificier')"
                     class="nav-link"
-                    v-bind:class="{ active: isArtificierTabActive }"
+                    v-bind:class="{ active: activeTab === 'artificier' }"
                 >#9 artificier</button>
             </li>
             <li class="nav-item">
@@ -80,7 +80,7 @@
                     type="button"
                     v-on:click="toggleTab('jewelcrafting')"
                     class="nav-link"
-                    v-bind:class="{ active: isJewelcraftingTabActive }"
+                    v-bind:class="{ active: activeTab === 'jewelcrafting' }"
                 >#10 jwc</button>
             </li>
             <li class="nav-item">
@@ -88,7 +88,7 @@
                     type="button"
                     v-on:click="toggleTab('tailor')"
                     class="nav-link"
-                    v-bind:class="{ active: isTailorTabActive }"
+                    v-bind:class="{ active: activeTab === 'tailor' }"
                 >#11 tailor</button>
             </li>
             <li class="nav-item">
@@ -96,7 +96,7 @@
                     type="button"
                     v-on:click="toggleTab('huntsman')"
                     class="nav-link"
-                    v-bind:class="{ active: isHuntsmanTabActive }"
+                    v-bind:class="{ active: activeTab === 'huntsman' }"
                 >#12 hunt</button>
             </li>
             <li class="nav-item">
@@ -104,141 +104,21 @@
                     type="button"
                     v-on:click="toggleTab('armorsmith')"
                     class="nav-link"
-                    v-bind:class="{ active: isArmorsmithTabActive }"
+                    v-bind:class="{ active: activeTab === 'armorsmith' }"
                 >#13 armor</button>
             </li>
         </ul>
 
         <div class="tab-content">
-            <div 
-                class="tab-pane fade" 
-                v-bind:class="{ show: isCheapTabActive, active: isCheapTabActive }"
-            >
+            <div class="tab-pane fade show active">
                 <div class="card">
                     <div class="card-body">
-                        <BasicList :items="cheapTrades"></BasicList>
+                        <BasicList v-if="isBasicListActive()" :items="trades"></BasicList>
+                        <RefineList v-if="isRefineListActive()" :items="trades"></RefineList>
+                        <SalvageList v-if="isSalvageListActive()" :items="trades"></SalvageList>
+                        <RecipeList v-if="isRecipeListActive()" :items="trades" :activeListingIds="activeListingIds"></RecipeList>
                     </div>
                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isExpensiveTabActive, active: isExpensiveTabActive }"
-            >
-                <div class="card">
-                    <div class="card-body">
-                        <BasicList :items="expensiveTrades"></BasicList>
-                    </div>
-                </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isRefineTabActive, active: isRefineTabActive }"
-            >
-                <div class="card">
-                    <div class="card-body">
-                        <RefineList :items="refineTrades"></RefineList>
-                    </div>
-                </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isSalvageTabActive, active: isSalvageTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <SalvageList :items="salvageTrades"></SalvageList>
-                    </div>
-                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isCookingTabActive, active: isCookingTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <RecipeList :items="cookingTrades" :activeListingIds="activeListingIds"></RecipeList>
-                    </div>
-                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isUtilityTabActive, active: isUtilityTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <RecipeList :items="utilityTrades" :activeListingIds="activeListingIds"></RecipeList>
-                    </div>
-                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isOpenTabActive, active: isOpenTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <SalvageList :items="openTrades"></SalvageList>
-                    </div>
-                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isWeaponsmithTabActive, active: isWeaponsmithTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <RecipeList :items="weaponsmithTrades" :activeListingIds="activeListingIds"></RecipeList>
-                    </div>
-                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isJewelcraftingTabActive, active: isJewelcraftingTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <RecipeList :items="jewelcraftingTrades" :activeListingIds="activeListingIds"></RecipeList>
-                    </div>
-                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isArtificierTabActive, active: isArtificierTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <RecipeList :items="artificierTrades" :activeListingIds="activeListingIds"></RecipeList>
-                    </div>
-                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isHuntsmanTabActive, active: isHuntsmanTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <RecipeList :items="huntsmanTrades" :activeListingIds="activeListingIds"></RecipeList>
-                    </div>
-                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isTailorTabActive, active: isTailorTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <RecipeList :items="tailorTrades" :activeListingIds="activeListingIds"></RecipeList>
-                    </div>
-                 </div>
-            </div>
-            <div 
-                class="tab-pane fade"
-                v-bind:class="{ show: isArmorsmithTabActive, active: isArmorsmithTabActive }"
-            >
-                 <div class="card">
-                    <div class="card-body">
-                        <RecipeList :items="armorsmithTrades" :activeListingIds="activeListingIds"></RecipeList>
-                    </div>
-                 </div>
             </div>
         </div>
     </div>
@@ -265,74 +145,43 @@ import ApiService from '../services/ApiService';
 })
 export default class Lists extends Vue {
     activeListingIds: Array<number> = [];
+    activeTab: string = 'cheap';
+    trades: Array<BasicTrade|RecipeTrade|SalvageTrade> = []
+   
+    public toggleTab(tab: string): void {
+        this.activeTab = tab;
+        this.trades = [];
 
-    isCheapTabActive = true;
-    isExpensiveTabActive = false;
-    isRefineTabActive = false;
-    isSalvageTabActive = false;
-    isCookingTabActive = false;
-    isOpenTabActive = false;
-    isUtilityTabActive = false;
-    isWeaponsmithTabActive = false;
-    isJewelcraftingTabActive = false;
-    isArtificierTabActive = false;
-    isHuntsmanTabActive = false;
-    isTailorTabActive = false;
-    isArmorsmithTabActive = false;
-
-    cheapTrades: Array<BasicTrade> = [];
-    expensiveTrades: Array<BasicTrade> = [];
-    refineTrades: Array<RecipeTrade> = [];
-    salvageTrades: Array<SalvageTrade> = [];
-    cookingTrades: Array<RecipeTrade> = [];
-    utilityTrades: Array<RecipeTrade> = [];
-    openTrades: Array<RecipeTrade> = [];
-    weaponsmithTrades: Array<RecipeTrade> = [];
-    jewelcraftingTrades: Array<RecipeTrade> = [];
-    artificierTrades: Array<RecipeTrade> = [];
-    huntsmanTrades: Array<RecipeTrade> = [];
-    tailorTrades: Array<RecipeTrade> = [];
-    armorsmithTrades: Array<RecipeTrade> = [];
-
-    toggleTab(tab: string): void {
-        this.isCheapTabActive = tab === 'cheap';
-        this.isExpensiveTabActive = tab === 'expensive';
-        this.isRefineTabActive = tab === 'refine';
-        this.isSalvageTabActive = tab === 'salvage';
-        this.isCookingTabActive = tab === 'cooking';
-        this.isUtilityTabActive = tab === 'utility';
-        this.isOpenTabActive = tab === 'open';
-        this.isWeaponsmithTabActive = tab === 'weaponsmith';
-        this.isJewelcraftingTabActive = tab === 'jewelcrafting';
-        this.isArtificierTabActive = tab === 'artificier';
-        this.isHuntsmanTabActive = tab === 'huntsman';
-        this.isTailorTabActive = tab === 'tailor';
-        this.isArmorsmithTabActive = tab === 'armorsmith';
+        ListService.getList(tab)
+            .then(trades => this.trades = trades);
     }
 
-    mounted(): void {
-        ListService.getCheapBasicList().then(trades => this.cheapTrades = trades);
-        ListService.getExpensiveBasicList().then(trades => this.expensiveTrades = trades);
-        ListService.getRefineList().then(trades => this.refineTrades = trades);
-        ListService.getSalvageList().then(trades => this.salvageTrades = trades);
-        ListService.getCookingList().then(trades => this.cookingTrades = trades);
-        ListService.getUtilityList().then(trades => this.utilityTrades = trades);
-        ListService.getOpenList().then(trades => this.openTrades = trades);
-        ListService.getWeaponsmithList().then(trades => this.weaponsmithTrades = trades);
-        ListService.getJewelcraftingList().then(trades => this.jewelcraftingTrades = trades);
-        ListService.getArtificierList().then(trades => this.artificierTrades = trades);
-        ListService.getHuntsmanList().then(trades => this.huntsmanTrades = trades);
-        ListService.getTailorList().then(trades => this.tailorTrades = trades);
-        ListService.getArmorsmithList().then(trades => this.armorsmithTrades = trades);
+    public isBasicListActive(): boolean {
+        return ['cheap', 'expensive'].includes(this.activeTab);
+    }
 
+    public isRefineListActive(): boolean {
+        return ['refine'].includes(this.activeTab);
+    }
+
+    public isSalvageListActive(): boolean {
+        return ['salvage'].includes(this.activeTab);
+    }
+
+    public isRecipeListActive(): boolean {
+        return ! this.isBasicListActive()
+            && ! this.isRefineListActive()
+            && ! this.isSalvageListActive();
+    }
+
+    public mounted(): void {
+        this.toggleTab('cheap');
+        
         const token = TokenService.getToken();
 
         if (token) {
             ApiService.getActiveListingIds(token)
-                .then(res => {
-                    this.activeListingIds = res;
-                    console.log(res);
-                });
+                .then(res => this.activeListingIds = res);
         }
     }
 }
