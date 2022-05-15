@@ -1,6 +1,6 @@
 <template>
     <div>
-        ass
+        <h1 class="h2">Shopping list</h1>
     </div>
 </template>
 

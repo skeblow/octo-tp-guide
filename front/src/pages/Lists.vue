@@ -307,7 +307,10 @@ export default class Lists extends Vue {
 
         if (token) {
             ApiService.getActiveListingIds(token)
-                .then(res => this.activeListingIds = res);
+                .then(res => {
+                    this.activeListingIds = res;
+                    console.log(res);
+                });
         }
     }
 }

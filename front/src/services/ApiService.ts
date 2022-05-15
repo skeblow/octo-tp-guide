@@ -6,8 +6,9 @@ class ApiService {
             fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=0'),
             fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=1'),
         ])
-            .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
-            .then(val => val.flatMap(val => val.map((obj: any) => obj.item_id)));
+            .then((res) => Promise.all(res.map(res => res.json())))
+            .then((res: Array<Array<any>|object>) => res.filter(item => Array.isArray(item)))
+            .then(res => res.flatMap((val: any) => val.map((obj: any) => obj.item_id)));
     }
 
     public getBankMaterials(token: string): Promise<Array<any>> {

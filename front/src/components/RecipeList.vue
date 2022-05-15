@@ -49,33 +49,31 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Cost:</td>
-                                    <td class="text-end"><Gold :amount="trade.recipe.cost"></Gold></td>
-                                    <td colspan="2" class="text-end">Total buy:</td>
+                                    <td colspan="2">Cost:</td>
+                                    <td class="text-start"><Gold :amount="trade.recipe.cost"></Gold></td>
+                                    <td class="text-end">Buy:</td>
                                     <td class="text-end">
                                         <Gold :amount="trade.totalBuy" bold="true"></Gold>
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td colspan="4" class="text-end">Raw sell:</td>
                                     <td class="text-end">
                                         <Gold :amount="getRawSell(trade)" bold="true"></Gold>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
-                                    <td>Sold:</td>
-                                    <td><strong>{{ trade.output.bltc.sold }}</strong></td>
-                                    <td colspan="2" class="text-end">Total sell:</td>
+                                    <td colspan="2">Sold:</td>
+                                    <td class="text-start"><strong>{{ trade.output.bltc.sold }}</strong></td>
+                                    <td class="text-end">Sell:</td>
                                     <td class="text-end">
                                         <Gold :amount="trade.totalSell" bold="true"></Gold>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="table-secondary">Roi:</td>
-                                    <td class="text-end table-secondary"><strong>
-                                        {{ trade.roi }}%
-                                    </strong></td>
-                                    <td class="text-end" colspan="2">Profit:</td>
+                                    <td colspan="2" class="table-secondary">Roi:</td>
+                                    <td class="text-start table-secondary"><strong>{{ trade.roi }}%</strong></td>
+                                    <td class="text-end">Prof:</td>
                                     <td class="text-end">
                                         <Gold :amount="trade.profit" bold="true"></Gold>
                                     </td>
