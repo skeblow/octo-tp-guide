@@ -13,6 +13,11 @@ class ItemService {
 
         return await res.json();
     }
+
+    public getItemsByIds(ids: Array<number>): Promise<Array<Item>> {
+        return fetch(BASE_URL + '/items?ids=' + ids.join(','))
+            .then(res => res.json())
+    }
 }
 
 export default new ItemService();

@@ -11,7 +11,7 @@ class ApiService {
             .then(res => res.flatMap((val: any) => val.map((obj: any) => obj.item_id)));
     }
 
-    public getBankMaterials(token: string): Promise<Array<any>> {
+    public getBankMaterials(token: string): Promise<Array<{id: number, count: number}>> {
         return fetch('https://api.guildwars2.com/v2/account/materials?access_token=' + token)
             .then(res => res.json());
     }
