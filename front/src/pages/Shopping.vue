@@ -35,13 +35,32 @@
 import { Options, Vue } from 'vue-class-component';
 import TokenService from '../services/TokenService';
 import ApiService from '../services/ApiService';
-import { Item } from '../../../shared';
+import { BankItem, Item } from '../../../shared';
 import ItemService from '../services/ItemService';
 
 @Options({})
 export default class Shopping extends Vue {
     items: Array<Item> = [];
-    bankMaterials: Array<{id: number, count: number}> = [];
+    bankMaterials: Array<BankItem> = [];
+
+    private getRequestedItems(): Array<BankItem> {
+        return [
+            // Orichalcum Ingot
+            {id: 19685, count: 500},
+            // 19712 Ancient Wood Plank
+            {id: 19712, count: 500},
+            // 76491 Black Diamond
+            {id: 76491, count: 50},
+            // 75654 Ebony Orb
+            {id: 75654, count: 250},
+            // 76179 Freshwater Pearl
+            {id: 76179, count: 50},
+            // 19721	Glob of Ectoplasm
+            {id: 19721, count: 250},
+            // 19737, hardened leather square
+            {id: 19737, count: 200},
+        ];
+    }
 
     mounted(): void {
         const token = TokenService.getToken();
@@ -51,16 +70,8 @@ export default class Shopping extends Vue {
                 .then(items => this.bankMaterials = items);
         }
 
-        ItemService.getItemsByIds([
-            19701, // Orichalcum Ore
-            19685, // Orichalcum Ingot
-            19725, // Ancient Wood Log
-            19712, // Ancient Wood Plank
-            76491, // Black Diamond
-            75654, // Ebony Orb
-            76179, // Freshwater Pearl
-            19721, // Glob of Ectoplasm
-        ]).then(items => this.items = items);
+        ItemService.getItemsByIds(this.getRequestedItems().map(item => item.id))
+            .then(items => this.items = items);
     }
 
     public getItems(): Array<Item> {
@@ -78,24 +89,9 @@ export default class Shopping extends Vue {
     }
 
     public getRequestedCount(item: Item): number {
-        const requested = [
-            // Orichalcum Ingot
-            {id: 19685, count: 500},
-            // 19712 Ancient Wood Plank
-            {id: 19712, count: 500},
-            // 76491 Black Diamond
-            {id: 76491, count: 50},
-            // 75654 Ebony Orb
-            {id: 75654, count: 250},
-            // 76179 Freshwater Pearl
-            {id: 76179, count: 50},
-            // 19721	Glob of Ectoplasm
-            {id: 19721, count: 250},
-        ];
-
-        for (const request of requested) {
-            if (request.id === item.id) {
-                return request.count;
+        for (const requested of this.getRequestedItems()) {
+            if (requested.id === item.id) {
+                return requested.count;
             }
         }
 

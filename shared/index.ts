@@ -91,3 +91,8 @@ export interface SalvageTrade extends TradeData {
     input: TradeItem,
     output: Array<TradeItem>,
 }
+
+export interface BankItem {
+    id: number;
+    count: number;
+}

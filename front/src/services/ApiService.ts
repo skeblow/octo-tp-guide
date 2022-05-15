@@ -1,3 +1,5 @@
+import { BankItem } from "../../../shared";
+
 class ApiService {
     readonly BASE_URL = 'https://api.guildwars2.com/v2';
 
@@ -11,7 +13,7 @@ class ApiService {
             .then(res => res.flatMap((val: any) => val.map((obj: any) => obj.item_id)));
     }
 
-    public getBankMaterials(token: string): Promise<Array<{id: number, count: number}>> {
+    public getBankMaterials(token: string): Promise<Array<BankItem>> {
         return fetch('https://api.guildwars2.com/v2/account/materials?access_token=' + token)
             .then(res => res.json());
     }
