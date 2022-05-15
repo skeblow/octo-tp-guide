@@ -59,6 +59,8 @@ export default class Shopping extends Vue {
             {id: 19721, count: 250},
             // 19737, hardened leather square
             {id: 19737, count: 200},
+            // 73034	Vial of Linseed Oil
+            {id: 73034, count: 100},
         ];
     }
 

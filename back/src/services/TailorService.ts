@@ -96,9 +96,9 @@ export default class TailorService {
                 // 19721-Glob-of-Ectoplasm
                 { id: 19721, quantity: 5 },
                 // gossamer scrap
-                { id: 19745, quantity: 12 },
+                { id: 19745, quantity: options.gossamerScrap },
                 // hardened leather section
-                { id: 19732, quantity: 33 },
+                { id: 19732, quantity: options.hardenedSection },
             ],
             // barbed thorn + spools
             cost: 30 * 16 + 2.6 * 6.4,

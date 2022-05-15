@@ -173,7 +173,7 @@ export default class Lists extends Vue {
     }
 
     public isSalvageListActive(): boolean {
-        return ['salvage'].includes(this.activeTab);
+        return ['salvage', 'open'].includes(this.activeTab);
     }
 
     public isRecipeListActive(): boolean {
