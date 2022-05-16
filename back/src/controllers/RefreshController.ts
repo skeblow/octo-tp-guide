@@ -4,7 +4,6 @@ import CookingService from '../services/CookingService.ts';
 import ItemService from '../services/ItemService.ts';
 import PriceService from '../services/PriceService.ts';
 import { Recipe } from '../../../shared/index.ts';
-import UtilityService from '../services/UtilityService.ts';
 import OpenService from '../services/OpenService.ts';
 import WeaponsmithService from '../services/WeaponsmithService.ts';
 import JewelcraftingService from '../services/JewelcraftingService.ts';
@@ -20,7 +19,6 @@ export default class RefreshController {
         private priceService: PriceService,
         private bltcService: BltcService,
         private cookingService: CookingService,
-        private utilityService: UtilityService,
         private openService: OpenService,
         private weaponsmithService: WeaponsmithService,
         private jewelcraftingService: JewelcraftingService,
@@ -34,7 +32,6 @@ export default class RefreshController {
 
     private getRecipeIds(): Array<number> {
         const recipes: Array<Recipe> = this.cookingService.getAll()
-            .concat(this.utilityService.getAll())
             .concat(this.openService.getAll())
             .concat(this.weaponsmithService.getAll())
             .concat(this.jewelcraftingService.getAll())
@@ -75,7 +72,7 @@ export default class RefreshController {
         ids = [...new Set(ids)];
 
         let chunkSize = 20;
-        let chunked = [];
+        const chunked = [];
 
         for (let i = 0; i < ids.length; i+= chunkSize) {
             chunked.push(ids.slice(i, i + chunkSize).join(','));

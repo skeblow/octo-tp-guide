@@ -15,7 +15,6 @@ import PriceService from './services/PriceService.ts';
 import RefineService from './services/RefineService.ts';
 import SalvageService from './services/SalvageService.ts';
 import TradeService from './services/TradeService.ts';
-import UtilityService from './services/UtilityService.ts';
 import WeaponsmithService from './services/WeaponsmithService.ts';
 import ArtificierService from "./services/ArtificierService.ts";
 import RecipeService from "./services/RecipeService.ts";
@@ -41,7 +40,6 @@ const bltcService = new BltcService(mongoService, priceService);
 const refineService = new RefineService();
 const salvageService = new SalvageService();
 const cookingService = new CookingService();
-const utilityService = new UtilityService();
 const openService = new OpenService();
 const tradeService = new TradeService(itemService, priceService, bltcService);
 const recipeService = new RecipeService();
@@ -58,7 +56,6 @@ const listService = new ListService(
     refineService,
     salvageService,
     cookingService,
-    utilityService,
     openService,
     weaponsmithService,
     jewelcraftingService,
@@ -77,7 +74,6 @@ const refreshController = new RefreshController(
     priceService,
     bltcService,
     cookingService,
-    utilityService,
     openService,
     weaponsmithService,
     jewelcraftingService,

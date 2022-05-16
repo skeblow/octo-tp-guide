@@ -8,7 +8,6 @@ import OpenService from './OpenService.ts';
 import RefineService from './RefineService.ts';
 import SalvageService from './SalvageService.ts';
 import TradeService from './TradeService.ts';
-import UtilityService from './UtilityService.ts';
 import WeaponsmithService from './WeaponsmithService.ts';
 import TailorService from './TailorService.ts';
 import ArmorsmithService from "./ArmorsmithService.ts";
@@ -21,7 +20,6 @@ export default class ListService {
         private refineService: RefineService,
         private salvageService: SalvageService,
         private cookingService: CookingService,
-        private utilityService: UtilityService,
         private openService: OpenService,
         private weaponsmithService: WeaponsmithService,
         private jewelcraftingService: JewelcraftingService,
@@ -138,55 +136,37 @@ export default class ListService {
         return this.tradeService.getTradesFromSalvageRecipes(this.openService.getAll());
     }
 
-    public getCookingList(): Promise<Array<RecipeTrade>> {
-        return this.tradeService.getTradesFromRecipes(
-            this.cookingService.getAll()
-        );
-    }
+    public getRecipeList(list: string): Promise<Array<RecipeTrade>> {
+        let recipes;
 
-    public getUtilityList(): Promise<Array<RecipeTrade>> {
-        return this.tradeService.getTradesFromRecipes(this.utilityService.getAll());
-    }
+        switch(list) {
+            case 'cooking':
+                recipes = this.cookingService.getAll();
+                break;
+            case 'weaponsmith':
+                recipes = this.weaponsmithService.getAll();
+                break;
+            case 'jewelcrafting':
+                recipes = this.jewelcraftingService.getAll();
+                break;
+            case 'artificier':
+                recipes = this.artificierService.getAll();
+                break;
+            case 'huntsman':
+                recipes = this.huntsmanService.getAll();
+                break;
+            case 'tailor':
+                recipes = this.tailorService.getAll();
+                break;
+            case 'armorsmith':
+                recipes = this.armorsmithService.getAll();
+                break;
+            case 'leatherworker':
+                recipes = this.leatherworkerService.getAll();
+                break;
+            default: throw 'unknown list'; 
+        }
 
-    public getWeaponsmithList(): Promise<Array<RecipeTrade>> {
-        return this.tradeService.getTradesFromRecipes(
-            this.weaponsmithService.getAll(),
-        );
-    }
-
-    public getJewelcraftingList(): Promise<Array<RecipeTrade>> {
-        return this.tradeService.getTradesFromRecipes(
-            this.jewelcraftingService.getAll(),
-        );
-    }
-
-    public getArtificierList(): Promise<Array<RecipeTrade>> {
-        return this.tradeService.getTradesFromRecipes(
-            this.artificierService.getAll(),
-        );
-    }
-
-    public getHuntsmanList(): Promise<Array<RecipeTrade>> {
-        return this.tradeService.getTradesFromRecipes(
-            this.huntsmanService.getAll(),
-        );
-    }
-
-    public getTailorList(): Promise<Array<RecipeTrade>> {
-        return this.tradeService.getTradesFromRecipes(
-            this.tailorService.getAll(),
-        );
-    }
-
-    public getArmorsmithList(): Promise<Array<RecipeTrade>> {
-        return this.tradeService.getTradesFromRecipes(
-            this.armorsmithService.getAll(),
-        );
-    }
-
-    public getLeatherworkerList(): Promise<Array<RecipeTrade>> {
-        return this.tradeService.getTradesFromRecipes(
-            this.leatherworkerService.getAll(),
-        );
+        return this.tradeService.getTradesFromRecipes(recipes);
     }
 }

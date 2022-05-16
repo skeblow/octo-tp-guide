@@ -26,48 +26,14 @@ export default class ListController {
                 this.listService.getSalvageList()
                     .then((trades) => res.send(trades));
                 break;
-            case 'cooking':
-                this.listService.getCookingList()
-                    .then((trades) => res.send(trades));
-                break;
-            case 'utility':
-                this.listService.getUtilityList()
-                    .then((trades) => res.send(trades));
-                break;
             case 'open':
                 this.listService.getOpenList()
                     .then((trades) => res.send(trades));
                 break;
-            case 'weaponsmith':
-                this.listService.getWeaponsmithList()
-                    .then((trades) => res.send(trades));
-                break;
-            case 'jewelcrafting':
-                this.listService.getJewelcraftingList()
-                    .then((trades) => res.send(trades));
-                break;
-            case 'artificier':
-                this.listService.getArtificierList()
-                    .then((trades) => res.send(trades));
-                break;
-            case 'huntsman':
-                this.listService.getHuntsmanList()
-                    .then((trades) => res.send(trades));
-                break;
-            case 'tailor':
-                this.listService.getTailorList()
-                    .then((trades) => res.send(trades));
-                break;
-            case 'armorsmith':
-                this.listService.getArmorsmithList()
-                    .then((trades) => res.send(trades));
-                break;
-            case 'leatherworker':
-                this.listService.getLeatherworkerList()
-                    .then((trades) => res.send(trades));
-                break;
             default:
-                throw 'unknown list';
+                this.listService.getRecipeList(type)
+                    .then((trades) => res.send(trades));
+                break;
         }
     }
 }

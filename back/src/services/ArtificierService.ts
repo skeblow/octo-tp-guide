@@ -64,6 +64,31 @@ export default class ArtificierService {
                 orichalcumOre: 30,
                 ancientWood: 48,
             }),
+
+            {
+                // 9476-Master-Tuning-Crystal
+                id: 9476,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 9476, quantity: 5 },
+                ],
+                input: [
+                    // 24277-Pile-of-Crystalline-Dust
+                    { id: 24277, quantity: 5 },
+                ],
+            },
+            {
+                // 43449-Potent-Master-Tuning-Crystal
+                id: 43449,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 43449, quantity: 5 },
+                ],
+                input: [
+                    // 24277-Pile-of-Crystalline-Dust
+                    { id: 24277, quantity: 30 },
+                ],
+            },
         ];
     }
 

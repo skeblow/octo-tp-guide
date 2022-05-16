@@ -1,4 +1,4 @@
-import { Recipe } from "../../../shared/index.ts";
+import { Recipe, RecipeType } from "../../../shared/index.ts";
 import RecipeService from "./RecipeService.ts";
 
 export default class HuntsmanService {
@@ -60,6 +60,37 @@ export default class HuntsmanService {
                  orichalcumOre: 30 + 33,
                  ancientWood: 42,
             }),
+
+            {
+                // 67528-Bountiful-Maintenance-Oil
+                id: 67528,
+                type: RecipeType.huntsman,
+                output: [
+                    { id: 67528, quantity: 5 },
+                ],
+                input: [
+                    // 24773-Platinum-Doubloon
+                    { id: 24773, quantity: 1 },
+                    // 66650-Sheet-of-Ambrite
+                    { id: 66650, quantity: 3 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 20 },
+                ],
+            },
+            {
+                // 9461-Master-Maintenance-Oil
+                id: 9461,
+                type: RecipeType.huntsman,
+                output: [
+                    { id: 9461, quantity: 5 },
+                ],
+                input: [
+                    // 24277-Pile-of-Crystalline-Dust
+                    { id: 24277, quantity: 3 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 20 },
+                ],
+            },
         ];
     }
 }

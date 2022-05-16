@@ -46,14 +46,6 @@
             <li class="nav-item">
                 <button
                     type="button"
-                    v-on:click="toggleTab('utility')"
-                    class="nav-link"
-                    v-bind:class="{ active: activeTab === 'utility' }"
-                >utility</button>
-            </li>
-            <li class="nav-item">
-                <button
-                    type="button"
                     v-on:click="toggleTab('open')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'open' }"
