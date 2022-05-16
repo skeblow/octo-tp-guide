@@ -21,12 +21,20 @@ export default class HuntsmanService {
                 orichalcumOre: 30 + 6,
                 ancientWood: 30 + 6,
             }),
+            // 14654-Berserkers-Pearl-Blunderbuss
+            this.recipeService.createBerserkPearlRecipe({
+                output: 14654,
+                orichalcumOre: 36,
+                ancientWood: 39,
+            }),
+
             // 74371-Marauder-Pearl-Handcannon
             this.recipeService.createMarauderPearlRecipe({
                 output: 74371,
                 orichalcumOre: 30 + 6,
                 ancientWood: 30 + 6,
             }),
+
             // 76756-Vipers-Pearl-Handcannon
             this.recipeService.createViperPearlRecipe({
                 output: 76756,
@@ -46,12 +54,12 @@ export default class HuntsmanService {
                 ancientWood: 30 + 6,
             }),
             // 70581-Vipers-Pearl-Needler
-            // this.recipeService.createViperPearlRecipe({
-            //     output: 70581,
-            //     // fake +30 ore, ~eq value as 3 hardened leathers
-            //     orichalcumOre: 30 + 30,
-            //     ancientWood: 30,
-            // }),
+            this.recipeService.createViperPearlRecipe({
+                 output: 70581,
+                 // fake +33 ore, ~eq value as 3 hardened leathers
+                 orichalcumOre: 30 + 33,
+                 ancientWood: 42,
+            }),
         ];
     }
 }

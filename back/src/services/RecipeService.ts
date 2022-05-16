@@ -73,4 +73,32 @@ export default class RecipeService {
             cost: 5.6 * 20 + 16 * 11 + 19 * 30,
         };
     }
+
+    public createMinstrelPearlRecipe(options: {
+        output: number,
+        orichalcumOre: number,
+        ancientWood: number,
+    }): Recipe {
+        return {
+            id: options.output,
+            type: RecipeType.weaponsmith,
+            output: [{ id: options.output, quantity: 1 }],
+            input: [
+                // 74090-Pile-of-Flax-Seeds
+                { id: 74090, quantity: 150 },
+                // 76179-Freshwater-Pearl
+                { id: 76179, quantity: 3 },
+                // 19721-Glob-of-Ectoplasm
+                { id: 19721, quantity: 5 },
+                // 71069-Piece-of-Mother-of-Pearl
+                { id: 71069, quantity: 5 },
+                // orichalcum ore
+                { id: 19701, quantity: options.orichalcumOre },
+                // 19725-Ancient-Wood-Log
+                { id: 19725, quantity: options.ancientWood },
+            ],
+            // milling basin + milling stone
+            cost: 5.6 * 20 + 16 * 11,
+        };
+    }
 }

@@ -58,6 +58,7 @@ export default class WeaponsmithService {
                 orichalcumOre: 30 + 12,
                 ancientWood: 30,
             }),
+
             // 71331-Oiled-Orichalcum-Dagger-Blade
             this.createOiledOrichalcumRecipe({
                 output: 71331,
@@ -78,6 +79,7 @@ export default class WeaponsmithService {
                 output: 77064,
                 orichalcumOre: 6,
             }),
+
             // 73959-Vipers-Pearl-Carver
             this.recipeService.createViperPearlRecipe({
                 output: 73959,
@@ -96,6 +98,14 @@ export default class WeaponsmithService {
                 orichalcumOre: 30 + 6,
                 ancientWood: 30 + 6,
             }),
+
+            // 73988-Minstrels-Pearl-Shell
+            this.recipeService.createMinstrelPearlRecipe({
+                output: 73988,
+                orichalcumOre: 38,
+                ancientWood: 30,
+            }),
+
             {
                 // 9440-Hardened-Sharpening-Stone
                 id: 9440,
