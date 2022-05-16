@@ -10,12 +10,28 @@ class ApiService {
         ])
             .then((res) => Promise.all(res.map(res => res.json())))
             .then((res: Array<Array<any>|object>) => res.filter(item => Array.isArray(item)))
-            .then(res => res.flatMap((val: any) => val.map((obj: any) => obj.item_id)));
+            .then(res => res.flat())
+            .then(res => res.map(val => val.item_id));
+            //.then(res => res.flatMap((val: any) => val.map((obj: any) => obj.item_id)));
     }
 
     public getBankMaterials(token: string): Promise<Array<BankItem>> {
-        return fetch('https://api.guildwars2.com/v2/account/materials?access_token=' + token)
-            .then(res => res.json());
+        return Promise.all([
+            fetch(this.BASE_URL + '/account/bank?access_token=' + token),
+            fetch(this.BASE_URL + '/account/materials?access_token=' + token),
+        ])
+            .then(res => Promise.all(res.map(res => res.json())))
+            .then(res => res.flat())
+            .then(res => {
+                console.log(res);
+                
+                return [];
+            });
+
+        // fetch('https://api.guildwars2.com/v2/account/bank?access_token=' + token)
+        // TODO merge both
+        // return fetch('https://api.guildwars2.com/v2/account/materials?access_token=' + token)
+        //    .then(res => res.json());
     }
 }
 

@@ -55,14 +55,14 @@ export default class Shopping extends Vue {
             {id: 75654, count: 250},
             // 76179 Freshwater Pearl
             {id: 76179, count: 50},
-            // 19721	Glob of Ectoplasm
+            // 19721 Glob of Ectoplasm
             {id: 19721, count: 250},
             // 19737, hardened leather square
             {id: 19737, count: 200},
         ];
     }
 
-    mounted(): void {
+    public mounted(): void {
         const token = TokenService.getToken();
 
         if (token) {
