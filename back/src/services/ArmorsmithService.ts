@@ -103,7 +103,7 @@ export default class ArmorsmithService {
                 { id: 19701, quantity: options.orichalcumOre },
             ],
             // barbed thorn + spools
-            cost: 30 * 16 + 2.6 * 6.4,
+            cost: 30 * 16 + 2.6 * 640,
         };
     }
 
@@ -133,7 +133,7 @@ export default class ArmorsmithService {
                 { id: 19701, quantity: options.orichalcumOre },
             ],
             // spool + leaf fossil + milling basin + milling stone
-            cost: 2.8 * 6.4 + 30 * 19 + 10 * 56 + 50 * 11,
+            cost: 2.8 * 640 + 30 * 19 + 10 * 56 + 50 * 11,
         };
     }
 }
