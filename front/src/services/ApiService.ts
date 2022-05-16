@@ -22,16 +22,7 @@ class ApiService {
         ])
             .then(res => Promise.all(res.map(res => res.json())))
             .then(res => res.flat())
-            .then(res => {
-                console.log(res);
-                
-                return [];
-            });
-
-        // fetch('https://api.guildwars2.com/v2/account/bank?access_token=' + token)
-        // TODO merge both
-        // return fetch('https://api.guildwars2.com/v2/account/materials?access_token=' + token)
-        //    .then(res => res.json());
+            .then(res => res.filter(item => item !== null && item.count > 0));
     }
 }
 
