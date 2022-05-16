@@ -52,13 +52,17 @@ export default class Shopping extends Vue {
             // 76491 Black Diamond
             {id: 76491, count: 50},
             // 75654 Ebony Orb
-            {id: 75654, count: 250},
+            {id: 75654, count: 300},
             // 76179 Freshwater Pearl
             {id: 76179, count: 50},
             // 19721 Glob of Ectoplasm
-            {id: 19721, count: 250},
+            {id: 19721, count: 500},
             // 19737, hardened leather square
-            {id: 19737, count: 200},
+            {id: 19737, count: 300},
+            // 73034 Vial of Linseed Oil
+            {id: 73034, count: 100},
+            // 70957-Maguuma-Lily
+            {id: 70957, count: 50},
         ];
     }
 
@@ -79,13 +83,15 @@ export default class Shopping extends Vue {
     }
 
     public getCountInBank(item: Item): number {
+        let count = 0;
+
         for (const bankItem of this.bankMaterials) {
             if (bankItem.id === item.id) {
-                return bankItem.count;
+                count += bankItem.count;
             }
         }
 
-        return 0;
+        return count;
     }
 
     public getRequestedCount(item: Item): number {
