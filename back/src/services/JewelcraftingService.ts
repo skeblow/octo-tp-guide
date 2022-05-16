@@ -18,6 +18,7 @@ export default class JewelcraftingService {
                 output: 71686,
                 orichalcumOre: 20 + 4 + 8,
             }),
+
             // 13459-Ruby-Orichalcum-Earring
             this.createRubyOrichalcumRecipe({
                 output: 13459,
@@ -33,6 +34,7 @@ export default class JewelcraftingService {
                 output: 13501,
                 orichalcumOre: 16 * 2,
             }),
+
             // 72686-Ebony-Orichalcum-Earring
             this.createEbonyOrichalcumRecipe({
                 output: 72686,
@@ -46,6 +48,22 @@ export default class JewelcraftingService {
             // 76138-Ebony-Orichalcum-Amulet
             this.createEbonyOrichalcumRecipe({
                 output: 76138,
+                orichalcumOre: 32,
+            }),
+
+            // 45928-Opal-Orichalcum-Earring
+            this.createOpalOrichalcumRecipe({
+                output: 45928,
+                orichalcumOre: 28,
+            }),
+            // 45915-Opal-Orichalcum-Ring
+            this.createOpalOrichalcumRecipe({
+                output: 45915,
+                orichalcumOre: 30,
+            }),
+            // 45941-Opal-Orichalcum-Amulet
+            this.createOpalOrichalcumRecipe({
+                output: 45941,
                 orichalcumOre: 32,
             }),
         ];
@@ -112,6 +130,29 @@ export default class JewelcraftingService {
                 { id: 19721, quantity: 5 },
                 // orichalcum ore
                 { id: 19701, quantity: options.orichalcumOre },
+            ],
+        };
+    }
+
+    private createOpalOrichalcumRecipe(options: {
+        output: number,
+        orichalcumOre: number,
+    }) {
+        return {
+            id: options.output,
+            type: RecipeType.jewelcrafting,
+            output: [
+                { id: options.output, quantity: 1 },
+            ],
+            input: [
+                // orichalcum ore
+                { id: 19701, quantity: options.orichalcumOre },
+                // 19721-Glob-of-Ectoplasm
+                { id: 19721, quantity: 5 },
+                // 24276-Pile-of-Incandescent-Dust
+                { id: 24276, quantity: 25 },
+                // 24521-Opal-Crystal
+                { id: 24521, quantity: 10 },
             ],
         };
     }
