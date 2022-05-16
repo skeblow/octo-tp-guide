@@ -102,8 +102,10 @@ export default class ListService {
             .then((ids) => this.tradeService.getTradesFromItemIds(ids))
             .then((trades) =>
                 trades.filter((trade) =>
-                    trade.totalSell > options.minSell && trade.profit > 10 &&
-                    trade.roi > options.minRoi
+                    trade.totalSell > options.minSell
+                    && trade.profit > 10 
+                    && trade.roi > options.minRoi
+                    && trade.totalBuy > 0
                 )
             );
     }
