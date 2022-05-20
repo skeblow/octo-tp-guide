@@ -90,7 +90,10 @@ export default class Shopping extends Vue {
                 .then(items => this.bankMaterials = items);
         }
 
-        ItemService.getItemsByIds(this.getRequestedItems().map(item => item.id))
+        const requestedItemIds = this.getRequestedItems().map(item => item.id);
+
+        ItemService.getItemsByIds(requestedItemIds)
+            .then(items => items.sort((item1: Item, item2: Item) => requestedItemIds.findIndex(id => id === item1.id) - requestedItemIds.findIndex(id => id === item2.id)))
             .then(items => this.items = items);
     }
 
