@@ -63,7 +63,22 @@ export default class Shopping extends Vue {
             {id: 73034, count: 150},
             // 70957-Maguuma-Lily
             {id: 70957, count: 50},
-            
+            // 12142 Onion
+            {id: 12142, count: 1000},
+            // 12134	Carrot
+            {id: 12134, count: 1000},
+            // 24359	Slab of Red Meat
+            {id: 24359, count: 1000},
+            // 12545	Orrian Truffle
+            {id: 12545, count: 500},
+            // 12254	Raspberry
+            {id: 12254, count: 2000},
+            // 82866	Handful of Red Lentils
+            {id: 82866, count: 1000},
+            // 12243	Sage Leaf
+            {id: 12243, count: 500},
+            // 12248	Thyme Leaf
+            {id: 12248, count: 500},
         ];
     }
 

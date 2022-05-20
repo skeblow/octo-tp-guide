@@ -146,7 +146,7 @@ import ApiService from '../services/ApiService';
 export default class Lists extends Vue {
     activeListingIds: Array<number> = [];
     activeTab: string = 'cheap';
-    trades: Array<BasicTrade|RecipeTrade|SalvageTrade> = []
+    trades: Array<BasicTrade|RecipeTrade|SalvageTrade> = [];
    
     public toggleTab(tab: string): void {
         this.activeTab = tab;
