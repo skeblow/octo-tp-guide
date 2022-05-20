@@ -23,7 +23,7 @@
               <router-link to="/calculator" class="nav-link" exact-active-class="active">Calculator</router-link>
             </li>
             <li class="nav-item">
-              <a href="http://localhost:3000/refresh" target="_blank" class="nav-link">Refresh</a>
+              <a :href="getBaseUrl() + '/refresh'" target="_blank" class="nav-link">Refresh</a>
             </li>
             <li class="nav-item">
               <router-link to="/token" class="nav-link" exact-active-class="active">Token</router-link>
@@ -34,10 +34,13 @@
 </template>
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { BASE_URL } from '../config';
 
 @Options({})
 export default class Nav extends Vue {
-    
+    public getBaseUrl(): string {
+      return BASE_URL;
+    }
 }
 </script>
 <style scoped>

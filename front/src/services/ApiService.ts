@@ -12,7 +12,6 @@ class ApiService {
             .then((res: Array<Array<any>|object>) => res.filter(item => Array.isArray(item)))
             .then(res => res.flat())
             .then(res => res.map(val => val.item_id));
-            //.then(res => res.flatMap((val: any) => val.map((obj: any) => obj.item_id)));
     }
 
     public getBankMaterials(token: string): Promise<Array<BankItem>> {

@@ -46,11 +46,11 @@ export default class Shopping extends Vue {
     private getRequestedItems(): Array<BankItem> {
         return [
             // Orichalcum Ingot
-            {id: 19685, count: 500},
+            {id: 19685, count: 1000},
             // 19712 Ancient Wood Plank
-            {id: 19712, count: 500},
+            {id: 19712, count: 750},
             // 76491 Black Diamond
-            {id: 76491, count: 50},
+            {id: 76491, count: 100},
             // 75654 Ebony Orb
             {id: 75654, count: 300},
             // 76179 Freshwater Pearl
@@ -60,9 +60,10 @@ export default class Shopping extends Vue {
             // 19737, hardened leather square
             {id: 19737, count: 300},
             // 73034 Vial of Linseed Oil
-            {id: 73034, count: 100},
+            {id: 73034, count: 150},
             // 70957-Maguuma-Lily
             {id: 70957, count: 50},
+            
         ];
     }
 

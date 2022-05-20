@@ -77,20 +77,6 @@ export default class HuntsmanService {
                     { id: 12156, quantity: 20 },
                 ],
             },
-            {
-                // 9461-Master-Maintenance-Oil
-                id: 9461,
-                type: RecipeType.huntsman,
-                output: [
-                    { id: 9461, quantity: 5 },
-                ],
-                input: [
-                    // 24277-Pile-of-Crystalline-Dust
-                    { id: 24277, quantity: 3 },
-                    // 12156-Jug-of-Water
-                    { id: 12156, quantity: 20 },
-                ],
-            },
         ];
     }
 }

@@ -54,7 +54,7 @@ export default class ArmorsmithService {
             }),
             // 71919 Viper's Draconic Gauntlets
             this.createViperDraconicRecipe({
-                output: 73927,
+                output: 71919,
                 orichalcumOre: 4,
                 gossamerScrap: 10,
             }),
