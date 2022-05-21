@@ -42,7 +42,7 @@ export default class LeatherworkerService {
 
             // 71836 Viper's Emblazoned Boots
             this.createViperEmblazonedRecipe({
-                output: 74115,
+                output: 71836,
                 hardenedSection: 42,
                 gossamerScrap: 8,
             }),

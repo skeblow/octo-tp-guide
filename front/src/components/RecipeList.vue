@@ -15,7 +15,7 @@
 
         <div class="row">
             <div class="col-4 mb-4" v-for="trade in getItems()" :key="trade.recipe.id">
-                <div class="card" v-bind:class="{'bg-danger': trade.roi < 10, 'text-white': trade.roi < 10}">
+                <div class="card" v-bind:class="{'bg-danger': trade.roi < 20, 'text-white': trade.roi < 20}">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
                             {{ trade.output.quantity }}x
