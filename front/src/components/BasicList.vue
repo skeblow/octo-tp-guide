@@ -67,4 +67,8 @@ export default class BasicList extends Vue.with(BasicListProps) {
         width: 30px;
         height: 30px;
     }
+
+    table {
+        margin-bottom: 0;
+    }
 </style>

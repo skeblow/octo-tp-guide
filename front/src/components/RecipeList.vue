@@ -40,30 +40,29 @@
                                             <img v-bind:src="input.item.icon" alt="">
                                         </a>
                                     </td>
-                                    <td>{{ input.item.name }}</td>
+                                    <td><small>{{ input.item.name }}</small></td>
                                     <td class="text-end">
-                                        <Gold :amount="input.price.buys.unit_price"></Gold>
+                                        <small><Gold :amount="input.price.buys.unit_price"></Gold></small>
                                     </td>
                                     <td class="text-end">
                                         <Gold :amount="input.price.buys.unit_price * input.quantity" bold="true"></Gold>
                                     </td>
                                 </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-stripped">
+                            <tbody>
                                 <tr>
-                                    <td colspan="2">Cost:</td>
+                                    <td>Cost:</td>
                                     <td class="text-start"><Gold :amount="trade.recipe.cost"></Gold></td>
                                     <td class="text-end">Buy:</td>
                                     <td class="text-end">
                                         <Gold :amount="trade.totalBuy" bold="true"></Gold>
                                     </td>
                                 </tr>
-                                <!-- <tr>
-                                    <td colspan="4" class="text-end">Raw sell:</td>
-                                    <td class="text-end">
-                                        <Gold :amount="getRawSell(trade)" bold="true"></Gold>
-                                    </td>
-                                </tr> -->
                                 <tr>
-                                    <td colspan="2">Sold:</td>
+                                    <td>Sold:</td>
                                     <td class="text-start"><strong>{{ trade.output.bltc.sold }}</strong></td>
                                     <td class="text-end">Sell:</td>
                                     <td class="text-end">
@@ -71,7 +70,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="table-secondary">Roi:</td>
+                                    <td class="table-secondary">Roi:</td>
                                     <td class="text-start table-secondary"><strong>{{ trade.roi }}%</strong></td>
                                     <td class="text-end">Prof:</td>
                                     <td class="text-end">
@@ -139,5 +138,13 @@ export default class RecipeList extends Vue.with(RecipeListProps) {
 
     tr:last-child td {
         border-bottom: none;
+    }
+
+    .card-body {
+        padding: 0.75rem;
+    }
+
+    table tr td {
+        padding: 0.4rem;
     }
 </style>

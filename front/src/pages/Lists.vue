@@ -2,6 +2,10 @@
     <div>
         <h1 class="h2">Lists</h1>
 
+        <div class="alert alert-info" v-if="activeListingIds.length === 0">
+            Loading active listings
+        </div>
+
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <button
