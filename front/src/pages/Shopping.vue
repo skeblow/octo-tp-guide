@@ -2,7 +2,7 @@
     <div>
         <h1 class="h2">Shopping list</h1>
 
-        <table class="table table-striped">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th></th>
