@@ -50,7 +50,7 @@ export default class Shopping extends Vue {
             // 19712 Ancient Wood Plank
             {id: 19712, count: 750},
             // 76491 Black Diamond
-            {id: 76491, count: 100},
+            {id: 76491, count: 150},
             // 75654 Ebony Orb
             {id: 75654, count: 300},
             // 76179 Freshwater Pearl

@@ -1,10 +1,10 @@
 <template>
-  <main>
-    <Nav></Nav>
-    <div class="container">
-      <router-view></router-view>
-    </div>
-  </main>
+    <main>
+        <Nav></Nav>
+        <div class="container">
+            <router-view></router-view>
+        </div>
+    </main>
 </template>
 
 <script lang="ts">
@@ -12,9 +12,9 @@ import { Options, Vue } from 'vue-class-component';
 import Nav from './components/Nav.vue';
 
 @Options({
-  components: {
-    Nav,
-  },
+    components: {
+        Nav,
+    },
 })
 export default class App extends Vue {
 }
@@ -22,23 +22,23 @@ export default class App extends Vue {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-  color: #2c3e50;
+    color: #2c3e50;
 }
 
 nav {
-  padding: 30px;
+    padding: 30px;
 }
 
 nav a {
-  font-weight: bold;
-  color: #2c3e50;
+    font-weight: bold;
+    color: #2c3e50;
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+    color: #42b983;
 }
 </style>

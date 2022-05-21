@@ -1,11 +1,11 @@
 <template>
-  <div class="hello">
-    <h1>hello</h1>
+    <div class="hello">
+        <h1>hello</h1>
     
-    <div v-for="amount in getAmounts()" :key="amount" class="row main">
-      <div class="col-6">{{ amount }}</div>
-      <div class="col-6 text-end"><Gold :amount="amount"></Gold></div>
-    </div>
+      <div v-for="amount in getAmounts()" :key="amount" class="row main">
+          <div class="col-6">{{ amount }}</div>
+          <div class="col-6 text-end"><Gold :amount="amount"></Gold></div>
+      </div>
   </div>
 </template>
 
@@ -44,21 +44,21 @@ export default class HelloWorld extends Vue {
 
 <style scoped>
 h3 {
-  margin: 40px 0 0;
+    margin: 40px 0 0;
 }
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 li {
-  display: inline-block;
-  margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
 }
 a {
-  color: #42b983;
+    color: #42b983;
 }
 
 .main {
-  width: 200px;
+    width: 200px;
 }
 </style>

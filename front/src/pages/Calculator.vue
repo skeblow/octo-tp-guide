@@ -1,10 +1,10 @@
 <template>
-  <div class="row">
-    <div class="col-lg-6 col-md-8 mx-auto">
-      <h1>Calculator page</h1>
+    <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1>Calculator page</h1>
     
-      <CalculatorComponent></CalculatorComponent>
-    </div>
+            <CalculatorComponent></CalculatorComponent>
+      </div>
   </div>  
 </template>
 
@@ -13,9 +13,9 @@ import { Options, Vue } from 'vue-class-component';
 import CalculatorComponent from '../components/CalculatorComponent.vue';
 
 @Options({
-  components: {
-      CalculatorComponent: CalculatorComponent,
-  },
+    components: {
+        CalculatorComponent: CalculatorComponent,
+    },
 })
 export default class Calculator extends Vue {
 }
@@ -23,17 +23,17 @@ export default class Calculator extends Vue {
 
 <style scoped>
 h3 {
-  margin: 40px 0 0;
+    margin: 40px 0 0;
 }
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 li {
-  display: inline-block;
-  margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
 }
 a {
-  color: #42b983;
+    color: #42b983;
 }
 </style>
