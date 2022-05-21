@@ -105,6 +105,18 @@ export default class WeaponsmithService {
                 orichalcumOre: 38,
                 ancientWood: 30,
             }),
+            // 74476-Minstrels-Pearl-Bludgeoner
+            this.recipeService.createMinstrelPearlRecipe({
+                output: 74476,
+                orichalcumOre: 36,
+                ancientWood: 36,
+            }),
+            // 72667-Minstrels-Pearl-Carver
+            this.recipeService.createMinstrelPearlRecipe({
+                output: 72667,
+                orichalcumOre: 40,
+                ancientWood: 30,
+            }),
 
             {
                 // 9440-Hardened-Sharpening-Stone

@@ -64,6 +64,12 @@ export default class ArtificierService {
                 orichalcumOre: 30,
                 ancientWood: 48,
             }),
+            // 73404-Minstrels-Pearl-Rod
+            this.recipeService.createMinstrelPearlRecipe({
+                output: 73404,
+                orichalcumOre: 30,
+                ancientWood: 45,
+            }),
 
             {
                 // 9476-Master-Tuning-Crystal
