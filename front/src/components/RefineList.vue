@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <table class="table table-stripped">
+        <table class="table table-stripped table-hover">
             <thead>
                 <tr>
                     <th>Input</th>
