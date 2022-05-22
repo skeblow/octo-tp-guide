@@ -7,7 +7,7 @@ export default class ItemController {
     ) {
     }
 
-    getAll(req: any, res: any): void {
+    public getAll(req: any, res: any): void {
         const ids = ((req.query.ids || '') + '').split(',')
             .filter((id) => !!id)
             .map((id) => +id);
@@ -23,7 +23,7 @@ export default class ItemController {
             .then((items) => res.send(items));
     }
 
-    get(req: any, res: any): void {
+    public get(req: any, res: any): void {
         const id = parseInt(req.params['id']);
 
         this.itemService.getItemById(id)

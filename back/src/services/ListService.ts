@@ -35,8 +35,8 @@ export default class ListService {
         return this.getBasicList({
             minRoi: 30,
             minSell: 30,
-            minSells: 1_500,
-            minBuys: 1_500,
+            minSells: 2_000,
+            minBuys: 2_000,
         })
             .then((list) =>
                 list.sort((trade1: BasicTrade, trade2: BasicTrade) =>

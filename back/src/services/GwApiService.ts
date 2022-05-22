@@ -26,4 +26,9 @@ export default class GwApiService {
 
         return Array.isArray(prices) ? prices : [];
     }
+
+    public getDailyAchievements(): Promise<any> {
+        return fetch(this.BASE_URL + '/achievements/daily')
+            .then(res => res.json());
+    }
 }

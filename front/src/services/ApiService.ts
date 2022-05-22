@@ -24,6 +24,11 @@ class ApiService {
             .then(res => res.flat())
             .then(res => res.filter(item => item !== null && item.count > 0));
     }
+
+    public getDailyAchievements(): Promise<any> {
+        return fetch(this.BASE_URL + '/achievements/daily')
+            .then(res => res.json());
+    }
 }
 
 export default new ApiService();

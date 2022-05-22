@@ -9,15 +9,15 @@ export default class PriceService {
     ) {
     }
 
-    getProfit(price: ItemPrice): number {
+    public getProfit(price: ItemPrice): number {
         return 0.85 * price.sells.unit_price - price.buys.unit_price;
     }
 
-    getRoi(price: ItemPrice): number {
+    public getRoi(price: ItemPrice): number {
         return Math.round(this.getProfit(price) / price.buys.unit_price * 100);
     }
 
-    async getPricesByIds(ids: Array<number>): Promise<Array<ItemPrice>> {
+    public async getPricesByIds(ids: Array<number>): Promise<Array<ItemPrice>> {
         const collection = await this.mongoService.getPricesCollection();
         const date = new Date();
         const from = new Date();
@@ -73,26 +73,28 @@ export default class PriceService {
             missingIds.length,
         );
 
-        const missingPrices = await this.gwApiService.getItemPrices(
-            missingIds.slice(0, 100),
-        );
+        for (let i = 0; i < missingIds.length; i+= 100) {
+            const chunkMissingIds = missingIds.slice(i, i + 100);
 
-        if (missingPrices.length === 0) {
-            return prices;
+            const missingPrices = await this.gwApiService.getItemPrices(chunkMissingIds);
+
+            if (missingPrices.length === 0) {
+                return prices;
+            }
+    
+            for (const price of missingPrices) {
+                price.date = date;
+            }
+    
+            await collection.insertMany(missingPrices);
+    
+            prices = prices.concat(missingPrices);
         }
-
-        for (const price of missingPrices) {
-            price.date = date;
-        }
-
-        await collection.insertMany(missingPrices);
-
-        prices = prices.concat(missingPrices);
 
         return prices;
     }
 
-    getZeroPricesByIds(ids: Array<number>): Array<ItemPrice> {
+    public getZeroPricesByIds(ids: Array<number>): Array<ItemPrice> {
         const prices: Array<ItemPrice> = [];
         const date = new Date();
 
@@ -115,7 +117,7 @@ export default class PriceService {
         return prices;
     }
 
-    getZeroPriceIds(): Array<number> {
+    public getZeroPriceIds(): Array<number> {
         return [
             // nutmeg seed
             12249,
