@@ -6,8 +6,16 @@ export default class DailyService {
     ) {
     }
 
-    public getDailyAchievements(): Promise<{[key: string]: Array<{id: number}>}> {
+    public getDailyAchievements(): Promise<any> { // {[key: string]: Array<{id: number}>}
         return this.gwApiService.getDailyAchievements()
-            .then(achievements => achievements);
+            .then(achievements => {
+                let ids: Array<number> = [];
+
+                for (const type in achievements) {
+                    ids = ids.concat(achievements[type].map((achievement: any) => +achievement.id))
+                }
+
+                return this.gwApiService.getAchievementsByIds(ids);
+            });
     }
 }

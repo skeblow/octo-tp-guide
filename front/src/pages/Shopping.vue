@@ -60,9 +60,9 @@ export default class Shopping extends Vue {
             // 19737, hardened leather square
             {id: 19737, count: 300},
             // 73034 Vial of Linseed Oil
-            {id: 73034, count: 150},
-            // 70957-Maguuma-Lily
-            {id: 70957, count: 50},
+            {id: 73034, count: 250},
+            // 24295 Vial of Powerful Blood
+            {id: 24295, count: 150},
             // 12142 Onion
             {id: 12142, count: 1000},
             // 12134	Carrot

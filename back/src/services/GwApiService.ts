@@ -31,4 +31,9 @@ export default class GwApiService {
         return fetch(this.BASE_URL + '/achievements/daily')
             .then(res => res.json());
     }
+
+    public getAchievementsByIds(ids: Array<number>) {
+        return fetch(this.BASE_URL + '/achievements?ids=' + ids.join(','))
+            .then(res => res.json());
+    }
 }
