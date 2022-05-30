@@ -38,7 +38,11 @@ export default class ListService {
             minSells: 2_000,
             minBuys: 2_000,
         })
-            .then(list => list.filter((trade: BasicTrade) => ! [24304, 24339, 24329, 24324, 24319, 24314, 24309 /* all cores */].includes(trade.item.id)))
+            .then(list => list.filter((trade: BasicTrade) => ! [
+                24304, 24339, 24329, 24324, 24319, 24314, 24309, /* all cores */
+                24334, // Pile of Vile Essence
+                24335, // Pile of Putrid Essence
+            ].includes(trade.item.id)))
             .then((list) =>
                 list.sort((trade1: BasicTrade, trade2: BasicTrade) =>
                     trade2.roi - trade1.roi
