@@ -1,5 +1,5 @@
 // import fetch, { Response } from 'node-fetch';
-import { Item, ItemPrice } from '../../../shared/index.ts';
+import { Achievement, Item, ItemPrice } from '../../../shared/index.ts';
 
 export default class GwApiService {
     private readonly BASE_URL = 'https://api.guildwars2.com/v2';
@@ -27,12 +27,12 @@ export default class GwApiService {
         return Array.isArray(prices) ? prices : [];
     }
 
-    public getDailyAchievements(): Promise<any> {
+    public getDailyAchievements(): Promise<{[key: string]: Array<{id: number}>}> {
         return fetch(this.BASE_URL + '/achievements/daily')
             .then(res => res.json());
     }
 
-    public getAchievementsByIds(ids: Array<number>) {
+    public getAchievementsByIds(ids: Array<number>): Promise<Array<Achievement>> {
         return fetch(this.BASE_URL + '/achievements?ids=' + ids.join(','))
             .then(res => res.json());
     }

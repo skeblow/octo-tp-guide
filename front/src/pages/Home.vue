@@ -10,7 +10,7 @@
                         <table class="table table-stripped table-hover">
                             <tbody>
                                 <tr v-for="achievement of achivementList" v-bind:key="achievement.id">
-                                    <td>{{ achievement.id }}</td>
+                                    <td>{{ achievement.name }}</td>
                                     <td></td>
                                 </tr>
                             </tbody>
@@ -24,17 +24,18 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import ApiService from '../services/ApiService';
+import { Achievement } from '../../../shared';
+import DailyService from '../services/DailyService';
 
 @Options({
     components: {
     },
 })
 export default class Home extends Vue {
-    achievements = {};
+    achievements: {[key: string]: Array<Achievement>} = {};
 
     public mounted(): void {
-        ApiService.getDailyAchievements()
+        DailyService.getDailyAchievements()
             .then(achievements => {
                 this.achievements = achievements;
                 console.log(achievements);

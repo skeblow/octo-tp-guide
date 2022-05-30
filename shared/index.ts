@@ -98,3 +98,10 @@ export interface BankItem {
     id: number;
     count: number;
 }
+
+export interface Achievement {
+    id: number;
+    name: string;
+    description: string;
+    requirement: string;
+}
