@@ -42,6 +42,7 @@ export default class ListService {
                 24304, 24339, 24329, 24324, 24319, 24314, 24309, /* all cores */
                 24334, // Pile of Vile Essence
                 24335, // Pile of Putrid Essence
+                71225, // Wool Patch
             ].includes(trade.item.id)))
             .then((list) =>
                 list.sort((trade1: BasicTrade, trade2: BasicTrade) =>

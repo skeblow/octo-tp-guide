@@ -275,6 +275,49 @@ export default class SalvageService {
                 ],
                 cost: 3,
             },
+            // 84731-Piece-of-Unidentified-Gear
+            {
+                id: 84731,
+                type: RecipeType.salvage,
+                input: [
+                    { id: 84731, quantity: 250 },
+                ],
+                output: [
+                    // mithril ore
+                    { id: 19700, quantity: 112.45 },
+                    // elder wood log
+                    { id: 19722, quantity: 91.05 },
+                    // silk scrap
+                    { id: 19748, quantity: 86 },
+                    // thick leather section
+                    { id: 19729, quantity: 68.175 },
+                    // orichalcum ore
+                    { id: 19701, quantity: 9.675 },
+                    // ancient wood log
+                    { id: 19725, quantity: 7.25 },
+                    // gossamer scrap
+                    { id: 19745, quantity: 4.55 },
+                    // hardened leather section
+                    { id: 19732, quantity: 4.2 },
+                    // 19721-Glob-of-Ectoplasm
+                    { id: 19721, quantity: 4.475 },
+                    // 89140-Lucent-Mote
+                    { id: 89140, quantity: 245.075 },
+                    // 89098-Symbol-of-Control
+                    { id: 89098, quantity: 0.425 },
+                    // 89141-Symbol-of-Enhancement
+                    { id: 89141, quantity: 1.225 },
+                    // 89182-Symbol-of-Pain
+                    { id: 89182, quantity: 0.9 },
+                    // 89103-Charm-of-Brilliance
+                    { id: 89103, quantity: 1.05 },
+                    // 89258-Charm-of-Potence
+                    { id: 89258, quantity: 0.7 },
+                    // 89216-Charm-of-Skill
+                    { id: 89216, quantity: 0.7 },
+                ],
+                cost: 3,
+            }
         ];
     }
 }
