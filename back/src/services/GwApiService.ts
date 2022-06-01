@@ -34,6 +34,14 @@ export default class GwApiService {
 
     public getAchievementsByIds(ids: Array<number>): Promise<Array<Achievement>> {
         return fetch(this.BASE_URL + '/achievements?ids=' + ids.join(','))
-            .then(res => res.json());
+            .then(res => res.json())
+            .then((achievements: Array<Achievement>) => achievements.map(
+                achievement => {
+                    return {
+                        ...achievement,
+                        name: achievement.name.replace('Daily ', ''),
+                    };
+                }
+            ))
     }
 }
