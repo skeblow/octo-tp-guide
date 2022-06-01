@@ -59,26 +59,26 @@ export default class WeaponsmithService {
                 ancientWood: 30,
             }),
 
-            // 71331-Oiled-Orichalcum-Dagger-Blade
-            this.createOiledOrichalcumRecipe({
-                output: 71331,
-                orichalcumOre: 6,
-            }),
-            // 76164-Oiled-Orichalcum-Hammer-Head
-            this.createOiledOrichalcumRecipe({
-                output: 76164,
-                orichalcumOre: 6,
-            }),
-            // 76084-Oiled-Orichalcum-Hammer-Head
-            this.createOiledOrichalcumRecipe({
-                output: 76084,
-                orichalcumOre: 6,
-            }),
-            // 77064-Oiled-Orichalcum-Mace-Head
-            this.createOiledOrichalcumRecipe({
-                output: 77064,
-                orichalcumOre: 6,
-            }),
+            // // 71331-Oiled-Orichalcum-Dagger-Blade
+            // this.createOiledOrichalcumRecipe({
+            //     output: 71331,
+            //     orichalcumOre: 6,
+            // }),
+            // // 76164-Oiled-Orichalcum-Hammer-Head
+            // this.createOiledOrichalcumRecipe({
+            //     output: 76164,
+            //     orichalcumOre: 6,
+            // }),
+            // // 76084-Oiled-Orichalcum-Hammer-Head
+            // this.createOiledOrichalcumRecipe({
+            //     output: 76084,
+            //     orichalcumOre: 6,
+            // }),
+            // // 77064-Oiled-Orichalcum-Mace-Head
+            // this.createOiledOrichalcumRecipe({
+            //     output: 77064,
+            //     orichalcumOre: 6,
+            // }),
 
             // 73959-Vipers-Pearl-Carver
             this.recipeService.createViperPearlRecipe({

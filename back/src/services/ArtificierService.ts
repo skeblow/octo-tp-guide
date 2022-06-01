@@ -9,16 +9,16 @@ export default class ArtificierService {
 
     public getAll(): Array<Recipe> {
         return [
-            // 74825-Oiled-Ancient-Scepter-Core
-            this.createOiledAncientRecipe({
-                output: 74825,
-                ancientLog: 6,
-            }),
-            // 75698-Oiled-Ancient-Staff-Head
-            this.createOiledAncientRecipe({
-                output: 75698,
-                ancientLog: 6,
-            }),
+            // // 74825-Oiled-Ancient-Scepter-Core
+            // this.createOiledAncientRecipe({
+            //     output: 74825,
+            //     ancientLog: 6,
+            // }),
+            // // 75698-Oiled-Ancient-Staff-Head
+            // this.createOiledAncientRecipe({
+            //     output: 75698,
+            //     ancientLog: 6,
+            // }),
 
             // 76286-Marauder-Pearl-Quarterstaff
             this.recipeService.createMarauderPearlRecipe({
