@@ -26,7 +26,7 @@
                             <small>(Sell)</small>
                         </div>
 
-                        <span class="badge bg-success" v-if="isListed(trade)">&#10004;</span>
+                        <span class="badge bg-success" v-if="isListed(trade)">{{ getListedCount(trade) }}</span>
                     </div>
                     <div class="card-body">
                         <table class="table table-stripped">
@@ -87,12 +87,12 @@
 </template>
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
-import { RecipeTrade } from '../../../shared';
+import { ListedItem, RecipeTrade } from '../../../shared';
 import Gold from './Gold.vue';
 
 class RecipeListProps {
     items = prop<Array<RecipeTrade>>({required: true});
-    activeListingIds = prop<Array<number>>({required: true});
+    activeListedItems = prop<Array<ListedItem>>({required: true});
 }
 
 @Options({
@@ -122,7 +122,19 @@ export default class RecipeList extends Vue.with(RecipeListProps) {
     }
 
     public isListed(trade: RecipeTrade): boolean {
-        return this.activeListingIds.includes(trade.id);
+        return this.activeListedItems.find((item: ListedItem) => item.itemId === trade.id) !== undefined;
+    }
+
+    public getListedCount(trade: RecipeTrade): number {
+        let count = 0
+
+        for (const item of this.activeListedItems) {
+            if (trade.id === item.itemId) {
+                count += item.quantity;
+            }
+        }
+
+        return count;
     }
 }
 </script>

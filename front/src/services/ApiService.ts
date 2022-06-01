@@ -1,9 +1,9 @@
-import { BankItem } from "../../../shared";
+import { BankItem, ListedItem } from "../../../shared";
 
 class ApiService {
     readonly BASE_URL = 'https://api.guildwars2.com/v2';
 
-    public getActiveListingIds(token: string): Promise<Array<number>> {
+    public getActiveListingIds(token: string): Promise<Array<ListedItem>> {
         return Promise.all([
             fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=0'),
             fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=1'),
@@ -12,7 +12,13 @@ class ApiService {
             .then((res) => Promise.all(res.map(res => res.json())))
             .then((res: Array<Array<any>|object>) => res.filter(item => Array.isArray(item)))
             .then(res => res.flat())
-            .then(res => res.map(val => val.item_id));
+            .then(res => res.map(val => {
+                return {
+                    itemId: val.item_id,
+                    price: val.price,
+                    quantity: val.quantity,
+                };
+            }));
     }
 
     public getBankMaterials(token: string): Promise<Array<BankItem>> {

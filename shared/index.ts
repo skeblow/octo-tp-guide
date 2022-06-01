@@ -105,3 +105,9 @@ export interface Achievement {
     description: string;
     requirement: string;
 }
+
+export interface ListedItem {
+    itemId: number,
+    price: number,
+    quantity: number,
+}

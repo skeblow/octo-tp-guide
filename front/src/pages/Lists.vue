@@ -2,7 +2,7 @@
     <div>
         <h1 class="h2">Lists</h1>
 
-        <div class="alert alert-info" v-if="activeListingIds.length === 0">
+        <div class="alert alert-info" v-if="activeListedItems.length === 0">
             Loading active listings
         </div>
 
@@ -120,7 +120,7 @@
                         <BasicList v-if="isBasicListActive()" :items="trades"></BasicList>
                         <RefineList v-if="isRefineListActive()" :items="trades"></RefineList>
                         <SalvageList v-if="isSalvageListActive()" :items="trades"></SalvageList>
-                        <RecipeList v-if="isRecipeListActive()" :items="trades" :activeListingIds="activeListingIds"></RecipeList>
+                        <RecipeList v-if="isRecipeListActive()" :items="trades" :activeListedItems="activeListedItems"></RecipeList>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { BasicTrade, RecipeTrade, SalvageTrade } from '../../../shared';
+import { BasicTrade, ListedItem, RecipeTrade, SalvageTrade } from '../../../shared';
 import BasicList from '../components/BasicList.vue';
 import RecipeList from '../components/RecipeList.vue';
 import RefineList from '../components/RefineList.vue';
@@ -148,7 +148,7 @@ import ApiService from '../services/ApiService';
     },
 })
 export default class Lists extends Vue {
-    activeListingIds: Array<number> = [];
+    activeListedItems: Array<ListedItem> = [];
     activeTab: string = 'cheap';
     trades: Array<BasicTrade|RecipeTrade|SalvageTrade> = [];
    
@@ -185,7 +185,7 @@ export default class Lists extends Vue {
 
         if (token) {
             ApiService.getActiveListingIds(token)
-                .then(res => this.activeListingIds = res);
+                .then(res => this.activeListedItems = res);
         }
     }
 }
