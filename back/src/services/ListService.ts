@@ -39,10 +39,11 @@ export default class ListService {
             minBuys: 2_000,
         })
             .then(list => list.filter((trade: BasicTrade) => ! [
-                24304, 24339, 24329, 24324, 24319, 24314, 24309, /* all cores */
+                24304, 24339, 24329, 24324, 24319, 24314, 24309, // all cores
                 24334, // Pile of Vile Essence
                 24335, // Pile of Putrid Essence
                 71225, // Wool Patch
+                8865, 8869, 8870, 8874, 8867, 8873, 8868, 8878, // all potent potions
             ].includes(trade.item.id)))
             .then((list) =>
                 list.sort((trade1: BasicTrade, trade2: BasicTrade) =>

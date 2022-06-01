@@ -95,6 +95,150 @@ export default class ArtificierService {
             //         { id: 24277, quantity: 30 },
             //     ],
             // },
+            {
+                // 8865-Potent-Potion-of-Centaur-Slaying
+                id: 8865,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 8865, quantity: 3 },
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    { id: 24276, quantity: 1 },
+                    // thick leather section
+                    { id: 19729, quantity: 1 },
+                    // 12134-Carrot
+                    { id: 12134, quantity: 1 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 1 },
+                ],
+            },
+            {
+                // 8869-Potent-Potion-of-Destroyer-Slaying
+                id: 8869,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 8869, quantity: 3 },
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    { id: 24276, quantity: 1 },
+                    // 24324-Destroyer-Core
+                    { id: 24324, quantity: 1 },
+                    // 19750-Lump-of-Coal
+                    { id: 19750, quantity: 1 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 1 },
+                ],
+            },
+            {
+                // 8870-Potent-Potion-of-Elemental-Slaying
+                id: 8870,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 8870, quantity: 3 },
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    { id: 24276, quantity: 1 },
+                    // 24474-Ruby-Crystal
+                    { id: 24474, quantity: 1 },
+                    // 24475-Sapphire-Crystal
+                    { id: 24475, quantity: 1 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 1 },
+                ],
+            },
+            {
+                // 8874-Potent-Potion-of-Ice-Brood-Slaying
+                id: 8874,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 8874, quantity: 3 },
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    { id: 24276, quantity: 1 },
+                    // 24288-Large-Scale
+                    { id: 24288, quantity: 1 },
+                    // 24339-Corrupted-Core
+                    { id: 24339, quantity: 1 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 1 },
+                ],
+            },
+            {
+                // 8867-Potent-Potion-of-Nightmare-Court-Slaying
+                id: 8867,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 8867, quantity: 3 },
+                ],
+                input: [
+                    // 12238-Head-of-Lettuce
+                    { id: 12238, quantity: 1 },
+                    // 24282-Potent-Venom-Sac
+                    { id: 24282, quantity: 1 },
+                    // 12241-Spinach-Leaf
+                    { id: 12241, quantity: 1 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 1 },
+                ],
+            },
+            {
+                // 8873-Potent-Potion-of-Ogre-Slaying
+                id: 8873,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 8873, quantity: 3 },
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    { id: 24276, quantity: 1 },
+                    // thick leather section
+                    { id: 19729, quantity: 1 },
+                    // 12243-Sage-Leaf
+                    { id: 12243, quantity: 1 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 1 },
+                ],
+            },
+            {
+                // 8868-Potent-Potion-of-Sons-of-Svanir-Slaying
+                id: 8868,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 8868, quantity: 3 },
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    { id: 24276, quantity: 1 },
+                    // 24350-Large-Claw
+                    { id: 24350, quantity: 1 },
+                    // 24299-Intricate-Totem
+                    { id: 24299, quantity: 1 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 1 },
+                ],
+            },
+            {
+                // 8878-Potent-Potion-of-Undead-Slaying
+                id: 8878,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 8878, quantity: 3 },
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    { id: 24276, quantity: 1 },
+                    // 24341-Large-Bone
+                    { id: 24341, quantity: 1 },
+                    // 24334-Pile-of-Vile-Essence
+                    { id: 24334, quantity: 1 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 1 },
+                ],
+            },
         ];
     }
 
