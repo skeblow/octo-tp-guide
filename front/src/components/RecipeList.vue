@@ -72,7 +72,7 @@
                                 <tr>
                                     <td class="table-secondary">Roi:</td>
                                     <td class="text-start table-secondary"><strong>{{ trade.roi }}%</strong></td>
-                                    <td class="text-end">Prof:</td>
+                                    <td class="text-end">Pro:</td>
                                     <td class="text-end">
                                         <Gold :amount="trade.profit" bold="true"></Gold>
                                     </td>

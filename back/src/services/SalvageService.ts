@@ -33,23 +33,23 @@ export default class SalvageService {
                 ],
                 cost: 3,
             },
-            {
-                // jagged metal scrap
-                id: 21680,
-                type: RecipeType.salvage,
-                input: [
-                    { id: 21680, quantity: 1 },
-                ],
-                output: [
-                    // gold
-                    { id: 19698, quantity: 0.2446 },
-                    // iron
-                    { id: 19699, quantity: 0.855 },
-                    // silver
-                    { id: 19703, quantity: 0.669 },
-                ],
-                cost: 3,
-            },
+            // {
+            //     // jagged metal scrap
+            //     id: 21680,
+            //     type: RecipeType.salvage,
+            //     input: [
+            //         { id: 21680, quantity: 1 },
+            //     ],
+            //     output: [
+            //         // gold
+            //         { id: 19698, quantity: 0.2446 },
+            //         // iron
+            //         { id: 19699, quantity: 0.855 },
+            //         // silver
+            //         { id: 19703, quantity: 0.669 },
+            //     ],
+            //     cost: 3,
+            // },
             {
                 // metal scrap
                 id: 21681,
@@ -194,21 +194,21 @@ export default class SalvageService {
                 ],
                 cost: 3,
             },
-            {
-                // ragged garment
-                id: 21672,
-                type: RecipeType.salvage,
-                input: [
-                    { id: 21672, quantity: 1 },
-                ],
-                output: [
-                    // wool scrap
-                    { id: 19739, quantity: 0.4289 },
-                    // cotton scrap
-                    { id: 19741, quantity: 1.3964 },
-                ],
-                cost: 3,
-            },
+            // {
+            //     // ragged garment
+            //     id: 21672,
+            //     type: RecipeType.salvage,
+            //     input: [
+            //         { id: 21672, quantity: 1 },
+            //     ],
+            //     output: [
+            //         // wool scrap
+            //         { id: 19739, quantity: 0.4289 },
+            //         // cotton scrap
+            //         { id: 19741, quantity: 1.3964 },
+            //     ],
+            //     cost: 3,
+            // },
             // {
             //     // worn garment
             //     id: 21671,
@@ -316,7 +316,7 @@ export default class SalvageService {
                     // 89216-Charm-of-Skill
                     { id: 89216, quantity: 0.7 },
                 ],
-                cost: 3,
+                cost: 33 * 250,
             }
         ];
     }

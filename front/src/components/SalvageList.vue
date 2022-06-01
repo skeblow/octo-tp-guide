@@ -40,24 +40,31 @@
                                             <img v-bind:src="output.item.icon" alt="">
                                         </a>
                                     </td>
-                                    <td>{{ output.item.name }}</td>
+                                    <td><small>{{ output.item.name }}</small></td>
                                     <td class="text-end">
-                                        <Gold :amount="output.price.sells.unit_price"></Gold>
+                                        <small><Gold :amount="output.price.sells.unit_price"></Gold></small>
                                     </td>
                                     <td class="text-end">
                                         <Gold :amount="output.price.sells.unit_price * output.quantity" bold="true"></Gold>
                                     </td>
                                 </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-stripped">
+                            <tbody>
                                 <tr>
-                                    <td>Bought:</td>
-                                    <td><strong>{{ trade.input.bltc.bought }}</strong></td>
-                                    <td colspan="2" class="text-end">Total buy:</td>
+                                    <td>Cost:</td>
+                                    <td><strong>{{ trade.recipe.cost }}</strong></td>
+                                    <td class="text-end">Buy:</td>
                                     <td class="text-end">
                                         <Gold :amount="trade.totalBuy" bold="true"></Gold>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" class="text-end">Total sell:</td>
+                                    <td>Bought:</td>
+                                    <td><strong>{{ trade.input.bltc.bought }}</strong></td>
+                                    <td class="text-end">Sell:</td>
                                     <td class="text-end">
                                         <Gold :amount="trade.totalSell" bold="true"></Gold>
                                     </td>
@@ -67,7 +74,7 @@
                                     <td class="text-end table-secondary"><strong>
                                         {{ trade.roi }}%
                                     </strong></td>
-                                    <td class="text-end" colspan="2">Profit:</td>
+                                    <td class="text-end">Pro:</td>
                                     <td class="text-end"><strong>
                                         <Gold :amount="trade.profit"></Gold>
                                     </strong></td>
