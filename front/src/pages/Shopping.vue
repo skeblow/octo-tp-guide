@@ -63,6 +63,18 @@ export default class Shopping extends Vue {
             {id: 73034, count: 250},
             // 24295 Vial of Powerful Blood
             {id: 24295, count: 150},
+
+            // 24276-Pile-of-Incandescent-Dust
+            { id: 24276, count: 4000 },
+            // 24474-Ruby-Crystal
+            { id: 24474, count: 2000 },
+            // 24475-Sapphire-Crystal
+            { id: 24475, count: 2000 },
+            // 24350-Large-Claw
+            { id: 24350, count: 2000 },
+            // 24299-Intricate-Totem
+            { id: 24299, count: 2000 },
+
             // 12142 Onion
             {id: 12142, count: 1000},
             // 12134	Carrot

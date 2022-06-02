@@ -26,7 +26,25 @@ export default class TradeService {
         return Math.round(bltc.bought / 10);
     }
 
-    private getRecipeTradeTarget(bltc: ItemBltc): number {
+    private getRecipeTradeTarget(item: Item, bltc: ItemBltc): number {
+        if (item.name.includes('Viper') || item.name.includes('Minstrel')) {
+            return Math.ceil(bltc.sold / 30);
+        }
+
+        if (item.name.includes('Amulet') || item.name.includes('Earring') || item.name.includes('Ring')) {
+            return Math.ceil(bltc.sold / 20);
+        }
+
+        if (item.name.includes('Potent Potion') || item.name.includes('Sharpening')) {
+            let stacks = Math.round(bltc.sold / 250);
+
+            return Math.ceil(stacks / 15) * 250;
+        }
+
+        if (item.name.includes('Pearl')) {
+            return Math.ceil(bltc.sold / 20);
+        }
+
         return Math.ceil(bltc.sold / 10);
     }
 
@@ -66,6 +84,7 @@ export default class TradeService {
         inputs: Array<TradeItem>,
         outputs: Array<TradeItem>,
         cost: number,
+        item: Item,
         bltc: ItemBltc,
     ): TradeData {
         const totalBuy = inputs.reduce(
@@ -84,7 +103,7 @@ export default class TradeService {
             totalSell,
             profit,
             roi,
-            target: this.getRecipeTradeTarget(bltc),
+            target: this.getRecipeTradeTarget(item, bltc),
         };
     }
 
@@ -154,7 +173,7 @@ export default class TradeService {
                 recipe: recipe,
                 input: inputs,
                 output: outputs[0],
-                ...this.getRecipeTradeData(inputs, outputs, recipe.cost ?? 0, outputs[0].bltc),
+                ...this.getRecipeTradeData(inputs, outputs, recipe.cost ?? 0, outputs[0].item, outputs[0].bltc),
             });
         }
 
@@ -220,7 +239,7 @@ export default class TradeService {
                 recipe: recipe,
                 input: inputs[0],
                 output: outputs,
-                ...this.getRecipeTradeData(inputs, outputs, recipe.cost, inputs[0].bltc),
+                ...this.getRecipeTradeData(inputs, outputs, recipe.cost, inputs[0].item, inputs[0].bltc),
             });
         }
 
