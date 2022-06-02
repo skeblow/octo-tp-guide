@@ -22,6 +22,14 @@ export default class TradeService {
     ) {
     }
 
+    private getBasicTradeTarget(bltc: ItemBltc): number {
+        return Math.round(bltc.bought / 10);
+    }
+
+    private getRecipeTradeTarget(bltc: ItemBltc): number {
+        return Math.ceil(bltc.sold / 10);
+    }
+
     public getTradesFromItemIds(ids: Array<number>): Promise<Array<BasicTrade>> {
         return Promise.all([
             this.priceService.getPricesByIds(ids),
@@ -33,20 +41,20 @@ export default class TradeService {
                     prices.map((price: ItemPrice) => {
                         const profit = this.priceService.getProfit(price);
                         const roi = this.priceService.getRoi(price);
+                        const bltc = bltcs.find((bltc) => bltc.id === price.id) as ItemBltc;
 
                         const basicTrade: BasicTrade = {
                             item: items.find((item) =>
                                 item.id === price.id
                             ) as Item,
-                            price: price,
-                            bltc: bltcs.find((bltc) =>
-                                bltc.id === price.id
-                            ) as ItemBltc,
+                            price,
+                            bltc,
                             quantity: 1,
                             totalBuy: price.buys.unit_price,
                             totalSell: price.sells.unit_price,
                             profit: profit,
                             roi: roi,
+                            target: this.getBasicTradeTarget(bltc),
                         };
 
                         return basicTrade;
@@ -58,6 +66,7 @@ export default class TradeService {
         inputs: Array<TradeItem>,
         outputs: Array<TradeItem>,
         cost: number,
+        bltc: ItemBltc,
     ): TradeData {
         const totalBuy = inputs.reduce(
             (total, item: TradeItem) => total + item.price.buys.unit_price * item.quantity,
@@ -75,6 +84,7 @@ export default class TradeService {
             totalSell,
             profit,
             roi,
+            target: this.getRecipeTradeTarget(bltc),
         };
     }
 
@@ -144,7 +154,7 @@ export default class TradeService {
                 recipe: recipe,
                 input: inputs,
                 output: outputs[0],
-                ...this.getRecipeTradeData(inputs, outputs, recipe.cost ?? 0),
+                ...this.getRecipeTradeData(inputs, outputs, recipe.cost ?? 0, outputs[0].bltc),
             });
         }
 
@@ -210,7 +220,7 @@ export default class TradeService {
                 recipe: recipe,
                 input: inputs[0],
                 output: outputs,
-                ...this.getRecipeTradeData(inputs, outputs, recipe.cost),
+                ...this.getRecipeTradeData(inputs, outputs, recipe.cost, inputs[0].bltc),
             });
         }
 

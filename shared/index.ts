@@ -75,6 +75,7 @@ export interface TradeData {
     totalSell: number,
     profit: number,
     roi: number,
+    target: number,
 }
 
 export interface BasicTrade extends TradeItem, TradeData {

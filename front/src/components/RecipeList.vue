@@ -26,7 +26,7 @@
                             <small>(Sell)</small>
                         </div>
 
-                        <span class="badge bg-success" v-if="isListed(trade)">{{ getListedCount(trade) }}</span>
+                        <span v-bind:class="{'badge bg-success': isListed(trade)}">{{ getListedCount(trade) }} / {{ trade.target }}</span>
                     </div>
                     <div class="card-body">
                         <table class="table table-stripped">
