@@ -108,7 +108,9 @@ export interface Achievement {
 }
 
 export interface ListedItem {
+    id: number,
     itemId: number,
     price: number,
     quantity: number,
+    createdAt: string,
 }

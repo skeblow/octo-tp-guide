@@ -17,6 +17,9 @@
               <router-link to="/shopping" class="nav-link" exact-active-class="active">Shopping list</router-link>
             </li>
             <li class="nav-item">
+              <router-link to="/cancel-tp" class="nav-link" exact-active-class="active">Cancel tp items</router-link>
+            </li>
+            <li class="nav-item">
               <router-link to="/items" class="nav-link" exact-active-class="active">Items</router-link>
             </li>
             <li class="nav-item">

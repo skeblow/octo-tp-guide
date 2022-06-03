@@ -31,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'shopping',
         component: () => import(/* webpackChunkName: "shopping" */ '../pages/Shopping.vue'),
     },
+    {
+        path: '/cancel-tp',
+        name: 'cancel-tp',
+        component: () => import(/* webpackChunkName: "cancel-tp" */ '../pages/CancelTp.vue'),
+    },
 ];
 
 const router = createRouter({

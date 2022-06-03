@@ -184,7 +184,7 @@ export default class Lists extends Vue {
         const token = TokenService.getToken();
 
         if (token) {
-            ApiService.getActiveListingIds(token)
+            ApiService.getCurrentSells(token)
                 .then(res => this.activeListedItems = res);
         }
     }
