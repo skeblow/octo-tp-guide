@@ -34,11 +34,12 @@
 </template>
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
-import { BasicTrade } from '../../../shared';
+import { BasicTrade, ListedItem } from '../../../shared';
 import Gold from './Gold.vue';
 
 class BasicListProps {
-    items = prop<Array<BasicTrade>>({required: true})
+    items = prop<Array<BasicTrade>>({required: true});
+    activeListedItems = prop<Array<ListedItem>>({required: true});
 }
 
 @Options({

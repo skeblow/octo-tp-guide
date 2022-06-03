@@ -23,7 +23,9 @@ export default class TradeService {
     }
 
     private getBasicTradeTarget(bltc: ItemBltc): number {
-        return Math.round(bltc.bought / 10);
+        let stacks = Math.round( Math.min(bltc.bought, bltc.sold) / 250 );
+
+        return Math.ceil(stacks / 10) * 250;
     }
 
     private getRecipeTradeTarget(item: Item, bltc: ItemBltc): number {
