@@ -1,5 +1,5 @@
 // import fetch, { Response } from 'node-fetch';
-import { Achievement, Item, ItemPrice, ListedItem } from '../../../shared/index.ts';
+import { Achievement, Item, ItemPrice, ListedItem, Listing } from '../../../shared/index.ts';
 
 export default class GwApiService {
     private readonly BASE_URL = 'https://api.guildwars2.com/v2';
@@ -65,5 +65,10 @@ export default class GwApiService {
                 };
             }))
             .then(res => res.reverse());
+    }
+
+    public getListingsByIds(ids: Array<number>): Promise<Array<Listing>> {
+        return fetch(this.BASE_URL + '/commerce/listings?ids=' + ids.join(','))
+            .then(res => res.json());
     }
 }

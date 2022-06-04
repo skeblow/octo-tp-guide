@@ -120,4 +120,11 @@ export interface ListedItemToCancel {
     item: Item,
     itemPrice: ItemPrice,
     diff: number,
+    listing: Listing,
+}
+
+export interface Listing {
+    id: number,
+    buys: Array<{listings: number, unit_price: number, quantity: number}>,
+    sells: Array<{listings: number, unit_price: number, quantity: number}>,
 }
