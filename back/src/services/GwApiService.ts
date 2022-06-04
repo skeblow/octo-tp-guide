@@ -50,6 +50,7 @@ export default class GwApiService {
             fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=0'),
             fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=1'),
             fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=2'),
+            fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=3'),
         ])
             .then((res) => Promise.all(res.map(res => res.json())))
             .then((res: Array<Array<any>|object>) => res.filter(item => Array.isArray(item)))

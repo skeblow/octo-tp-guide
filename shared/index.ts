@@ -119,4 +119,5 @@ export interface ListedItemToCancel {
     listedItem: ListedItem,
     item: Item,
     itemPrice: ItemPrice,
+    diff: number,
 }
