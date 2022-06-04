@@ -3,7 +3,6 @@
         <thead>
             <tr>
                 <th></th>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Buy price</th>
                 <th>Sell price</th>
@@ -20,7 +19,6 @@
                         <img v-bind:src="trade.item.icon" alt="">
                     </a>
                 </td>
-                <td>{{ trade.item.id }}</td>
                 <td>{{ trade.item.name }}</td>
                 <td class="text-end"><Gold :amount="trade.totalBuy"></Gold></td>
                 <td class="text-end"><Gold :amount="trade.totalSell"></Gold></td>

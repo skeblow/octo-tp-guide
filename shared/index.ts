@@ -114,3 +114,9 @@ export interface ListedItem {
     quantity: number,
     createdAt: string,
 }
+
+export interface ListedItemToCancel {
+    listedItem: ListedItem,
+    item: Item,
+    itemPrice: ItemPrice,
+}

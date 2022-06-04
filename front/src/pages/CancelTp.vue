@@ -5,18 +5,28 @@
         <table class="table table-stripped table hover">
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th></th>
+                    <th></th>
+                    <th>Name</th>
                     <th>Price</th>
-                    <th>Quantity</th>
+                    <th>Current Price</th>
+                    <th>Diff</th>
                     <th>Created at</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="sell in currentSells" :key="sell.id">
-                    <td>{{ sell.itemId }}</td>
-                    <td><Gold :amount="sell.price"></Gold></td>
-                    <td>{{ sell.quantity }}</td>
-                    <td>{{ sell.createdAt }}</td>
+                <tr v-for="sell in currentSells" :key="sell.listedItem.id">
+                    <td>
+                        <a v-bind:href="'https://www.gw2bltc.com/en/item/'+sell.item.id" target="_blank">
+                            <img v-bind:src="sell.item.icon" alt="">
+                        </a>
+                    </td>
+                    <td>{{ sell.listedItem.quantity }}x</td>
+                    <td>{{ sell.item.name }}</td>
+                    <td><Gold :amount="sell.listedItem.price"></Gold></td>
+                    <td><Gold :amount="sell.itemPrice.sells.unit_price"></Gold></td>
+                    <td>{{ sell.diff }}%</td>
+                    <td>{{ sell.listedItem.createdAt }}</td>
                 </tr>
             </tbody>
         </table>
@@ -25,9 +35,9 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { ListedItem } from '../../../shared';
+import { ListedItemToCancel } from '../../../shared';
 import Gold from '../components/Gold.vue';
-import ApiService from '../services/ApiService';
+import TpService from '../services/TpService';
 import TokenService from '../services/TokenService';
 
 @Options({
@@ -36,13 +46,13 @@ import TokenService from '../services/TokenService';
     },
 })
 export default class CancelTp extends Vue {
-    currentSells: Array<ListedItem> = [];
+    currentSells: Array<ListedItemToCancel> = [];
 
     public mounted(): void {
         const token = TokenService.getToken();
 
         if (token) {
-            ApiService.getCurrentSells(token)
+            TpService.getCancelSells(token)
                 .then(res => this.currentSells = res);
         }
     }
@@ -50,5 +60,12 @@ export default class CancelTp extends Vue {
 </script>
 
 <style scoped>
+    img {
+        width: 30px;
+        height: 30px;
+    }
 
+    table {
+        margin-bottom: 0;
+    }
 </style>

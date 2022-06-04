@@ -24,6 +24,8 @@ import ArmorsmithService from "./services/ArmorsmithService.ts";
 import LeatherworkerService from "./services/LeatherworkerService.ts";
 import DailyController from "./controllers/DailyController.ts";
 import DailyService from "./services/DailyService.ts";
+import TpController from "./controllers/TpController.ts";
+import TpService from "./services/TpService.ts";
 
 interface Route {
     method: 'get' | 'post' | 'patch' | 'delete';
@@ -53,6 +55,7 @@ const tailorService = new TailorService();
 const armorsmithService = new ArmorsmithService();
 const leatherworkerService = new LeatherworkerService();
 const dailyService = new DailyService(gwApiService);
+const tpService = new TpService(gwApiService, itemService, priceService);
 
 const listService = new ListService(
     mongoService,
@@ -88,6 +91,7 @@ const refreshController = new RefreshController(
     leatherworkerService,
 );
 const dailyController = new DailyController(dailyService);
+const tpController = new TpController(gwApiService, tpService);
 
 export const ROUTES: Route[] = [
     {
@@ -124,5 +128,15 @@ export const ROUTES: Route[] = [
         route: '/daily/',
         method: 'get',
         handler: (req, res) => dailyController.get(req, res),
-    }
+    },
+    {
+        route: '/tp/current/sells',
+        method: 'get',
+        handler: (req, res) => tpController.getCurrentSells(req, res),
+    },
+    {
+        route: '/tp/cancel/sells',
+        method: 'get',
+        handler: (req, res) => tpController.getCancelSells(req, res),
+    },
 ];

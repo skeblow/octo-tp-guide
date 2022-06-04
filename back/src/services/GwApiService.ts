@@ -1,5 +1,5 @@
 // import fetch, { Response } from 'node-fetch';
-import { Achievement, Item, ItemPrice } from '../../../shared/index.ts';
+import { Achievement, Item, ItemPrice, ListedItem } from '../../../shared/index.ts';
 
 export default class GwApiService {
     private readonly BASE_URL = 'https://api.guildwars2.com/v2';
@@ -41,7 +41,28 @@ export default class GwApiService {
                         ...achievement,
                         name: achievement.name.replace('Daily ', ''),
                     };
-                }
-            ))
+                },
+            ));
+    }
+
+    public getCurrentSells(token: string): Promise<Array<ListedItem>> {
+        return Promise.all([
+            fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=0'),
+            fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=1'),
+            fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=2'),
+        ])
+            .then((res) => Promise.all(res.map(res => res.json())))
+            .then((res: Array<Array<any>|object>) => res.filter(item => Array.isArray(item)))
+            .then(res => res.flat())
+            .then(res => res.map(val => {
+                return {
+                    id: val.id,
+                    itemId: val.item_id,
+                    price: val.price,
+                    quantity: val.quantity,
+                    createdAt: val.created,
+                };
+            }))
+            .then(res => res.reverse());
     }
 }

@@ -137,7 +137,7 @@ import RefineList from '../components/RefineList.vue';
 import SalvageList from '../components/SalvageList.vue';
 import ListService from '../services/ListService';
 import TokenService from '../services/TokenService';
-import ApiService from '../services/ApiService';
+import TpService from '../services/TpService';
 
 @Options({
     components: {
@@ -184,7 +184,7 @@ export default class Lists extends Vue {
         const token = TokenService.getToken();
 
         if (token) {
-            ApiService.getCurrentSells(token)
+            TpService.getCurrentSells(token)
                 .then(res => this.activeListedItems = res);
         }
     }
