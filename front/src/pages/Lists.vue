@@ -2,8 +2,12 @@
     <div>
         <h1 class="h2">Lists</h1>
 
-        <div class="alert alert-info" v-if="currentSells.length === 0 && currentBuys.length === 0">
-            Loading active listings
+        <div class="alert alert-info" v-if="currentSells.length === 0">
+            Loading current sells
+        </div>
+
+        <div class="alert alert-info" v-if="currentBuys.length === 0">
+            Loading current buys
         </div>
 
         <ul class="nav nav-tabs">
@@ -119,7 +123,7 @@
                     <div class="card-body">
                         <BasicList v-if="isBasicListActive()" :items="trades" :currentBuys="currentBuys"></BasicList>
                         <RefineList v-if="isRefineListActive()" :items="trades"></RefineList>
-                        <SalvageList v-if="isSalvageListActive()" :items="trades"></SalvageList>
+                        <SalvageList v-if="isSalvageListActive()" :items="trades" :currentBuys="currentBuys"></SalvageList>
                         <RecipeList v-if="isRecipeListActive()" :items="trades" :currentSells="currentSells"></RecipeList>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ import {
     ItemPrice,
     Recipe,
     RecipeTrade,
+    RecipeType,
     SalvageRecipe,
     SalvageTrade,
     TradeData,
@@ -28,7 +29,13 @@ export default class TradeService {
         return Math.ceil(stacks / 10) * 250;
     }
 
-    private getRecipeTradeTarget(item: Item, bltc: ItemBltc): number {
+    private getRecipeTradeTarget(item: Item, bltc: ItemBltc, recipe: Recipe): number {
+        if (recipe.type === RecipeType.salvage) {
+            let stacks = Math.round(bltc.bought / 250);
+
+            return Math.ceil(stacks / 5) * 250;
+        }
+
         if (item.name.includes('Viper') || item.name.includes('Minstrel')) {
             return Math.ceil(bltc.sold / 30);
         }
@@ -88,6 +95,7 @@ export default class TradeService {
         cost: number,
         item: Item,
         bltc: ItemBltc,
+        recipe: Recipe,
     ): TradeData {
         const totalBuy = inputs.reduce(
             (total, item: TradeItem) => total + item.price.buys.unit_price * item.quantity,
@@ -105,7 +113,7 @@ export default class TradeService {
             totalSell,
             profit,
             roi,
-            target: this.getRecipeTradeTarget(item, bltc),
+            target: this.getRecipeTradeTarget(item, bltc, recipe),
         };
     }
 
@@ -175,7 +183,7 @@ export default class TradeService {
                 recipe: recipe,
                 input: inputs,
                 output: outputs[0],
-                ...this.getRecipeTradeData(inputs, outputs, recipe.cost ?? 0, outputs[0].item, outputs[0].bltc),
+                ...this.getRecipeTradeData(inputs, outputs, recipe.cost ?? 0, outputs[0].item, outputs[0].bltc, recipe),
             });
         }
 
@@ -241,7 +249,7 @@ export default class TradeService {
                 recipe: recipe,
                 input: inputs[0],
                 output: outputs,
-                ...this.getRecipeTradeData(inputs, outputs, recipe.cost, inputs[0].item, inputs[0].bltc),
+                ...this.getRecipeTradeData(inputs, outputs, recipe.cost, inputs[0].item, inputs[0].bltc, recipe),
             });
         }
 

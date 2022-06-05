@@ -16,17 +16,15 @@
         <div class="row">
             <div class="col-4 mb-4" v-for="trade in getItems()" :key="trade.recipe.id">
                 <div class="card" v-bind:class="{'bg-danger': trade.roi < 10, 'text-white': trade.roi < 10}">
-                    <div class="card-header d-flex justify-content-between">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
                             <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.input.item.id" target="_blank">
                                 <img v-bind:src="trade.input.item.icon" alt="">
                             </a>
                             {{ trade.input.item.name }}
                         </div>
-                        <div>
-                            Buy:
-                            <Gold :amount="trade.totalBuy - 3" bold="true"></Gold>
-                        </div>
+                        
+                        <span v-bind:class="{'badge bg-primary': isListed(trade)}">{{ getListedCount(trade) }} / {{ trade.target }}</span>
                     </div>
                     <div class="card-body">
                         <table class="table table-stripped">
@@ -58,7 +56,7 @@
                                     <td><strong>{{ trade.recipe.cost }}</strong></td>
                                     <td class="text-end">Buy:</td>
                                     <td class="text-end">
-                                        <Gold :amount="trade.totalBuy" bold="true"></Gold>
+                                        <Gold :amount="trade.totalBuy - 3" bold="true"></Gold>
                                     </td>
                                 </tr>
                                 <tr>
@@ -89,11 +87,12 @@
 </template>
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
-import { SalvageTrade } from '../../../shared';
+import { ListedItem, RecipeTrade, SalvageTrade } from '../../../shared';
 import Gold from './Gold.vue';
 
 class SalvageListProps {
     items = prop<Array<SalvageTrade>>({required: true});
+    currentBuys = prop<Array<ListedItem>>({required: true});
 }
 
 @Options({
@@ -115,6 +114,22 @@ export default class SalvageList extends Vue.with(SalvageListProps) {
                 .toLowerCase()
                 .includes(this.search),
             );
+    }
+
+    public isListed(trade: RecipeTrade): boolean {
+        return this.currentBuys.find((item: ListedItem) => item.itemId === trade.id) !== undefined;
+    }
+
+    public getListedCount(trade: RecipeTrade): number {
+        let count = 0
+
+        for (const item of this.currentBuys) {
+            if (trade.id === item.itemId) {
+                count += item.quantity;
+            }
+        }
+
+        return count;
     }
 }
 </script>
