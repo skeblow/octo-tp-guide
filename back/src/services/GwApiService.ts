@@ -61,7 +61,29 @@ export default class GwApiService {
                     itemId: val.item_id,
                     price: val.price,
                     quantity: val.quantity,
-                    createdAt: val.created,
+                    createdAt: new Date(val.created),
+                };
+            }))
+            .then(res => res.reverse());
+    }
+
+    public getCurrentBuys(token: string): Promise<Array<ListedItem>> {
+        return Promise.all([
+            fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=0'),
+            fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=1'),
+            fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=2'),
+            fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=3'),
+        ])
+            .then((res) => Promise.all(res.map(res => res.json())))
+            .then((res: Array<Array<any>|object>) => res.filter(item => Array.isArray(item)))
+            .then(res => res.flat())
+            .then(res => res.map(val => {
+                return {
+                    id: val.id,
+                    itemId: val.item_id,
+                    price: val.price,
+                    quantity: val.quantity,
+                    createdAt: new Date(val.created),
                 };
             }))
             .then(res => res.reverse());

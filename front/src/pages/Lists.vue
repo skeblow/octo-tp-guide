@@ -2,7 +2,7 @@
     <div>
         <h1 class="h2">Lists</h1>
 
-        <div class="alert alert-info" v-if="activeListedItems.length === 0">
+        <div class="alert alert-info" v-if="currentSells.length === 0 && currentBuys.length === 0">
             Loading active listings
         </div>
 
@@ -117,10 +117,10 @@
             <div class="tab-pane fade show active">
                 <div class="card">
                     <div class="card-body">
-                        <BasicList v-if="isBasicListActive()" :items="trades"></BasicList>
+                        <BasicList v-if="isBasicListActive()" :items="trades" :currentBuys="currentBuys"></BasicList>
                         <RefineList v-if="isRefineListActive()" :items="trades"></RefineList>
                         <SalvageList v-if="isSalvageListActive()" :items="trades"></SalvageList>
-                        <RecipeList v-if="isRecipeListActive()" :items="trades" :activeListedItems="activeListedItems"></RecipeList>
+                        <RecipeList v-if="isRecipeListActive()" :items="trades" :currentSells="currentSells"></RecipeList>
                     </div>
                 </div>
             </div>
@@ -148,7 +148,8 @@ import TpService from '../services/TpService';
     },
 })
 export default class Lists extends Vue {
-    activeListedItems: Array<ListedItem> = [];
+    currentSells: Array<ListedItem> = [];
+    currentBuys: Array<ListedItem> = [];
     activeTab: string = 'cheap';
     trades: Array<BasicTrade|RecipeTrade|SalvageTrade> = [];
    
@@ -185,7 +186,10 @@ export default class Lists extends Vue {
 
         if (token) {
             TpService.getCurrentSells(token)
-                .then(res => this.activeListedItems = res);
+                .then(res => this.currentSells = res);
+
+            TpService.getCurrentBuys(token)
+                .then(res => this.currentBuys = res);
         }
     }
 }

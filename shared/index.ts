@@ -112,7 +112,7 @@ export interface ListedItem {
     itemId: number,
     price: number,
     quantity: number,
-    createdAt: string,
+    createdAt: Date,
 }
 
 export interface ListedItemToCancel {

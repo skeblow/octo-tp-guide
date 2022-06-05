@@ -92,7 +92,7 @@ import Gold from './Gold.vue';
 
 class RecipeListProps {
     items = prop<Array<RecipeTrade>>({required: true});
-    activeListedItems = prop<Array<ListedItem>>({required: true});
+    currentSells = prop<Array<ListedItem>>({required: true});
 }
 
 @Options({
@@ -122,13 +122,13 @@ export default class RecipeList extends Vue.with(RecipeListProps) {
     }
 
     public isListed(trade: RecipeTrade): boolean {
-        return this.activeListedItems.find((item: ListedItem) => item.itemId === trade.id) !== undefined;
+        return this.currentSells.find((item: ListedItem) => item.itemId === trade.id) !== undefined;
     }
 
     public getListedCount(trade: RecipeTrade): number {
         let count = 0
 
-        for (const item of this.activeListedItems) {
+        for (const item of this.currentSells) {
             if (trade.id === item.itemId) {
                 count += item.quantity;
             }

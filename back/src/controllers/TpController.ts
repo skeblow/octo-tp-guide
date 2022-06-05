@@ -19,6 +19,17 @@ export default class TpController {
             .then(sells => res.send(sells));
     }
 
+    public getCurrentBuys(req: any, res: any): void {
+        const token = req.query.token || '';
+
+        if (! token) {
+            throw 'No token provided!';
+        }
+
+        this.gwApiService.getCurrentBuys(token)
+            .then(sells => res.send(sells));
+    }
+
     public getCancelSells(req: any, res: any): void {
         const token = req.query.token || '';
 
