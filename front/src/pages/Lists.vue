@@ -62,26 +62,10 @@
             <li class="nav-item">
                 <button
                     type="button"
-                    v-on:click="toggleTab('weaponsmith')"
-                    class="nav-link"
-                    v-bind:class="{ active: activeTab === 'weaponsmith' }"
-                >weapon</button>
-            </li>
-            <li class="nav-item">
-                <button
-                    type="button"
                     v-on:click="toggleTab('artificier')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'artificier' }"
                 >artificier</button>
-            </li>
-            <li class="nav-item">
-                <button
-                    type="button"
-                    v-on:click="toggleTab('jewelcrafting')"
-                    class="nav-link"
-                    v-bind:class="{ active: activeTab === 'jewelcrafting' }"
-                >jwc</button>
             </li>
             <li class="nav-item">
                 <button
@@ -94,18 +78,34 @@
             <li class="nav-item">
                 <button
                     type="button"
-                    v-on:click="toggleTab('huntsman')"
-                    class="nav-link"
-                    v-bind:class="{ active: activeTab === 'huntsman' }"
-                >hunt</button>
-            </li>
-            <li class="nav-item">
-                <button
-                    type="button"
                     v-on:click="toggleTab('armorsmith')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'armorsmith' }"
                 >armor</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('jewelcrafting')"
+                    class="nav-link"
+                    v-bind:class="{ active: activeTab === 'jewelcrafting' }"
+                >jwc</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('weaponsmith')"
+                    class="nav-link"
+                    v-bind:class="{ active: activeTab === 'weaponsmith' }"
+                >weapon</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('huntsman')"
+                    class="nav-link"
+                    v-bind:class="{ active: activeTab === 'huntsman' }"
+                >hunt</button>
             </li>
             <li class="nav-item">
                 <button

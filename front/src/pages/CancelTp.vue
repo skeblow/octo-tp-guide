@@ -1,6 +1,22 @@
 <template>
     <div>
-        <h1 class="h2">Cancel tp items</h1>
+        <h1 class="h2">
+            Cancel current
+
+            <div class="form-check d-inline-flex" @click="setCurrentSells(true)">
+                <input class="form-check-input" type="radio" name="type" checked>
+                <label class="form-check-label">
+                    sells
+                </label>
+            </div>
+
+            <div class="form-check d-inline-flex ms-2" @click="setCurrentSells(false)">
+                <input class="form-check-input" type="radio" name="type" disabled>
+                <label class="form-check-label">
+                    buys
+                </label>
+            </div>
+        </h1>
 
         <table class="table table-stripped table hover">
             <thead>
@@ -82,6 +98,7 @@ import TokenService from '../services/TokenService';
     },
 })
 export default class CancelTp extends Vue {
+    isCurrentSells = true;
     currentSells: Array<ListedItemToCancel> = [];
     isInfoShown = false;
     currentListedItem: ListedItemToCancel|null = null;
@@ -103,6 +120,10 @@ export default class CancelTp extends Vue {
     public hideInfo(): void {
         this.isInfoShown = false;
         this.currentListedItem = null;
+    }
+
+    public setCurrentSells(isSells: boolean): void {
+        this.isCurrentSells = isSells;
     }
 }
 </script>

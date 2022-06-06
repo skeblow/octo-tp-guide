@@ -71,6 +71,19 @@ export default class ArtificierService {
                 ancientWood: 45,
             }),
 
+            {
+                // 9473-Quality-Tuning-Crystal
+                id: 9473,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 9473, quantity: 5 },
+                ],
+                input: [
+                   // 24276-Pile-of-Incandescent-Dust
+                   { id: 24276, quantity: 6 },
+                ],
+            },
+
             // {
             //     // 9476-Master-Tuning-Crystal
             //     id: 9476,

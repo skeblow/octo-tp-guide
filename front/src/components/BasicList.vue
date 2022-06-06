@@ -36,7 +36,7 @@
 </template>
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
-import { BasicTrade, ListedItem, RecipeTrade } from '../../../shared';
+import { BasicTrade, ListedItem } from '../../../shared';
 import Gold from './Gold.vue';
 
 class BasicListProps {
@@ -64,15 +64,15 @@ export default class BasicList extends Vue.with(BasicListProps) {
         return sign+diff;
     }
 
-    public isListed(trade: RecipeTrade): boolean {
-        return this.currentBuys.find((item: ListedItem) => item.itemId === trade.id) !== undefined;
+    public isListed(trade: BasicTrade): boolean {
+        return this.currentBuys.find((item: ListedItem) => item.itemId === trade.item.id) !== undefined;
     }
 
-    public getListedCount(trade: RecipeTrade): number {
+    public getListedCount(trade: BasicTrade): number {
         let count = 0
 
         for (const item of this.currentBuys) {
-            if (trade.id === item.itemId) {
+            if (trade.item.id === item.itemId) {
                 count += item.quantity;
             }
         }
