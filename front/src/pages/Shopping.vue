@@ -46,7 +46,7 @@ export default class Shopping extends Vue {
     private getRequestedItems(): Array<BankItem> {
         return [
             // Orichalcum Ingot
-            {id: 19685, count: 1000},
+            {id: 19685, count: 1500},
             // 19712 Ancient Wood Plank
             {id: 19712, count: 750},
             // 76491 Black Diamond

@@ -22,7 +22,9 @@ export default class DailyService {
 
                         for (const type in achievements) {
                             const ids: Array<number> = achievements[type].map((achievement: any) => +achievement.id);
-                            result[type] = fetchedAchievements.filter((a: Achievement) => ids.includes(a.id));
+                            result[type] = fetchedAchievements
+                                .filter((a: Achievement) => ids.includes(a.id))
+                                .sort((a1: Achievement, a2: Achievement): number => a1.name.localeCompare(a2.name));
                         }
 
                         return result;
