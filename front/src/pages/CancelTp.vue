@@ -33,7 +33,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="sell in currentSells" :key="sell.listedItem.id">
+                <tr v-for="sell in currentSells" :key="sell.listedItem.id" v-bind:class="{'bg-danger': sell.shouldCancel}">
                     <td>
                         <a v-bind:href="'https://www.gw2bltc.com/en/item/'+sell.item.id" target="_blank">
                             <img v-bind:src="sell.item.icon" alt="">
@@ -136,7 +136,7 @@ export default class CancelTp extends Vue {
         const now = new Date();
         const createdAt = new Date(listedItem.listedItem.createdAt);
 
-        return Math.ceil((createdAt.valueOf() - now.valueOf()) / (1000 * 60 * 60 * 24))
+        return Math.ceil((createdAt.valueOf() - now.valueOf()) / (1000 * 60 * 60 * 24));
     }
 }
 </script>

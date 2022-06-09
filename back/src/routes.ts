@@ -55,7 +55,7 @@ const tailorService = new TailorService();
 const armorsmithService = new ArmorsmithService();
 const leatherworkerService = new LeatherworkerService();
 const dailyService = new DailyService(gwApiService);
-const tpService = new TpService(gwApiService, itemService, priceService);
+const tpService = new TpService(gwApiService, itemService, priceService, bltcService);
 
 const listService = new ListService(
     mongoService,
