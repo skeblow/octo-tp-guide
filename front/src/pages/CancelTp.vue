@@ -29,6 +29,7 @@
                     <th>Diff</th>
                     <th>Created at</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -43,7 +44,8 @@
                     <td><Gold :amount="sell.listedItem.price"></Gold></td>
                     <td><Gold :amount="sell.itemPrice.sells.unit_price"></Gold></td>
                     <td>{{ sell.diff }}%</td>
-                    <td>{{ sell.listedItem.createdAt }}</td>
+                    <td>{{ getCreatedAt(sell) }}</td>
+                    <td>{{ getDateDiff(sell) }} days</td>
                     <td><button class="btn btn-secondary" @click="showInfo(sell)">Info</button></td>
                 </tr>
             </tbody>
@@ -124,6 +126,17 @@ export default class CancelTp extends Vue {
 
     public setCurrentSells(isSells: boolean): void {
         this.isCurrentSells = isSells;
+    }
+
+    public getCreatedAt(listedItem: ListedItemToCancel): string {
+        return new Date(listedItem.listedItem.createdAt).toLocaleDateString();
+    }
+
+    public getDateDiff(listedItem: ListedItemToCancel): number {
+        const now = new Date();
+        const createdAt = new Date(listedItem.listedItem.createdAt);
+
+        return Math.ceil((createdAt.valueOf() - now.valueOf()) / (1000 * 60 * 60 * 24))
     }
 }
 </script>
