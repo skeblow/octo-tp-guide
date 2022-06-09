@@ -46,14 +46,6 @@
             <li class="nav-item">
                 <button
                     type="button"
-                    v-on:click="toggleTab('cooking')"
-                    class="nav-link"
-                    v-bind:class="{ active: activeTab === 'cooking' }"
-                >food</button>
-            </li>
-            <li class="nav-item">
-                <button
-                    type="button"
                     v-on:click="toggleTab('open')"
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'open' }"
@@ -90,6 +82,14 @@
                     class="nav-link"
                     v-bind:class="{ active: activeTab === 'jewelcrafting' }"
                 >jwc</button>
+            </li>
+            <li class="nav-item">
+                <button
+                    type="button"
+                    v-on:click="toggleTab('cooking')"
+                    class="nav-link"
+                    v-bind:class="{ active: activeTab === 'cooking' }"
+                >food</button>
             </li>
             <li class="nav-item">
                 <button

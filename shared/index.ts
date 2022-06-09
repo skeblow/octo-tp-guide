@@ -22,13 +22,13 @@ export interface ItemPrice {
 }
 
 export interface ItemBltc {
-    _id?: number;
-    id: number;
-    bought: number;
-    oldBought: number;
-    sold: number;
-    oldSold: number;
-    date: Date;
+    _id?: number,
+    id: number,
+    bought: number,
+    oldBought: number,
+    sold: number,
+    oldSold: number,
+    date: Date,
 }
 
 export enum RecipeType {
@@ -85,7 +85,7 @@ export interface RecipeTrade extends TradeData {
     id: number,
     recipe: Recipe,
     input: Array<TradeItem>,
-    output: TradeItem;
+    output: TradeItem,
 }
 
 export interface SalvageTrade extends TradeData {
@@ -96,15 +96,15 @@ export interface SalvageTrade extends TradeData {
 }
 
 export interface BankItem {
-    id: number;
-    count: number;
+    id: number,
+    count: number,
 }
 
 export interface Achievement {
-    id: number;
-    name: string;
-    description: string;
-    requirement: string;
+    id: number,
+    name: string,
+    description: string,
+    requirement: string,
 }
 
 export interface ListedItem {

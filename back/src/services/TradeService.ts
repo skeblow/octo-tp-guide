@@ -26,7 +26,7 @@ export default class TradeService {
     private getBasicTradeTarget(bltc: ItemBltc): number {
         let stacks = Math.round( Math.min(bltc.bought, bltc.sold) / 250 );
 
-        return Math.ceil(stacks / 10) * 250;
+        return Math.ceil(stacks / 20) * 250;
     }
 
     private getRecipeTradeTarget(item: Item, bltc: ItemBltc, recipe: Recipe): number {
@@ -47,7 +47,7 @@ export default class TradeService {
         if (item.name.includes('Potent Potion') || item.name.includes('Sharpening')) {
             let stacks = Math.round(bltc.sold / 250);
 
-            return Math.ceil(stacks / 15) * 250;
+            return Math.ceil(stacks / 20) * 250;
         }
 
         if (item.name.includes('Pearl')) {

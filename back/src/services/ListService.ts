@@ -46,6 +46,8 @@ export default class ListService {
                 8865, 8869, 8870, 8874, 8867, 8873, 8868, 8878, // all potent potions
                 9440, // Hardened-Sharpening-Stone
                 9473, // Quality-Tuning-Crystal
+                82866, // Handful of Red Lentils
+                21686, // Coarse Leather Strap
             ].includes(trade.item.id)))
             .then((list) =>
                 list.sort((trade1: BasicTrade, trade2: BasicTrade) =>
