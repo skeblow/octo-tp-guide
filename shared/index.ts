@@ -121,6 +121,7 @@ export interface ListedItemToCancel {
     itemPrice: ItemPrice,
     diff: number,
     listing: Listing,
+    shouldCancel: boolean,
 }
 
 export interface Listing {

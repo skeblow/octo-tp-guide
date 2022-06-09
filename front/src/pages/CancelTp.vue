@@ -26,7 +26,7 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Current Price</th>
-                    <th>Diff</th>
+                    <th>Price diff</th>
                     <th>Created at</th>
                     <th></th>
                     <th></th>

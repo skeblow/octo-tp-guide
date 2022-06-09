@@ -41,6 +41,10 @@ export default class TradeService {
         }
 
         if (item.name.includes('Amulet') || item.name.includes('Earring') || item.name.includes('Ring')) {
+            if (item.name.includes('Opal')) {
+                return Math.ceil(bltc.sold / 15);
+            }
+
             return Math.ceil(bltc.sold / 20);
         }
 
