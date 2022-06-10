@@ -252,6 +252,24 @@ export default class ArtificierService {
                     { id: 12156, quantity: 1 },
                 ],
             },
+            {
+                // 8866-Potent-Potion-of-Outlaw-Slaying
+                id: 8866,
+                type: RecipeType.artificier,
+                output: [
+                    { id: 8866, quantity: 3 },
+                ],
+                input: [
+                    // 24276-Pile-of-Incandescent-Dust
+                    { id: 24276, quantity: 1 },
+                    // 24294-Vial-of-Potent-Blood
+                    { id: 24294, quantity: 1 },
+                    // 24359-Slab-of-Red-Meat
+                    { id: 24359, quantity: 1 },
+                    // 12156-Jug-of-Water
+                    { id: 12156, quantity: 1 },
+                ],
+            },
         ];
     }
 
