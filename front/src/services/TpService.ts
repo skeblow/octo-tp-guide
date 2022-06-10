@@ -16,6 +16,11 @@ class TpService {
         return fetch(BASE_URL + '/tp/current/buys?token=' + token)
             .then(res => res.json())
     }
+
+    public getCancelBuys(token: string): Promise<Array<ListedItemToCancel>> {
+        return fetch(BASE_URL + '/tp/cancel/buys?token=' + token)
+            .then(res => res.json())
+    }
 }
 
 export default new TpService();

@@ -4,15 +4,15 @@
             Cancel current
 
             <div class="form-check d-inline-flex" @click="setCurrentSells(true)">
-                <input class="form-check-input" type="radio" name="type" checked>
                 <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="type" checked>
                     sells
                 </label>
             </div>
 
             <div class="form-check d-inline-flex ms-2" @click="setCurrentSells(false)">
-                <input class="form-check-input" type="radio" name="type" disabled>
                 <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="type">
                     buys
                 </label>
             </div>
@@ -126,6 +126,19 @@ export default class CancelTp extends Vue {
 
     public setCurrentSells(isSells: boolean): void {
         this.isCurrentSells = isSells;
+        this.currentSells = [];
+
+        const token = TokenService.getToken();
+
+        if (token) {
+            if (isSells) {
+                TpService.getCancelSells(token)
+                    .then(res => this.currentSells = res);
+            } else {
+                TpService.getCancelBuys(token)
+                    .then(res => this.currentSells = res);
+            }
+        }
     }
 
     public getCreatedAt(listedItem: ListedItemToCancel): string {

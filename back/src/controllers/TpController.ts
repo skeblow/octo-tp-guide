@@ -40,4 +40,15 @@ export default class TpController {
         this.tpService.getCancelSells(token)
             .then(sells => res.send(sells));
     }
+
+    public getCancelBuys(req: any, res: any): void {
+        const token = req.query.token || '';
+
+        if (! token) {
+            throw 'No token provided!';
+        }
+
+        this.tpService.getCancelBuys(token)
+            .then(sells => res.send(sells));
+    }
 }

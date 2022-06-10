@@ -144,4 +144,9 @@ export const ROUTES: Route[] = [
         method: 'get',
         handler: (req, res) => tpController.getCancelSells(req, res),
     },
+    {
+        route: '/tp/cancel/buys',
+        method: 'get',
+        handler: (req, res) => tpController.getCancelBuys(req, res),
+    },
 ];

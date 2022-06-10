@@ -13,37 +13,46 @@ export default class TpService {
     ) {
     }
 
+    public getCancelBuys(token: string): Promise<Array<ListedItemToCancel>> {
+        return this.gwApiService.getCurrentBuys(token)
+            .then(listedItems => this.transformListedItemsToItemsToCancel(listedItems, false));
+    }
+
     public getCancelSells(token: string): Promise<Array<ListedItemToCancel>> {
         return this.gwApiService.getCurrentSells(token)
-            .then(listedItems => {
-                let itemIds = listedItems.map((listedItem: ListedItem) => listedItem.itemId);
-                itemIds = [...new Set(itemIds)];
+            .then(listedItems => this.transformListedItemsToItemsToCancel(listedItems, true));
+    }
 
-                return Promise.all([
-                    this.itemService.getAllByIds(itemIds),
-                    this.priceService.getPricesByIds(itemIds),
-                    this.gwApiService.getListingsByIds(itemIds),
-                    this.bltcService.getBltcByIds(itemIds),
-                ])
-                    .then(([items, itemPrices, listings, bltcs]: [Array<Item>, Array<ItemPrice>, Array<Listing>, Array<ItemBltc>]) => listedItems.map(
-                        listedItem => {
-                            const item = items.find(item => item.id === listedItem.itemId) as Item;
-                            const itemPrice = itemPrices.find(itemPrice => itemPrice.id === listedItem.itemId) as ItemPrice;
-                            const diff = Math.round((listedItem.price - itemPrice.sells.unit_price) / listedItem.price * 100);
-                            const listing = listings.find(listing => listing.id === listedItem.itemId) as Listing;
-                            const bltc = bltcs.find(bltc => bltc.id === listedItem.itemId) as ItemBltc;
+    private transformListedItemsToItemsToCancel(listedItems: Array<ListedItem>, isSell: boolean): Promise<Array<ListedItemToCancel>> {
+        let itemIds = listedItems.map((listedItem: ListedItem) => listedItem.itemId);
+        itemIds = [...new Set(itemIds)];
 
-                            return {
-                                listedItem,
-                                item,
-                                itemPrice,
-                                diff,
-                                listing,
-                                shouldCancel: this.shouldCancelSell(listedItem, listing, bltc),
-                            };
-                        }
-                    ))
-            });
+        return Promise.all([
+            this.itemService.getAllByIds(itemIds),
+            this.priceService.getPricesByIds(itemIds),
+            this.gwApiService.getListingsByIds(itemIds),
+            this.bltcService.getBltcByIds(itemIds),
+        ])
+            .then(([items, itemPrices, listings, bltcs]: [Array<Item>, Array<ItemPrice>, Array<Listing>, Array<ItemBltc>]) => listedItems.map(
+                listedItem => {
+                    const item = items.find(item => item.id === listedItem.itemId) as Item;
+                    const itemPrice = itemPrices.find(itemPrice => itemPrice.id === listedItem.itemId) as ItemPrice;
+                    const diff = Math.round((listedItem.price - itemPrice.sells.unit_price) / listedItem.price * 100);
+                    const listing = listings.find(listing => listing.id === listedItem.itemId) as Listing;
+                    const bltc = bltcs.find(bltc => bltc.id === listedItem.itemId) as ItemBltc;
+
+                    return {
+                        listedItem,
+                        item,
+                        itemPrice,
+                        diff,
+                        listing,
+                        shouldCancel: isSell 
+                            ? this.shouldCancelSell(listedItem, listing, bltc)
+                            : this.shouldCancelBuy(listedItem, listing, bltc),
+                    };
+                }
+            ));
     }
 
     private shouldCancelSell(listedItem: ListedItem, listing: Listing, bltc: ItemBltc): boolean {
@@ -66,5 +75,27 @@ export default class TpService {
         }
 
         return position >= bltc.sold * 0.75;
+    }
+
+    private shouldCancelBuy(listedItem: ListedItem, listing: Listing, bltc: ItemBltc): boolean {
+        const now = new Date();
+        const createdAt = new Date(listedItem.createdAt);
+        const dateDiff = Math.ceil((createdAt.valueOf() - now.valueOf()) / (1000 * 60 * 60 * 24));
+
+        if (dateDiff > -1) {
+            return false;
+        }
+
+        let position = 0;
+
+        for (const sell of listing.buys) {
+            if (sell.unit_price === listedItem.price) {
+                break;
+            }
+
+            position += sell.quantity;
+        }
+
+        return position >= bltc.bought * 0.5;
     }
 }
