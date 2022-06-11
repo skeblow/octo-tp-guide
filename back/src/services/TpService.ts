@@ -37,7 +37,11 @@ export default class TpService {
                 listedItem => {
                     const item = items.find(item => item.id === listedItem.itemId) as Item;
                     const itemPrice = itemPrices.find(itemPrice => itemPrice.id === listedItem.itemId) as ItemPrice;
-                    const diff = Math.round((listedItem.price - itemPrice.sells.unit_price) / listedItem.price * 100);
+                    const price = isSell
+                        ? itemPrice.sells.unit_price
+                        : itemPrice.buys.unit_price;
+
+                    const diff = Math.round((listedItem.price - price) / listedItem.price * 100);
                     const listing = listings.find(listing => listing.id === listedItem.itemId) as Listing;
                     const bltc = bltcs.find(bltc => bltc.id === listedItem.itemId) as ItemBltc;
 

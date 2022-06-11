@@ -50,12 +50,9 @@ export default class ListService {
                 21686, // Coarse Leather Strap
                 19687, // Silver Ingot
                 86287, // Corsair Tuning Crystal
+                12506, // Tarragon Leaves
             ].includes(trade.item.id)))
-            .then((list) =>
-                list.sort((trade1: BasicTrade, trade2: BasicTrade) =>
-                    trade2.roi - trade1.roi
-                )
-            );
+            .then((list) => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi));
     }
 
     public getExpensiveBasicList(): Promise<Array<BasicTrade>> {

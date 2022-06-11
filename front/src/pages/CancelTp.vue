@@ -42,7 +42,7 @@
                     <td>{{ sell.listedItem.quantity }}x</td>
                     <td>{{ sell.item.name }}</td>
                     <td><Gold :amount="sell.listedItem.price"></Gold></td>
-                    <td><Gold :amount="sell.itemPrice.sells.unit_price"></Gold></td>
+                    <td><Gold :amount="getPrice(sell)"></Gold></td>
                     <td>{{ sell.diff }}%</td>
                     <td>{{ getCreatedAt(sell) }}</td>
                     <td>{{ getDateDiff(sell) }} days</td>
@@ -68,7 +68,7 @@
                             </thead>
                             <tbody>
                                 <tr 
-                                    v-for="sell in currentListedItem.listing.sells"
+                                    v-for="sell in getListing(currentListedItem)"
                                     v-bind:key="sell.unit_price"
                                     v-bind:class="{'table-info': sell.unit_price === currentListedItem.listedItem.price}"
                                 >
@@ -100,7 +100,7 @@ import TokenService from '../services/TokenService';
     },
 })
 export default class CancelTp extends Vue {
-    isCurrentSells = true;
+    isSells = true;
     currentSells: Array<ListedItemToCancel> = [];
     isInfoShown = false;
     currentListedItem: ListedItemToCancel|null = null;
@@ -125,7 +125,7 @@ export default class CancelTp extends Vue {
     }
 
     public setCurrentSells(isSells: boolean): void {
-        this.isCurrentSells = isSells;
+        this.isSells = isSells;
         this.currentSells = [];
 
         const token = TokenService.getToken();
@@ -150,6 +150,18 @@ export default class CancelTp extends Vue {
         const createdAt = new Date(listedItem.listedItem.createdAt);
 
         return Math.ceil((createdAt.valueOf() - now.valueOf()) / (1000 * 60 * 60 * 24));
+    }
+    
+    public getPrice(listedItem: ListedItemToCancel): number {
+        return this.isSells
+            ? listedItem.itemPrice.sells.unit_price
+            : listedItem.itemPrice.buys.unit_price;
+    }
+
+    public getListing(listedItem: ListedItemToCancel): Array<any> {
+        return this.isSells
+            ? listedItem.listing.sells
+            : listedItem.listing.buys;
     }
 }
 </script>

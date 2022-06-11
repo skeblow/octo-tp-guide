@@ -58,18 +58,18 @@ export default class ArtificierService {
                 ancientWood: 30 + 15,
             }),
 
-            // 73265-Minstrels-Pearl-Quarterstaff
-            this.recipeService.createMinstrelPearlRecipe({
-                output: 73265,
-                orichalcumOre: 30,
-                ancientWood: 48,
-            }),
-            // 73404-Minstrels-Pearl-Rod
-            this.recipeService.createMinstrelPearlRecipe({
-                output: 73404,
-                orichalcumOre: 30,
-                ancientWood: 45,
-            }),
+            // // 73265-Minstrels-Pearl-Quarterstaff
+            // this.recipeService.createMinstrelPearlRecipe({
+            //     output: 73265,
+            //     orichalcumOre: 30,
+            //     ancientWood: 48,
+            // }),
+            // // 73404-Minstrels-Pearl-Rod
+            // this.recipeService.createMinstrelPearlRecipe({
+            //     output: 73404,
+            //     orichalcumOre: 30,
+            //     ancientWood: 45,
+            // }),
 
             {
                 // 9473-Quality-Tuning-Crystal
