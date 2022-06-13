@@ -51,6 +51,9 @@ export default class ListService {
                 19687, // Silver Ingot
                 86287, // Corsair Tuning Crystal
                 12506, // Tarragon Leaves
+                8826, // Minor Potion of Demon Slaying
+                72579, // Sheet of Coarse Paper
+                19680, // Copper Ingot
             ].includes(trade.item.id)))
             .then((list) => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi));
     }
