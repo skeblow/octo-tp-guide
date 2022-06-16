@@ -45,48 +45,56 @@ export default class GwApiService {
             ));
     }
 
-    public getCurrentSells(token: string): Promise<Array<ListedItem>> {
-        return Promise.all([
-            fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=0'),
-            fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=1'),
-            fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=2'),
-            fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=3'),
-        ])
-            .then((res) => Promise.all(res.map(res => res.json())))
-            .then((res: Array<Array<any>|object>) => res.filter(item => Array.isArray(item)))
-            .then(res => res.flat())
-            .then(res => res.map(val => {
-                return {
-                    id: val.id,
-                    itemId: val.item_id,
-                    price: val.price,
-                    quantity: val.quantity,
-                    createdAt: new Date(val.created),
-                };
-            }))
-            .then(res => res.reverse());
+    public async getCurrentSells(token: string): Promise<Array<ListedItem>> {
+        let sells: Array<ListedItem> = [];
+
+        for (let i = 0; i < 5; i++) {
+            const items: Array<any> = await fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=' + i)
+                .then(res => res.json())
+                .then((res: Array<any>) => res.map(val => {
+                    return {
+                        id: val.id,
+                        itemId: val.item_id,
+                        price: val.price,
+                        quantity: val.quantity,
+                        createdAt: new Date(val.created),
+                    };
+                }));
+            
+            sells = sells.concat(items);
+
+            if (items.length < 50) {
+                break;
+            }
+        }
+
+        return sells.reverse();
     }
 
-    public getCurrentBuys(token: string): Promise<Array<ListedItem>> {
-        return Promise.all([
-            fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=0'),
-            fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=1'),
-            fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=2'),
-            fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=3'),
-        ])
-            .then((res) => Promise.all(res.map(res => res.json())))
-            .then((res: Array<Array<any>|object>) => res.filter(item => Array.isArray(item)))
-            .then(res => res.flat())
-            .then(res => res.map(val => {
-                return {
-                    id: val.id,
-                    itemId: val.item_id,
-                    price: val.price,
-                    quantity: val.quantity,
-                    createdAt: new Date(val.created),
-                };
-            }))
-            .then(res => res.reverse());
+    public async getCurrentBuys(token: string): Promise<Array<ListedItem>> {
+        let buys: Array<ListedItem> = [];
+
+        for (let i = 0; i < 5; i++) {
+            const items: Array<any> = await fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=' + i)
+                .then(res => res.json())
+                .then((res: Array<any>) => res.map(val => {
+                    return {
+                        id: val.id,
+                        itemId: val.item_id,
+                        price: val.price,
+                        quantity: val.quantity,
+                        createdAt: new Date(val.created),
+                    };
+                }));
+            
+            buys = buys.concat(items);
+
+            if (items.length < 50) {
+                break;
+            }
+        }
+
+        return buys.reverse();
     }
 
     public getListingsByIds(ids: Array<number>): Promise<Array<Listing>> {
