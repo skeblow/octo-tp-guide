@@ -141,29 +141,29 @@ export default class SalvageService {
             //     ],
             //     cost: 3,
             // },
-            // {
-            //     // unstable wrapped hide
-            //     id: 79213,
-            //     type: RecipeType.salvage,
-            //     input: [
-            //         { id: 79213, quantity: 1 },
-            //     ],
-            //     output: [
-            //         // rawhide leather section
-            //         { id: 19719, quantity: 0.18 },
-            //         // thin leather section
-            //         { id: 19728, quantity: 0.45 },
-            //         // coarse leather section
-            //         { id: 19730, quantity: 0.45 },
-            //         // rugged leather section
-            //         { id: 19731, quantity: 0.49 },
-            //         // thick leather section
-            //         { id: 19729, quantity: 0.16 },
-            //         // hardened leather section
-            //         { id: 19732, quantity: 0.3 },
-            //     ],
-            //     cost: 3,
-            // },
+            {
+                // unstable wrapped hide
+                id: 79213,
+                type: RecipeType.salvage,
+                input: [
+                    { id: 79213, quantity: 1 },
+                ],
+                output: [
+                    // rawhide leather section
+                    { id: 19719, quantity: 0.18 },
+                    // thin leather section
+                    { id: 19728, quantity: 0.45 },
+                    // coarse leather section
+                    { id: 19730, quantity: 0.45 },
+                    // rugged leather section
+                    { id: 19731, quantity: 0.49 },
+                    // thick leather section
+                    { id: 19729, quantity: 0.16 },
+                    // hardened leather section
+                    { id: 19732, quantity: 0.3 },
+                ],
+                cost: 3,
+            },
             {
                 // hard leather strap
                 id: 21689,

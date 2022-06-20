@@ -54,6 +54,7 @@ export default class ListService {
                 8826, // Minor Potion of Demon Slaying
                 72579, // Sheet of Coarse Paper
                 19680, // Copper Ingot
+                19738, // Stretched Rawhide Leather Square
             ].includes(trade.item.id)))
             .then((list) => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi));
     }
