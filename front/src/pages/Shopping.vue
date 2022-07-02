@@ -10,6 +10,7 @@
                     <th>Name</th>
                     <th>Count in bank</th>
                     <th>Requested count</th>
+                    <th>Ordered</th>
                     <th>Missing</th>
                 </tr>
             </thead>
@@ -24,7 +25,8 @@
                     <td>{{ item.name }}</td>
                     <td>{{ getCountInBank(item) }}</td>
                     <td>{{ getRequestedCount(item) }}</td>
-                    <td>{{ getMissing(item) }}</td>
+                    <td>{{ getBuyCount(item) }}</td>
+                    <td>{{ Math.max(getMissing(item) - getBuyCount(item), 0) }} / {{ getMissing(item) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -35,37 +37,55 @@
 import { Options, Vue } from 'vue-class-component';
 import TokenService from '../services/TokenService';
 import ApiService from '../services/ApiService';
-import { BankItem, Item } from '../../../shared';
+import { BankItem, Item, ListedItem } from '../../../shared';
 import ItemService from '../services/ItemService';
+import TpService from '../services/TpService';
 
 @Options({})
 export default class Shopping extends Vue {
     items: Array<Item> = [];
     bankMaterials: Array<BankItem> = [];
+    currentBuys: Array<ListedItem> = [];
 
     private getRequestedItems(): Array<BankItem> {
         return [
+            // orichalcum ore
+            {id: 19701, count: 0},
             // Orichalcum Ingot
             {id: 19685, count: 1500},
+
+            // ancient wood log
+            { id: 19725, count: 0 },
             // 19712 Ancient Wood Plank
+
             {id: 19712, count: 750},
             // 76491 Black Diamond
             {id: 76491, count: 150},
+
             // 75654 Ebony Orb
             {id: 75654, count: 300},
+
             // 76179 Freshwater Pearl
             {id: 76179, count: 50},
+
             // 19721 Glob of Ectoplasm
             {id: 19721, count: 500},
+
+            // hardened leather section
+            { id: 19732, count: 0 },
             // 19737, hardened leather square
             {id: 19737, count: 300},
+
+            // 74090-Pile-of-Flax-Seeds
+            {id: 74090, count: 0},
             // 73034 Vial of Linseed Oil
             {id: 73034, count: 250},
-            // 24295 Vial of Powerful Blood
-            {id: 24295, count: 150},
+
+            // // 24295 Vial of Powerful Blood
+            // {id: 24295, count: 150},
 
             // 24276-Pile-of-Incandescent-Dust
-            { id: 24276, count: 4000 },
+            { id: 24276, count: 3000 },
             // // 24474-Ruby-Crystal
             // { id: 24474, count: 2000 },
             // // 24475-Sapphire-Crystal
@@ -100,6 +120,9 @@ export default class Shopping extends Vue {
         if (token) {
             ApiService.getBankMaterials(token)
                 .then(items => this.bankMaterials = items);
+
+            TpService.getCurrentBuys(token)
+                .then(res => this.currentBuys = res);
         }
 
         const requestedItemIds = this.getRequestedItems().map(item => item.id);
@@ -137,6 +160,18 @@ export default class Shopping extends Vue {
 
     public getMissing(item: Item): number {
         return Math.max(this.getRequestedCount(item) - this.getCountInBank(item), 0);
+    }
+
+    public getBuyCount(item: Item): number {
+        let count = 0
+
+        for (const buy of this.currentBuys) {
+            if (item.id === buy.itemId) {
+                count += buy.quantity;
+            }
+        }
+
+        return count;
     }
 }
 </script>
