@@ -64,7 +64,7 @@ export default class TpService {
         const createdAt = new Date(listedItem.createdAt);
         const dateDiff = Math.ceil((createdAt.valueOf() - now.valueOf()) / (1000 * 60 * 60 * 24));
 
-        if (dateDiff > -2) {
+        if (dateDiff > -1) {
             return false;
         }
 

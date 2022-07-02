@@ -51,6 +51,13 @@ export default class GwApiService {
         for (let i = 0; i < 5; i++) {
             const items: Array<any> = await fetch(this.BASE_URL + '/commerce/transactions/current/sells?access_token=' + token + '&page=' + i)
                 .then(res => res.json())
+                .then(res => {
+                    if (! Array.isArray(res)) {
+                        return [];
+                    }
+
+                    return res;
+                })
                 .then((res: Array<any>) => res.map(val => {
                     return {
                         id: val.id,
@@ -77,6 +84,13 @@ export default class GwApiService {
         for (let i = 0; i < 5; i++) {
             const items: Array<any> = await fetch(this.BASE_URL + '/commerce/transactions/current/buys?access_token=' + token + '&page=' + i)
                 .then(res => res.json())
+                .then(res => {
+                    if (! Array.isArray(res)) {
+                        return [];
+                    }
+
+                    return res;
+                })
                 .then((res: Array<any>) => res.map(val => {
                     return {
                         id: val.id,
