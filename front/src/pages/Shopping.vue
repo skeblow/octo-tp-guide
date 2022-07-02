@@ -66,14 +66,14 @@ export default class Shopping extends Vue {
 
             // 24276-Pile-of-Incandescent-Dust
             { id: 24276, count: 4000 },
-            // 24474-Ruby-Crystal
-            { id: 24474, count: 2000 },
-            // 24475-Sapphire-Crystal
-            { id: 24475, count: 2000 },
+            // // 24474-Ruby-Crystal
+            // { id: 24474, count: 2000 },
+            // // 24475-Sapphire-Crystal
+            // { id: 24475, count: 2000 },
             // 24350-Large-Claw
-            { id: 24350, count: 2000 },
+            { id: 24350, count: 2500 },
             // 24299-Intricate-Totem
-            { id: 24299, count: 2000 },
+            { id: 24299, count: 2500 },
 
             // 12142 Onion
             {id: 12142, count: 1000},

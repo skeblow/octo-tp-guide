@@ -46,7 +46,7 @@ export default class TradeService {
             }
 
             if (item.name.includes('Freshwater Pearl')) {
-                return Math.ceil(bltc.sold / 30);
+                return Math.ceil(bltc.sold / 40);
             }
 
             return Math.ceil(bltc.sold / 20);

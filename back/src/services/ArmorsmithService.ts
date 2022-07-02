@@ -76,6 +76,22 @@ export default class ArmorsmithService {
                 orichalcumOre: 4,
                 gossamerScrap: 10,
             }),
+            // 72194-Silk-Patch
+            {
+                id: 72194,
+                type: RecipeType.armorsmith,
+                output: [
+                    { id: 72194, quantity: 5 },
+                ],
+                input: [
+                    // thick leather section
+                    { id: 19729, quantity: 40 },
+                    // silk scrap
+                    { id: 19748, quantity: 12 },
+                ],
+                // spools
+                cost: 25 * 48,
+            }
         ];
     }
 
