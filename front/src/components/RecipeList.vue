@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row mb-4">
+        <div class="row mb-2">
             <div class="col-6">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search..." v-model="search">
@@ -9,6 +9,16 @@
                         type="button"
                         @click="clearSearch"
                     >X</button>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-6">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" @click="toggleIngredients">
+                        Show recipe ingredients
+                    </label>
                 </div>
             </div>
         </div>
@@ -29,7 +39,7 @@
                         <span v-bind:class="{'badge bg-success': isListed(trade)}">{{ getListedCount(trade) }} / {{ trade.target }}</span>
                     </div>
                     <div class="card-body">
-                        <table class="table table-stripped">
+                        <table class="table table-stripped" v-if="showIngredients">
                             <tbody>
                                 <tr v-for="input in trade.input" :key="input.item.id">
                                     <td>
@@ -102,6 +112,7 @@ class RecipeListProps {
 })
 export default class RecipeList extends Vue.with(RecipeListProps) {
     search: string = '';
+    showIngredients = false;
 
     public getRawSell(trade: RecipeTrade): number {
         return trade.input.reduce((total, input) => total + (input.price.sells.unit_price * input.quantity), 0);
@@ -135,6 +146,10 @@ export default class RecipeList extends Vue.with(RecipeListProps) {
         }
 
         return count;
+    }
+
+    public toggleIngredients(): void {
+        this.showIngredients = ! this.showIngredients;
     }
 }
 </script>

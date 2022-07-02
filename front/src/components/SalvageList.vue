@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row mb-4">
+        <div class="row mb-1">
             <div class="col-6">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search..." v-model="search">
@@ -9,6 +9,16 @@
                         type="button"
                         @click="clearSearch"
                     >X</button>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-6">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" @click="toggleIngredients">
+                        Show recipe ingredients
+                    </label>
                 </div>
             </div>
         </div>
@@ -27,7 +37,7 @@
                         <span v-bind:class="{'badge bg-primary': isListed(trade)}">{{ getListedCount(trade) }} / {{ trade.target }}</span>
                     </div>
                     <div class="card-body">
-                        <table class="table table-stripped">
+                        <table class="table table-stripped" v-if="showIngredients">
                             <tbody>
                                 <tr v-for="output in trade.output" :key="output.item.id">
                                     <td>
@@ -102,6 +112,7 @@ class SalvageListProps {
 })
 export default class SalvageList extends Vue.with(SalvageListProps) {
     search: string = '';
+    showIngredients = false;
 
     public clearSearch(): void {
         this.search = '';
@@ -130,6 +141,10 @@ export default class SalvageList extends Vue.with(SalvageListProps) {
         }
 
         return count;
+    }
+
+    public toggleIngredients(): void {
+        this.showIngredients = ! this.showIngredients;
     }
 }
 </script>
