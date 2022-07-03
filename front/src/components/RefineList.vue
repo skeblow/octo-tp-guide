@@ -60,6 +60,7 @@
         </table>
     </div>
 </template>
+
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
 import { RecipeTrade } from '../../../shared';
@@ -100,6 +101,7 @@ export default class RefineList extends Vue.with(RefineListProps) {
     }
 }
 </script>
+
 <style scoped>
     img {
         width: 30px;

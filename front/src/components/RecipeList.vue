@@ -95,6 +95,7 @@
         </div>
     </div>
 </template>
+
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
 import { ListedItem, RecipeTrade } from '../../../shared';
@@ -115,7 +116,10 @@ export default class RecipeList extends Vue.with(RecipeListProps) {
     showIngredients = false;
 
     public getRawSell(trade: RecipeTrade): number {
-        return trade.input.reduce((total, input) => total + (input.price.sells.unit_price * input.quantity), 0);
+        return trade.input.reduce(
+            (total, input) => total + (input.price.sells.unit_price * input.quantity),
+            0,
+        );
     }
 
     public clearSearch(): void {
@@ -125,10 +129,10 @@ export default class RecipeList extends Vue.with(RecipeListProps) {
     public getItems(): Array<RecipeTrade> {
         return this.items
             .filter(item => item.input.map(input => input.item.name)
-                    .concat([item.output.item.name])
-                    .join(' ')
-                    .toLowerCase()
-                    .includes(this.search),
+                .concat([item.output.item.name])
+                .join(' ')
+                .toLowerCase()
+                .includes(this.search),
             );
     }
 
@@ -137,7 +141,7 @@ export default class RecipeList extends Vue.with(RecipeListProps) {
     }
 
     public getListedCount(trade: RecipeTrade): number {
-        let count = 0
+        let count = 0;
 
         for (const item of this.currentSells) {
             if (trade.id === item.itemId) {
@@ -153,6 +157,7 @@ export default class RecipeList extends Vue.with(RecipeListProps) {
     }
 }
 </script>
+
 <style scoped>
     img {
         width: 30px;

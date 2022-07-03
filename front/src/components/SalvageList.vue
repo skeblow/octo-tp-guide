@@ -95,6 +95,7 @@
         </div>
     </div>
 </template>
+
 <script lang="ts">
 import { Options, Vue, prop } from 'vue-class-component';
 import { ListedItem, RecipeTrade, SalvageTrade } from '../../../shared';
@@ -132,7 +133,7 @@ export default class SalvageList extends Vue.with(SalvageListProps) {
     }
 
     public getListedCount(trade: RecipeTrade): number {
-        let count = 0
+        let count = 0;
 
         for (const item of this.currentBuys) {
             if (trade.id === item.itemId) {
@@ -148,6 +149,7 @@ export default class SalvageList extends Vue.with(SalvageListProps) {
     }
 }
 </script>
+
 <style scoped>
     img {
         width: 30px;

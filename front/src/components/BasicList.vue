@@ -65,11 +65,13 @@ export default class BasicList extends Vue.with(BasicListProps) {
     }
 
     public isListed(trade: BasicTrade): boolean {
-        return this.currentBuys.find((item: ListedItem) => item.itemId === trade.item.id) !== undefined;
+        return this.currentBuys.find(
+            (item: ListedItem) => item.itemId === trade.item.id,
+        ) !== undefined;
     }
 
     public getListedCount(trade: BasicTrade): number {
-        let count = 0
+        let count = 0;
 
         for (const item of this.currentBuys) {
             if (trade.item.id === item.itemId) {
