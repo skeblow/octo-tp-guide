@@ -55,6 +55,7 @@ export default class ListService {
                 72579, // Sheet of Coarse Paper
                 19680, // Copper Ingot
                 19738, // Stretched Rawhide Leather Square
+                12421, // Raspberry Peach Compote
             ].includes(trade.item.id)))
             .then((list) => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi));
     }

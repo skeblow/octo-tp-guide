@@ -25,7 +25,7 @@
 
         <div class="row">
             <div class="col-4 mb-4" v-for="trade in getItems()" :key="trade.recipe.id">
-                <div class="card" v-bind:class="{'bg-danger': trade.roi < 10, 'text-white': trade.roi < 10}">
+                <div class="card" v-bind:class="{'bg-danger': trade.roi < 10, 'text-white': ! isGoodDeal(trade)}">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
                             <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.input.item.id" target="_blank">
@@ -114,6 +114,10 @@ class SalvageListProps {
 export default class SalvageList extends Vue.with(SalvageListProps) {
     search: string = '';
     showIngredients = false;
+
+    public isGoodDeal(trade: SalvageTrade): boolean {
+        return trade.roi > 5;
+    }
 
     public clearSearch(): void {
         this.search = '';

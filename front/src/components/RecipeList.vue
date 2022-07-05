@@ -25,7 +25,7 @@
 
         <div class="row">
             <div class="col-4 mb-4" v-for="trade in getItems()" :key="trade.recipe.id">
-                <div class="card" v-bind:class="{'bg-danger text-white': trade.roi < 20}">
+                <div class="card" v-bind:class="{'bg-danger text-white': ! isGoodDeal(trade)}">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
                             {{ trade.output.quantity }}x
@@ -114,6 +114,10 @@ class RecipeListProps {
 export default class RecipeList extends Vue.with(RecipeListProps) {
     search: string = '';
     showIngredients = false;
+
+    public isGoodDeal(trade: RecipeTrade): boolean {
+        return trade.roi >= 10;
+    }
 
     public getRawSell(trade: RecipeTrade): number {
         return trade.input.reduce(
