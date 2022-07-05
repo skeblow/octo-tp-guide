@@ -82,6 +82,22 @@ export default class JewelcraftingService {
                 output: 73962,
                 orichalcumOre: 32,
             }),
+
+            // 13418-Coral-Orichalcum-Ring
+            this.createBlackDiamondOrichalcumRecipe({
+                output: 13418,
+                orichalcumOre: 30,
+            }),
+            // 13460-Coral-Orichalcum-Earring
+            this.createBlackDiamondOrichalcumRecipe({
+                output: 13460,
+                orichalcumOre: 28,
+            }),
+            // 13502-Coral-Orichalcum-Amulet
+            this.createBlackDiamondOrichalcumRecipe({
+                output: 13502,
+                orichalcumOre: 32,
+            }),
         ];
     }
 
@@ -190,6 +206,29 @@ export default class JewelcraftingService {
                 { id: 19721, quantity: 5 },
                 // 76491-Black-Diamond
                 { id: 76491, quantity: 5 },
+            ],
+        };
+    }
+
+    private createCoralOrichalcumRecipe(options: {
+        output: number,
+        orichalcumOre: number,
+    }) {
+        return {
+            id: options.output,
+            type: RecipeType.jewelcrafting,
+            output: [
+                { id: options.output, quantity: 1 },
+            ],
+            input: [
+                 // orichalcum ore
+                 { id: 19701, quantity: options.orichalcumOre },
+                 // 19721-Glob-of-Ectoplasm
+                 { id: 19721, quantity: 5 },
+                 // 24276-Pile-of-Incandescent-Dust
+                 { id: 24276, quantity: 25 },
+                 // 24509-Coral-Tentacle
+                 { id: 24509, quantity: 10 },
             ],
         };
     }
