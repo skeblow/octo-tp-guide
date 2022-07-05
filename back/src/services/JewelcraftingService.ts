@@ -84,17 +84,17 @@ export default class JewelcraftingService {
             }),
 
             // 13418-Coral-Orichalcum-Ring
-            this.createBlackDiamondOrichalcumRecipe({
+            this.createCoralOrichalcumRecipe({
                 output: 13418,
                 orichalcumOre: 30,
             }),
             // 13460-Coral-Orichalcum-Earring
-            this.createBlackDiamondOrichalcumRecipe({
+            this.createCoralOrichalcumRecipe({
                 output: 13460,
                 orichalcumOre: 28,
             }),
             // 13502-Coral-Orichalcum-Amulet
-            this.createBlackDiamondOrichalcumRecipe({
+            this.createCoralOrichalcumRecipe({
                 output: 13502,
                 orichalcumOre: 32,
             }),
