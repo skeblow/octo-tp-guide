@@ -56,6 +56,7 @@ export default class ListService {
                 19680, // Copper Ingot
                 19738, // Stretched Rawhide Leather Square
                 12421, // Raspberry Peach Compote
+                24325, // Destroyer Lodestone
             ].includes(trade.item.id)))
             .then((list) => list.sort((trade1: BasicTrade, trade2: BasicTrade) => trade2.roi - trade1.roi));
     }

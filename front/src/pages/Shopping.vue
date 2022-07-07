@@ -66,7 +66,7 @@ export default class Shopping extends Vue {
             {id: 75654, count: 300},
 
             // 76179 Freshwater Pearl
-            {id: 76179, count: 50},
+            {id: 76179, count: 150},
 
             // 19721 Glob of Ectoplasm
             {id: 19721, count: 500},
