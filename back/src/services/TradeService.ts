@@ -62,8 +62,8 @@ export default class TradeService {
             return Math.ceil(bltc.sold / 20);
         }
 
-        if (item.name.includes('Marauder') && ! item.name.includes('Pearl')) {
-            return Math.ceil(bltc.sold / 15);
+        if (item.name.includes('Marauder')) {
+            return Math.ceil(bltc.sold / 20);
         }
 
         return Math.ceil(bltc.sold / 10);
