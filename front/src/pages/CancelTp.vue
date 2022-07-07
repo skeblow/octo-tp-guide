@@ -84,6 +84,7 @@
                 </div>
             </div>
         </div>
+        <div class="modal-backdrop fade show" v-if="currentListedItem" @click="hideInfo()"></div>
     </div>
 </template>
 
@@ -117,11 +118,15 @@ export default class CancelTp extends Vue {
     public showInfo(listedItem: ListedItemToCancel): void {
         this.isInfoShown = true;
         this.currentListedItem = listedItem;
+        document.body.classList.add('modal-open');
+        document.body.style.overflow = 'hidden';
     }
 
     public hideInfo(): void {
         this.isInfoShown = false;
         this.currentListedItem = null;
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';
     }
 
     public setCurrentSells(isSells: boolean): void {

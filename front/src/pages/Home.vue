@@ -36,10 +36,7 @@ export default class Home extends Vue {
 
     public mounted(): void {
         DailyService.getDailyAchievements()
-            .then(achievements => {
-                this.achievements = achievements;
-                console.log(achievements);
-            });
+            .then(res => this.achievements = res);
     }
 }
 </script>
