@@ -76,6 +76,7 @@ export default class ArmorsmithService {
                 orichalcumOre: 4,
                 gossamerScrap: 10,
             }),
+
             // 72194-Silk-Patch
             {
                 id: 72194,

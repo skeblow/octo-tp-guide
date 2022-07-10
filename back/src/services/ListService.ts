@@ -157,7 +157,7 @@ export default class ListService {
     public getRecipeList(list: string): Promise<Array<RecipeTrade>> {
         let recipes;
 
-        switch(list) {
+        switch (list) {
             case 'cooking':
                 recipes = this.cookingService.getAll();
                 break;

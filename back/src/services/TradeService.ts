@@ -49,6 +49,10 @@ export default class TradeService {
                 return Math.ceil(bltc.sold / 40);
             }
 
+            if (item.name.includes('Coral')) {
+                return Math.ceil(bltc.sold / 30);
+            }
+
             return Math.ceil(bltc.sold / 20);
         }
 
@@ -63,7 +67,7 @@ export default class TradeService {
         }
 
         if (item.name.includes('Marauder')) {
-            return Math.ceil(bltc.sold / 20);
+            return Math.ceil(bltc.sold / 25);
         }
 
         return Math.ceil(bltc.sold / 10);
