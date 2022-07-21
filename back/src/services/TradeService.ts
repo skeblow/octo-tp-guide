@@ -37,7 +37,7 @@ export default class TradeService {
         }
 
         if (item.name.includes('Viper') || item.name.includes('Minstrel')) {
-            return Math.ceil(bltc.sold / 30);
+            return Math.ceil(bltc.sold / 40);
         }
 
         if (item.name.includes('Amulet') || item.name.includes('Earring') || item.name.includes('Ring')) {
@@ -67,7 +67,7 @@ export default class TradeService {
         }
 
         if (item.name.includes('Marauder')) {
-            return Math.ceil(bltc.sold / 25);
+            return Math.ceil(bltc.sold / 20);
         }
 
         return Math.ceil(bltc.sold / 10);

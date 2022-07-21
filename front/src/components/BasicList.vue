@@ -2,7 +2,7 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th></th>
+                <th colspan="2"></th>
                 <th>Name</th>
                 <th>Buy price</th>
                 <th>Sell price</th>
@@ -10,11 +10,13 @@
                 <th>Roi</th>
                 <th>Bought</th>
                 <th>Sold</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="trade in items" :key="trade.item.id">
+                <td>
+                    <span v-bind:class="{'badge bg-primary': isListed(trade)}">{{ getListedCount(trade) }} / {{ trade.target }}</span>
+                </td>
                 <td>
                     <a v-bind:href="'https://www.gw2bltc.com/en/item/'+trade.item.id" target="_blank">
                         <img v-bind:src="trade.item.icon" alt="">
@@ -27,9 +29,7 @@
                 <td>{{ trade.roi }}%</td>
                 <td>{{ trade.bltc.bought }} <small>({{ getBoughtDiff(trade) }})</small></td>
                 <td>{{ trade.bltc.sold }} <small>({{ getSoldDiff(trade) }})</small></td>
-                <td>
-                    <span v-bind:class="{'badge bg-primary': isListed(trade)}">{{ getListedCount(trade) }} / {{ trade.target }}</span>
-                </td>
+                
             </tr>
         </tbody>
     </table>

@@ -95,6 +95,9 @@ export default class Shopping extends Vue {
             // 24299-Intricate-Totem
             { id: 24299, count: 2500 },
 
+            // 24773	Platinum Doubloon
+            { id: 24773, count: 250 },
+
             // 12142 Onion
             {id: 12142, count: 1000},
             // 12134	Carrot

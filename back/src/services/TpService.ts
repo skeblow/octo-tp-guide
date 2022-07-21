@@ -78,7 +78,7 @@ export default class TpService {
             position += sell.quantity;
         }
 
-        return position >= bltc.sold * 0.75;
+        return position >= bltc.sold * 0.5;
     }
 
     private shouldCancelBuy(listedItem: ListedItem, listing: Listing, bltc: ItemBltc): boolean {
