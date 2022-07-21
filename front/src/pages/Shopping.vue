@@ -2,6 +2,20 @@
     <div>
         <h1 class="h2">Shopping list</h1>
 
+        <div class="form-check d-inline-flex" @click="setCurrentList(1)">
+            <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="type" checked>
+                list 1
+            </label>
+        </div>
+
+        <div class="form-check d-inline-flex ms-2" @click="setCurrentList(2)">
+            <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="type">
+                list 2
+            </label>
+        </div>
+
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -46,9 +60,12 @@ export default class Shopping extends Vue {
     items: Array<Item> = [];
     bankMaterials: Array<BankItem> = [];
     currentBuys: Array<ListedItem> = [];
+    currentList: number = 1;
 
     private getRequestedItems(): Array<BankItem> {
-        return [
+        const lists: any = {};
+
+        lists[1] = [
             // orichalcum ore
             {id: 19701, count: 0},
             // Orichalcum Ingot
@@ -95,26 +112,64 @@ export default class Shopping extends Vue {
             // 24299-Intricate-Totem
             { id: 24299, count: 2500 },
 
+            // 24295 Vial of Powerful Blood
+            {id: 24295, count: 0},
+
+            // 24773	Platinum Doubloon
+            { id: 24773, count: 0 },
+        ];
+
+        lists[2] = [
+            // orichalcum ore
+            {id: 19701, count: 0},
+            // Orichalcum Ingot
+            {id: 19685, count: 750},
+
+            // ancient wood log
+            { id: 19725, count: 0 },
+            // 19712 Ancient Wood Plank
+
+            {id: 19712, count: 750},
+            // 76491 Black Diamond
+            {id: 76491, count: 100},
+
+            // 75654 Ebony Orb
+            {id: 75654, count: 300},
+
+            // 76179 Freshwater Pearl
+            {id: 76179, count: 100},
+
+            // 19721 Glob of Ectoplasm
+            {id: 19721, count: 500},
+
+            // hardened leather section
+            { id: 19732, count: 0 },
+            // 19737, hardened leather square
+            {id: 19737, count: 200},
+
+            // 74090-Pile-of-Flax-Seeds
+            {id: 74090, count: 0},
+            // 73034 Vial of Linseed Oil
+            {id: 73034, count: 100},
+
+            // 24295 Vial of Powerful Blood
+            {id: 24295, count: 250},
+
             // 24773	Platinum Doubloon
             { id: 24773, count: 250 },
 
-            // 12142 Onion
-            {id: 12142, count: 1000},
-            // 12134	Carrot
-            {id: 12134, count: 1000},
-            // 24359	Slab of Red Meat
-            {id: 24359, count: 1000},
-            // 12545	Orrian Truffle
-            {id: 12545, count: 500},
-            // 12254	Raspberry
-            {id: 12254, count: 2000},
-            // 82866	Handful of Red Lentils
-            {id: 82866, count: 1000},
-            // 12243	Sage Leaf
-            {id: 12243, count: 500},
-            // 12248	Thyme Leaf
-            {id: 12248, count: 500},
+            // 43773-Quartz-Crystal
+            { id: 43773, count: 250 },
+
+            // 24276-Pile-of-Incandescent-Dust
+            { id: 24276, count: 1000 },
         ];
+
+        return lists[this.currentList];
+    }
+
+    public setCurrentList(currentList: number): void {
+        this.currentList = currentList;
     }
 
     public mounted(): void {
