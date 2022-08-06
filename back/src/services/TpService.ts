@@ -52,14 +52,14 @@ export default class TpService {
                         diff,
                         listing,
                         shouldCancel: isSell 
-                            ? this.shouldCancelSell(listedItem, listing, bltc)
-                            : this.shouldCancelBuy(listedItem, listing, bltc),
+                            ? this.shouldCancelSell(listedItem, listing, bltc, diff)
+                            : this.shouldCancelBuy(listedItem, listing, bltc, diff),
                     };
                 }
             ));
     }
 
-    private shouldCancelSell(listedItem: ListedItem, listing: Listing, bltc: ItemBltc): boolean {
+    private shouldCancelSell(listedItem: ListedItem, listing: Listing, bltc: ItemBltc, diff: number): boolean {
         const now = new Date();
         const createdAt = new Date(listedItem.createdAt);
         const dateDiff = Math.ceil((createdAt.valueOf() - now.valueOf()) / (1000 * 60 * 60 * 24));
@@ -78,10 +78,10 @@ export default class TpService {
             position += sell.quantity;
         }
 
-        return position >= bltc.sold * 0.5;
+        return position >= bltc.sold * 0.5 && diff < 10;
     }
 
-    private shouldCancelBuy(listedItem: ListedItem, listing: Listing, bltc: ItemBltc): boolean {
+    private shouldCancelBuy(listedItem: ListedItem, listing: Listing, bltc: ItemBltc, diff: number): boolean {
         const now = new Date();
         const createdAt = new Date(listedItem.createdAt);
         const dateDiff = Math.ceil((createdAt.valueOf() - now.valueOf()) / (1000 * 60 * 60 * 24));
@@ -100,6 +100,6 @@ export default class TpService {
             position += sell.quantity;
         }
 
-        return position >= bltc.bought * 0.5;
+        return position >= bltc.bought * 0.5 && diff < 10;
     }
 }

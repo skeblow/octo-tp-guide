@@ -70,6 +70,20 @@ export default class TradeService {
             return Math.ceil(bltc.sold / 20);
         }
 
+        if (item.name.includes('Bountiful Main')) {
+            const amount = bltc.sold / 12;
+
+
+            return Math.round(amount / 10) * 10;
+        }
+
+        if (item.name.includes('Silk Patch')) {
+            const amount = bltc.sold / 9;
+
+
+            return Math.round(amount / 10) * 10;
+        }
+
         return Math.ceil(bltc.sold / 10);
     }
 
@@ -155,7 +169,7 @@ export default class TradeService {
             this.bltcService.getBltcByIds(itemIds),
         ]);
 
-        let trades: Array<RecipeTrade> = [];
+        const trades: Array<RecipeTrade> = [];
 
         for (const recipe of recipes) {
             for (const input of recipe.input) {

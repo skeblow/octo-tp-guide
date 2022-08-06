@@ -5,14 +5,14 @@
         <div class="form-check d-inline-flex" @click="setCurrentList(1)">
             <label class="form-check-label">
                 <input class="form-check-input" type="radio" name="type" checked>
-                list 1
+                me
             </label>
         </div>
 
         <div class="form-check d-inline-flex ms-2" @click="setCurrentList(2)">
             <label class="form-check-label">
                 <input class="form-check-input" type="radio" name="type">
-                list 2
+                duck
             </label>
         </div>
 
@@ -98,15 +98,9 @@ export default class Shopping extends Vue {
             // 73034 Vial of Linseed Oil
             {id: 73034, count: 250},
 
-            // // 24295 Vial of Powerful Blood
-            // {id: 24295, count: 150},
-
             // 24276-Pile-of-Incandescent-Dust
             { id: 24276, count: 3000 },
-            // // 24474-Ruby-Crystal
-            // { id: 24474, count: 2000 },
-            // // 24475-Sapphire-Crystal
-            // { id: 24475, count: 2000 },
+
             // 24350-Large-Claw
             { id: 24350, count: 2500 },
             // 24299-Intricate-Totem
@@ -114,9 +108,12 @@ export default class Shopping extends Vue {
 
             // 24295 Vial of Powerful Blood
             {id: 24295, count: 0},
-
             // 24773	Platinum Doubloon
             { id: 24773, count: 0 },
+             // 43773-Quartz-Crystal
+            { id: 43773, count: 0 },
+            // 66670	Lump of Raw Ambrite
+            { id: 66670, count: 0 }
         ];
 
         lists[2] = [
@@ -137,7 +134,7 @@ export default class Shopping extends Vue {
             {id: 75654, count: 300},
 
             // 76179 Freshwater Pearl
-            {id: 76179, count: 100},
+            {id: 76179, count: 50},
 
             // 19721 Glob of Ectoplasm
             {id: 19721, count: 500},
@@ -159,10 +156,13 @@ export default class Shopping extends Vue {
             { id: 24773, count: 250 },
 
             // 43773-Quartz-Crystal
-            { id: 43773, count: 250 },
+            { id: 43773, count: 1500 },
 
             // 24276-Pile-of-Incandescent-Dust
             { id: 24276, count: 1000 },
+
+            // 66670	Lump of Raw Ambrite
+            { id: 66670, count: 3500 }
         ];
 
         return lists[this.currentList];
@@ -221,7 +221,7 @@ export default class Shopping extends Vue {
     }
 
     public getBuyCount(item: Item): number {
-        let count = 0
+        let count = 0;
 
         for (const buy of this.currentBuys) {
             if (item.id === buy.itemId) {
