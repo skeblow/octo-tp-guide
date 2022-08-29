@@ -186,35 +186,6 @@ export default class ListService {
 
         return this.tradeService.getTradesFromRecipes(recipes)
             .then((trades: Array<RecipeTrade>) => {
-                if (list === 'armorsmith' || list === 'leatherworker' || list === 'tailor') {
-                    return trades.sort((t1: RecipeTrade, t2: RecipeTrade): number => {
-                        if (t1.roi < 10) {
-                            return 1;
-                        }
-        
-                        if (t2.roi < 10) {
-                            return -1;
-                        }
-
-                        // boots
-                        // coat
-                        // gloves
-                        // helm
-                        // legs
-                        // shoulder
-
-                        const t1Prefix: string = t1.output.item.name.split(' ')[0] ?? '';
-                        const t2Prefix: string = t2.output.item.name.split(' ')[0] ?? '';
-
-                        const t1PartNumber: number = this.getArmorPart(t1.output.item.name);
-                        const t2PartNumber: number = this.getArmorPart(t2.output.item.name);
-
-                        return t1Prefix.localeCompare(t2Prefix) 
-                            || (t2PartNumber - t1PartNumber) 
-                            || t1.output.item.name.localeCompare(t2.output.item.name);
-                    });
-                }
-
                 return trades.sort((t1: RecipeTrade, t2: RecipeTrade): number => {
                     if (t1.roi < 10) {
                         return 1;
@@ -223,34 +194,134 @@ export default class ListService {
                     if (t2.roi < 10) {
                         return -1;
                     }
-                    
-                    return t1.output.item.name.localeCompare(t2.output.item.name);
+
+                    const t1Prefix: string = t1.output.item.name.split(' ')[0] ?? '';
+                    const t2Prefix: string = t2.output.item.name.split(' ')[0] ?? '';
+
+                    const t1PartNumber: number = this.getItemPartNumber(t1.output.item.name);
+                    const t2PartNumber: number = this.getItemPartNumber(t2.output.item.name);
+
+                    return t1Prefix.localeCompare(t2Prefix) 
+                        || (t2PartNumber - t1PartNumber) 
+                        || t1.output.item.name.localeCompare(t2.output.item.name);
                 });
             });
     }
 
-    private getArmorPart(name: string): number {
-        if (name.includes('Boots')) {
+    private getItemPartNumber(name: string): number {
+        name = name.toLocaleLowerCase();
+        // boots
+        // coat
+        // gloves
+        // helm
+        // legs
+        // shoulder
+
+        if (name.includes('boots')) {
             return 6;
         }
 
-        if (name.includes('Coat')) {
+        if (name.includes('coat')) {
             return 5
         }
 
-        if (name.includes('Gloves') || name.includes('Gauntlets')) {
+        if (name.includes('gloves') || name.includes('gauntlets')) {
             return 4;
         }
 
-        if (name.includes('Helm') || name.includes('Masque')) {
+        if (name.includes('helm') || name.includes('masque')) {
             return 3;
         }
 
-        if (name.includes('Legs') || name.includes('Pants')) {
+        if (name.includes('legs') || name.includes('pants')) {
             return 2;
         }
 
-        if (name.includes('Shoulders') || name.includes('Pauldrons') || name.includes('Mantle')) {
+        if (name.includes('shoulders') || name.includes('pauldrons') || name.includes('mantle')) {
+            return 1;
+        }
+
+        // rever
+        // carver
+        // broadsword
+        // bludgeoner
+        // shield
+        // sabre
+
+        if (name.includes('rever')) {
+            return 6;
+        }
+
+        if (name.includes('carver')) {
+            return 5;
+        }
+
+        if (name.includes('broadsword')) {
+            return 4;
+        }
+
+        if (name.includes('bludgeoner')) {
+            return 3;
+        }
+
+        if (name.includes('shield')) {
+            return 2;
+        }
+
+        if (name.includes('sabre')) {
+            return 1;
+        }
+
+
+        // speargun
+        // stinger
+        // handcannon
+        // blunderbuss
+        // needler
+        // torch
+        // siren
+
+        if (name.includes('speargun')) {
+            return 7;
+        }
+
+        if (name.includes('stinger')) {
+            return 6;
+        }
+
+        if (name.includes('handcannon')) {
+            return 5;
+        }
+
+        if (name.includes('blunderbuss')) {
+            return 4;
+        }
+
+        if (name.includes('needler')) {
+            return 3;
+        }
+
+        if (name.includes('torch')) {
+            return 2;
+        }
+
+        if (name.includes('siren')) {
+            return 1;
+        }
+
+        // conch
+        // rod
+        // quaterstaff
+
+        if (name.includes('conch')) {
+            return 3;
+        }
+
+        if (name.includes('rod')) {
+            return 2;
+        }
+
+        if (name.includes('quaterstaff')) {
             return 1;
         }
 

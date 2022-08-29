@@ -256,22 +256,6 @@ export default class CookingService {
                 ],
             },
             {
-                // 36077-Piece-of-Candy-Corn-Almond-Brittle
-                id: 36077,
-                type: RecipeType.cooking,
-                output: [
-                    { id: 36077, quantity: 1 },
-                ],
-                input: [
-                    // 12337-Almond
-                    { id: 12337, quantity: 3 },
-                    // 12155-Bag-of-Sugar
-                    { id: 12155, quantity: 1 },
-                    // 36041-Piece-of-Candy-Corn
-                    { id: 36041, quantity: 15 },
-                ],
-            },
-            {
                 // 12386-Bowl-of-Blackberry-Pear-Compote
                 id: 12386,
                 type: RecipeType.cooking,
