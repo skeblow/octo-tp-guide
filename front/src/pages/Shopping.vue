@@ -91,7 +91,7 @@ export default class Shopping extends Vue {
             // hardened leather section
             { id: 19732, count: 0 },
             // 19737, hardened leather square
-            {id: 19737, count: 300},
+            {id: 19737, count: 600},
 
             // 74090-Pile-of-Flax-Seeds
             {id: 74090, count: 0},
@@ -99,7 +99,7 @@ export default class Shopping extends Vue {
             {id: 73034, count: 250},
 
             // 24276-Pile-of-Incandescent-Dust
-            { id: 24276, count: 3000 },
+            { id: 24276, count: 3500 },
 
             // 24350-Large-Claw
             { id: 24350, count: 2500 },

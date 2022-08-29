@@ -1,4 +1,4 @@
-import { BasicTrade, RecipeTrade, SalvageTrade } from '../../../shared/index.ts';
+import { BasicTrade, Recipe, RecipeTrade, SalvageTrade } from '../../../shared/index.ts';
 import ArtificierService from "./ArtificierService.ts";
 import CookingService from './CookingService.ts';
 import HuntsmanService from "./HuntsmanService.ts";
@@ -185,6 +185,76 @@ export default class ListService {
             default: throw 'unknown list'; 
         }
 
-        return this.tradeService.getTradesFromRecipes(recipes);
+        return this.tradeService.getTradesFromRecipes(recipes)
+            .then((trades: Array<RecipeTrade>) => {
+                if (list === 'armorsmith' || list === 'leatherworker' || list === 'tailor') {
+                    return trades.sort((t1: RecipeTrade, t2: RecipeTrade): number => {
+                        if (t1.roi < 10) {
+                            return 1;
+                        }
+        
+                        if (t2.roi < 10) {
+                            return -1;
+                        }
+
+                        // boots
+                        // coat
+                        // gloves
+                        // helm
+                        // legs
+                        // shoulder
+
+                        const t1Prefix: string = t1.output.item.name.split(' ')[0] ?? '';
+                        const t2Prefix: string = t2.output.item.name.split(' ')[0] ?? '';
+
+                        const t1PartNumber: number = this.getArmorPart(t1.output.item.name);
+                        const t2PartNumber: number = this.getArmorPart(t2.output.item.name);
+
+                        return t1Prefix.localeCompare(t2Prefix) 
+                            || (t2PartNumber - t1PartNumber) 
+                            || t1.output.item.name.localeCompare(t2.output.item.name);
+                    });
+                }
+
+                return trades.sort((t1: RecipeTrade, t2: RecipeTrade): number => {
+                    if (t1.roi < 10) {
+                        return 1;
+                    }
+    
+                    if (t2.roi < 10) {
+                        return -1;
+                    }
+                    
+                    return t1.output.item.name.localeCompare(t2.output.item.name);
+                });
+            });
+    }
+
+    private getArmorPart(name: string): number {
+        if (name.includes('Boots')) {
+            return 6;
+        }
+
+        if (name.includes('Coat')) {
+            return 5
+        }
+
+        if (name.includes('Gloves') || name.includes('Gauntlets')) {
+            return 4;
+        }
+
+        if (name.includes('Helm') || name.includes('Masque')) {
+            return 3;
+        }
+
+        if (name.includes('Legs') || name.includes('Pants')) {
+            return 2;
+        }
+
+        if (name.includes('Shoulders') || name.includes('Pauldrons') || name.includes('Mantle')) {
+            return 1;
+        }
+
+        return 0;
     }
 }
