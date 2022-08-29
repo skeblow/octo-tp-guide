@@ -1,7 +1,7 @@
 import { Recipe, RecipeType } from '../../../shared/index.ts';
 
 export default class RefineService {
-    async getAll(): Promise<Array<Recipe>> {
+    public getAll(): Array<Recipe> {
         return [
             {
                 // bolt of jute
@@ -175,7 +175,7 @@ export default class RefineService {
             },
             {
                 // steel ingot
-                id: 19683,
+                id: 19688,
                 type: RecipeType.refine,
                 input: [
                     { id: 19699, quantity: 3 },

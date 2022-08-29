@@ -1,4 +1,4 @@
-import { BasicTrade, Recipe, RecipeTrade, SalvageTrade } from '../../../shared/index.ts';
+import { BasicTrade, RecipeTrade, SalvageTrade } from '../../../shared/index.ts';
 import ArtificierService from "./ArtificierService.ts";
 import CookingService from './CookingService.ts';
 import HuntsmanService from "./HuntsmanService.ts";
@@ -127,8 +127,7 @@ export default class ListService {
     }
 
     public getRefineList(): Promise<Array<RecipeTrade>> {
-        return this.refineService.getAll()
-            .then((recipes) => this.tradeService.getTradesFromRecipes(recipes))
+        return this.tradeService.getTradesFromRecipes(this.refineService.getAll())
             .then((trades) =>
                 trades.sort(
                     (trade1, trade2) => {
