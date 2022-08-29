@@ -241,14 +241,14 @@ export default class ListService {
             return 1;
         }
 
-        // rever
+        // reaver
         // carver
         // broadsword
         // bludgeoner
         // shield
         // sabre
 
-        if (name.includes('rever')) {
+        if (name.includes('reaver')) {
             return 6;
         }
 

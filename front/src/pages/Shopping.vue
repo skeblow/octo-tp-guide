@@ -40,7 +40,11 @@
                     <td>{{ getCountInBank(item) }}</td>
                     <td>{{ getRequestedCount(item) }}</td>
                     <td>{{ getBuyCount(item) }}</td>
-                    <td>{{ Math.max(getMissing(item) - getBuyCount(item), 0) }} / {{ getMissing(item) }}</td>
+                    <td>
+                        <span v-bind:class="{'badge bg-success': Math.max(getMissing(item) - getBuyCount(item), 0) > 0 }">
+                            {{ Math.max(getMissing(item) - getBuyCount(item), 0) }} / {{ getMissing(item) }}
+                        </span>
+                    </td>
                 </tr>
             </tbody>
         </table>
