@@ -84,6 +84,12 @@ export default class TradeService {
             return Math.round(amount / 10) * 10;
         }
 
+        if (recipe.type === RecipeType.cooking) {
+            const amount = bltc.sold / 10;
+
+            return Math.round(amount / 10) * 10;
+        }
+
         return Math.ceil(bltc.sold / 10);
     }
 

@@ -1,4 +1,4 @@
-import { Recipe, RecipeItem, RecipeType, SalvageRecipe } from '../../../shared/index.ts';
+import { RecipeItem, RecipeType, SalvageRecipe } from '../../../shared/index.ts';
 
 export default class OpenService {
     public getAll(): Array<SalvageRecipe> {
