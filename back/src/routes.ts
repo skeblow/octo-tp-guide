@@ -34,7 +34,7 @@ interface Route {
 }
 
 const client = new MongoClient();
-await client.connect('mongodb://root:example@localhost/');
+await client.connect('mongodb://root:example@mongo/');
 
 const mongoService = new MongoService(client);
 const gwApiService = new GwApiService();
