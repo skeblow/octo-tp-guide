@@ -57,7 +57,7 @@ export default class RefreshController {
             .filter((id) => !!id)
             .map((id) => +id);
 
-        const filename = '../data/ids';
+        const filename = '/www/data/ids';
         const fileIds = Deno.readTextFileSync(filename);
 
         let ids: Array<number> = fileIds

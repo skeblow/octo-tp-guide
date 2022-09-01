@@ -22,7 +22,8 @@ services:
 
   back:
     image: denoland/deno
-    restart: "no"
+    hostname: back
+    restart: always
     #entrypoint: "ls /www/back"
     entrypoint: "deno run --allow-net --allow-read --allow-write --watch /www/back/src/server.ts"
     depends_on:
@@ -30,5 +31,17 @@ services:
     ports:
       - 3000:3000
     volumes:
+      - ./data:/www/data
       - ./back:/www/back
+      - ./shared:/www/shared
+
+  front:
+    image: node:16
+    restart: always
+    working_dir: /www/front
+    entrypoint: bash -c "npm i && npm run serve"
+    ports: 
+      - 8080:8080
+    volumes:
+      - ./front:/www/front
       - ./shared:/www/shared
