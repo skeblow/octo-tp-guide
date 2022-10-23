@@ -5,31 +5,30 @@ export default class GwApiService {
     private readonly BASE_URL = 'https://api.guildwars2.com/v2';
 
     public async getItems(ids: Array<number>): Promise<Array<Item>> {
-        const res = await fetch(this.BASE_URL + '/items?ids=' + ids.join(','));
-        const items = await res.json();
-
-        return Array.isArray(items) ? items : [];
+        return fetch(this.BASE_URL + '/items?ids=' + ids.join(','))
+            .then(res => res.json())
+            .then(res => Array.isArray(res) ? res : [])
+            .catch(() => []);
     }
 
     public async getItem(id: number): Promise<Item|null> {
-        const res = await fetch(this.BASE_URL + '/items/' + id);
-        const item: any = await res.json();
-
-        return !! item.id ? item : null;
+        return fetch(this.BASE_URL + '/items/' + id)
+            .then(res => res.json())
+            .then(res => !! res.id ? res : null)
+            .catch(() => null)
     }
 
     public async getItemPrices(ids: Array<number>): Promise<Array<ItemPrice>> {
-        const res = await fetch(
-            this.BASE_URL + '/commerce/prices?ids=' + ids.join(','),
-        );
-        const prices = await res.json();
-
-        return Array.isArray(prices) ? prices : [];
+        return fetch(this.BASE_URL + '/commerce/prices?ids=' + ids.join(','))
+            .then(res => res.json())
+            .then(res => Array.isArray(res) ? res : [])
+            .catch(() => []);
     }
 
     public getDailyAchievements(): Promise<{[key: string]: Array<{id: number}>}> {
         return fetch(this.BASE_URL + '/achievements/daily')
-            .then(res => res.json());
+            .then(res => res.json())
+            .catch(() => []);
     }
 
     public getAchievementsByIds(ids: Array<number>): Promise<Array<Achievement>> {
@@ -42,7 +41,8 @@ export default class GwApiService {
                         name: achievement.name.replace('Daily ', ''),
                     };
                 },
-            ));
+            ))
+            .catch(() => []);
     }
 
     public async getCurrentSells(token: string): Promise<Array<ListedItem>> {
@@ -66,7 +66,8 @@ export default class GwApiService {
                         quantity: val.quantity,
                         createdAt: new Date(val.created),
                     };
-                }));
+                }))
+                .catch(() => []);
             
             sells = sells.concat(items);
 
@@ -99,7 +100,8 @@ export default class GwApiService {
                         quantity: val.quantity,
                         createdAt: new Date(val.created),
                     };
-                }));
+                }))
+                .catch(() => []);
             
             buys = buys.concat(items);
 
@@ -113,6 +115,7 @@ export default class GwApiService {
 
     public getListingsByIds(ids: Array<number>): Promise<Array<Listing>> {
         return fetch(this.BASE_URL + '/commerce/listings?ids=' + ids.join(','))
-            .then(res => res.json());
+            .then(res => res.json())
+            .catch(() => []);
     }
 }

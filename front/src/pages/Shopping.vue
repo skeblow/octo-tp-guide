@@ -69,6 +69,7 @@ export default class Shopping extends Vue {
     private getRequestedItems(): Array<BankItem> {
         const lists: any = {};
 
+        // me
         lists[1] = [
             // orichalcum ore
             {id: 19701, count: 0},
@@ -106,9 +107,9 @@ export default class Shopping extends Vue {
             { id: 24276, count: 3500 },
 
             // 24350-Large-Claw
-            { id: 24350, count: 2500 },
+            { id: 24350, count: 2000 },
             // 24299-Intricate-Totem
-            { id: 24299, count: 2500 },
+            { id: 24299, count: 2000 },
 
             // 24295 Vial of Powerful Blood
             {id: 24295, count: 0},
